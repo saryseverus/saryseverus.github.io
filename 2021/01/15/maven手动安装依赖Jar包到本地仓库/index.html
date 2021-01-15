@@ -1,0 +1,414 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.3.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"example.com","root":"/","scheme":"Muse","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
+  </script>
+
+  <meta name="description" content="报错[INFO] ————————————————————————[INFO] Reactor Summary:[INFO][INFO] deposit-dal 1.0.0 ……………………………. SUCCESS [01:32 min][INFO] deposit 1.0.0 ……………………………….. SUCCESS [  0.008 s][INFO] deposit-common 1.0.">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Sary.severus&#96;s blog">
+<meta property="og:url" content="http://example.com/2021/01/15/maven%E6%89%8B%E5%8A%A8%E5%AE%89%E8%A3%85%E4%BE%9D%E8%B5%96Jar%E5%8C%85%E5%88%B0%E6%9C%AC%E5%9C%B0%E4%BB%93%E5%BA%93/index.html">
+<meta property="og:site_name" content="Sary.severus&#96;s blog">
+<meta property="og:description" content="报错[INFO] ————————————————————————[INFO] Reactor Summary:[INFO][INFO] deposit-dal 1.0.0 ……………………………. SUCCESS [01:32 min][INFO] deposit 1.0.0 ……………………………….. SUCCESS [  0.008 s][INFO] deposit-common 1.0.">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2021-01-15T06:28:30.800Z">
+<meta property="article:modified_time" content="2021-01-15T06:28:30.801Z">
+<meta property="article:author" content="severus">
+<meta name="twitter:card" content="summary">
+
+<link rel="canonical" href="http://example.com/2021/01/15/maven%E6%89%8B%E5%8A%A8%E5%AE%89%E8%A3%85%E4%BE%9D%E8%B5%96Jar%E5%8C%85%E5%88%B0%E6%9C%AC%E5%9C%B0%E4%BB%93%E5%BA%93/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title> | Sary.severus`s blog</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">Sary.severus`s blog</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a>
+
+  </li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2021/01/15/maven%E6%89%8B%E5%8A%A8%E5%AE%89%E8%A3%85%E4%BE%9D%E8%B5%96Jar%E5%8C%85%E5%88%B0%E6%9C%AC%E5%9C%B0%E4%BB%93%E5%BA%93/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/00-00-00.JPG">
+      <meta itemprop="name" content="severus">
+      <meta itemprop="description" content="正在享受无法回避的痛苦">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Sary.severus`s blog">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2021-01-15 14:28:30" itemprop="dateCreated datePublished" datetime="2021-01-15T14:28:30+08:00">2021-01-15</time>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h2 id="报错"><a href="#报错" class="headerlink" title="报错"></a>报错</h2><p>[INFO] ————————————————————————<br>[INFO] Reactor Summary:<br>[INFO]<br>[INFO] deposit-dal 1.0.0 ……………………………. SUCCESS [01:32 min]<br>[INFO] deposit 1.0.0 ……………………………….. SUCCESS [  0.008 s]<br>[INFO] deposit-common 1.0.0 …………………………. FAILURE [  2.412 s]<br>[INFO] deposit-api 1.0.0 ……………………………. SKIPPED<br>[INFO] timer-web 1.3.1 ……………………………… SKIPPED<br>[INFO] timer-service 1.3.1 ………………………….. SKIPPED<br>[INFO] ————————————————————————<br>[INFO] BUILD FAILURE<br>[INFO] ————————————————————————<br>[INFO] Total time:  01:35 min<br>[INFO] Finished at: 2020-03-25T12:06:52+08:00<br>[INFO] ————————————————————————<br>[ERROR] Failed to execute goal on project deposit-common: Could not resolve dependencies for project org.com.yz:deposit-common:jar:1.0.0: The following artifacts could not be resolved: org.apache.gnete:gnete-bc:jar:138, org.apache.gnete:gnete-security:jar:1.1: Could not find artifact org.apache.gnete:gnete-bc:jar:138 in central (<a target="_blank" rel="noopener" href="https://repo.maven.apache.org/maven2">https://repo.maven.apache.org/maven2</a>) -&gt; [Help 1]<br>[ERROR]<br>[ERROR] To see the full stack trace of the errors, re-run Maven with the -e switch.<br>[ERROR] Re-run Maven using the -X switch to enable full debug logging.<br>[ERROR]<br>[ERROR] For more information about the errors and possible solutions, please read the following articles:<br>[ERROR] [Help 1] <a target="_blank" rel="noopener" href="http://cwiki.apache.org/confluence/display/MAVEN/DependencyResolutionException">http://cwiki.apache.org/confluence/display/MAVEN/DependencyResolutionException</a><br>[ERROR]<br>[ERROR] After correcting the problems, you can resume the build with the command<br>[ERROR]   mvn <args> -rf :deposit-common</p>
+<p>通过第一个未成功的项目着手，进入deposit-common目录中，vim该目录下的pom.xml文件，搜索gnete-bc:jar:138中的关键字，如搜索bc<br>找到了pom中的依赖项：<br><dependency><br>    <groupId>org.apache.gnete</groupId><br>    <artifactId>gnete-bc</artifactId><br>    <version>138</version><br></dependency></p>
+<dependency>
+    <groupId>org.apache.gnete</groupId>
+    <artifactId>gnete-security</artifactId>
+    <version>1.1</version>
+</dependency>
+
+<hr>
+<h2 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h2><p>找到依赖项后，找依赖jar包，将依赖jar包放到/maven/lib目录下，并在该目录进行安装</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">mvn install:install-file \</span><br><span class="line">    -Dfile=gnete-security-1.1.jar \</span><br><span class="line">    -DgroupId=org.apache.gnete \</span><br><span class="line">    -DartifactId=gnete-security \</span><br><span class="line">    -Dversion=1.1 \</span><br><span class="line">    -Dpackaging=jar </span><br><span class="line">	</span><br><span class="line">mvn install:install-file \</span><br><span class="line">    -Dfile=gnete-bc-138.jar \</span><br><span class="line">    -DgroupId=org.apache.gnete \</span><br><span class="line">    -DartifactId=gnete-bc \</span><br><span class="line">    -Dversion=138 \</span><br><span class="line">    -Dpackaging=jar </span><br></pre></td></tr></table></figure>
+<p>[root-hzyzjenkins lib]# ll<br>总用量 13632<br>-rw-r–r– 1 root root   44908 11月  7 20:32 cdi-api-1.0.jar<br>-rw-r–r– 1 root root   11560 11月  7 20:32 cdi-api.license<br>-rw-r–r– 1 root root   53820 11月  7 20:32 commons-cli-1.4.jar<br>-rw-r–r– 1 root root   11560 11月  7 20:32 commons-cli.license<br>-rw-r–r– 1 root root  208700 11月  7 20:32 commons-io-2.5.jar<br>-rw-r–r– 1 root root   11560 11月  7 20:32 commons-io.license<br>-rw-r–r– 1 root root  501879 11月  7 20:32 commons-lang3-3.8.1.jar<br>-rw-r–r– 1 root root   11560 11月  7 20:32 commons-lang3.license<br>drwxr-xr-x 2 root root    4096 3月  19 17:54 ext<br>-rwxr-xr-x 1 root root 2916373 3月  23 10:41 gnete-bc-138.jar                            &lt;——<br>-rwxr-xr-x 1 root root  277034 3月  23 10:41 gnete-security-1.1.jar                        &lt;——<br>-rw-r–r– 1 root root 2591373 11月  7 20:32 guava-25.1-android.jar<br>-rw-r–r– 1 root root   11560 11月  7 20:32 guava.license<br>-rw-r–r– 1 root root  520662 11月  7 20:32 guice-4.2.1-no_aop.jar<br>-rw-r–r– 1 root root   11560 11月  7 20:32 guice.license<br>-rw-r–r– 1 root root  283858 11月  7 20:32 jansi-1.17.1.jar<br>-rw-r–r– 1 root root   11560 11月  7 20:32 jansi.license<br>drwxr-xr-x 9 root root    4096 3月  19 17:54 jansi-native<br>-rw-r–r– 1 root root    2497 11月  7 20:32 javax.inject-1.jar<br>-rw-r–r– 1 root root   11560 11月  7 20:32 javax.inject.license<br>-rw-r–r– 1 root root   16539 11月  7 20:32 jcl-over-slf4j-1.7.29.jar<br>-rw-r–r– 1 root root   11560 11月  7 20:32 jcl-over-slf4j.license<br>-rw-r–r– 1 root root  397115 11月  7 20:32 jsoup-1.12.1.jar<br>-rw-r–r– 1 root root    1192 11月  7 20:32 jsoup.license<br>-rw-r–r– 1 root root    5848 11月  7 20:32 jsr250-api-1.0.jar<br>-rw-r–r– 1 root root   20545 11月  7 20:32 jsr250-api.license<br>-rw-r–r– 1 root root   57824 11月  7 20:32 maven-artifact-3.6.3.jar<br>-rw-r–r– 1 root root   14262 11月  7 20:32 maven-builder-support-3.6.3.jar<br>-rw-r–r– 1 root root  287955 11月  7 20:32 maven-compat-3.6.3.jar<br>-rw-r–r– 1 root root  633028 11月  7 20:32 maven-core-3.6.3.jar<br>-rw-r–r– 1 root root   98096 11月  7 20:32 maven-embedder-3.6.3.jar<br>-rw-r–r– 1 root root  215412 11月  7 20:32 maven-model-3.6.3.jar<br>-rw-r–r– 1 root root  192302 11月  7 20:32 maven-model-builder-3.6.3.jar<br>-rw-r–r– 1 root root   47035 11月  7 20:32 maven-plugin-api-3.6.3.jar<br>-rw-r–r– 1 root root   27158 11月  7 20:32 maven-repository-metadata-3.6.3.jar<br>-rw-r–r– 1 root root  148983 11月  7 20:32 maven-resolver-api-1.4.1.jar<br>-rw-r–r– 1 root root   44143 11月  7 20:32 maven-resolver-connector-basic-1.4.1.jar<br>-rw-r–r– 1 root root  180696 11月  7 20:32 maven-resolver-impl-1.4.1.jar<br>-rw-r–r– 1 root root   66242 11月  7 20:32 maven-resolver-provider-3.6.3.jar<br>-rw-r–r– 1 root root   36732 11月  7 20:32 maven-resolver-spi-1.4.1.jar<br>-rw-r–r– 1 root root   31013 11月  7 20:32 maven-resolver-transport-wagon-1.4.1.jar<br>-rw-r–r– 1 root root  167529 11月  7 20:32 maven-resolver-util-1.4.1.jar<br>-rw-r–r– 1 root root   44047 11月  7 20:32 maven-settings-3.6.3.jar<br>-rw-r–r– 1 root root   42090 11月  7 20:32 maven-settings-builder-3.6.3.jar<br>-rw-r–r– 1 root root  166562 11月  7 20:32 maven-shared-utils-3.2.1.jar<br>-rw-r–r– 1 root root   23815 11月  7 20:32 maven-slf4j-provider-3.6.3.jar<br>-rw-r–r– 1 root root  379197 11月  7 20:32 org.eclipse.sisu.inject-0.3.4.jar<br>-rw-r–r– 1 root root   11530 11月  7 20:32 org.eclipse.sisu.inject.license<br>-rw-r–r– 1 root root  205323 11月  7 20:32 org.eclipse.sisu.plexus-0.3.4.jar<br>-rw-r–r– 1 root root   11530 11月  7 20:32 org.eclipse.sisu.plexus.license<br>-rw-r–r– 1 root root   13350 11月  7 20:32 plexus-cipher-1.7.jar<br>-rw-r–r– 1 root root   11560 11月  7 20:32 plexus-cipher.license<br>-rw-r–r– 1 root root    4225 11月  7 20:32 plexus-component-annotations-2.1.0.jar<br>-rw-r–r– 1 root root   11560 11月  7 20:32 plexus-component-annotations.license<br>-rw-r–r– 1 root root   85327 11月  7 20:32 plexus-interpolation-1.25.jar<br>-rw-r–r– 1 root root   11560 11月  7 20:32 plexus-interpolation.license<br>-rw-r–r– 1 root root   27703 11月  7 20:32 plexus-sec-dispatcher-1.4.jar<br>-rw-r–r– 1 root root   11560 11月  7 20:32 plexus-sec-dispatcher.license<br>-rw-r–r– 1 root root  261801 11月  7 20:32 plexus-utils-3.2.1.jar<br>-rw-r–r– 1 root root   11560 11月  7 20:32 plexus-utils.license<br>-rw-r–r– 1 root root   41424 11月  7 20:32 slf4j-api-1.7.29.jar<br>-rw-r–r– 1 root root    1224 11月  7 20:32 slf4j-api.license<br>-rw-r–r– 1 root root   11586 11月  7 20:32 wagon-file-3.3.4.jar<br>-rw-r–r– 1 root root 2206349 11月  7 20:32 wagon-http-3.3.4-shaded.jar<br>-rw-r–r– 1 root root   55776 11月  7 20:32 wagon-provider-api-3.3.4.jar<br>[root-hzyzjenkins lib]# mvn install:install-file              \</p>
+<blockquote>
+<pre><code>-Dfile=gnete-bc-138.jar        \
+-DgroupId=org.apache.gnete    \
+-DartifactId=gnete-bc          \
+-Dversion=138                    \
+-Dpackaging=jar </code></pre>
+<p>[WARNING]<br>[WARNING] Some problems were encountered while building the effective settings<br>[WARNING] Unrecognised tag: ‘mirror’ (position: START_TAG seen …<!-- \u963f\u91cc\u4e91\u955c\u50cf-->\n        <mirror>… @138:17)  @ /maven/conf/settings.xml, line 138, column 17<br>[WARNING]<br>[INFO] Scanning for projects…<br>Downloading from central: <a target="_blank" rel="noopener" href="https://repo.maven.apache.org/maven2/org/apache/maven/plugins/maven-clean-plugin/2.5/maven-clean-plugin-2.5.pom">https://repo.maven.apache.org/maven2/org/apache/maven/plugins/maven-clean-plugin/2.5/maven-clean-plugin-2.5.pom</a><br>Downloaded from central: <a target="_blank" rel="noopener" href="https://repo.maven.apache.org/maven2/org/apache/maven/plugins/maven-clean-plugin/2.5/maven-clean-plugin-2.5.pom">https://repo.maven.apache.org/maven2/org/apache/maven/plugins/maven-clean-plugin/2.5/maven-clean-plugin-2.5.pom</a> (3.9 kB at 1.9 kB/s)<br>Downloading from central: <a target="_blank" rel="noopener" href="https://repo.maven.apache.org/maven2/org/apache/maven/plugins/maven-plugins/22/maven-plugins-22.pom">https://repo.maven.apache.org/maven2/org/apache/maven/plugins/maven-plugins/22/maven-plugins-22.pom</a><br>Downloaded from central: <a target="_blank" rel="noopener" href="https://repo.maven.apache.org/maven2/org/apache/maven/plugins/maven-plugins/22/maven-plugins-22.pom">https://repo.maven.apache.org/maven2/org/apache/maven/plugins/maven-plugins/22/maven-plugins-22.pom</a> (13 kB at 17 kB/s)<br>Downloading from central: <a target="_blank" rel="noopener" href="https://repo.maven.apache.org/maven2/org/apache/maven/plugins/maven-clean-plugin/2.5/maven-clean-plugin-2.5.jar">https://repo.maven.apache.org/maven2/org/apache/maven/plugins/maven-clean-plugin/2.5/maven-clean-plugin-2.5.jar</a><br>Downloaded from central: <a target="_blank" rel="noopener" href="https://repo.maven.apache.org/maven2/org/apache/maven/plugins/maven-clean-plugin/2.5/maven-clean-plugin-2.5.jar">https://repo.maven.apache.org/maven2/org/apache/maven/plugins/maven-clean-plugin/2.5/maven-clean-plugin-2.5.jar</a> (25 kB at 34 kB/s)<br>Downloading from central: <a target="_blank" rel="noopener" href="https://repo.maven.apache.org/maven2/org/apache/maven/plugins/maven-install-plugin/2.4/maven-install-plugin-2.4.pom">https://repo.maven.apache.org/maven2/org/apache/maven/plugins/maven-install-plugin/2.4/maven-install-plugin-2.4.pom</a><br>Downloaded from central: <a target="_blank" rel="noopener" href="https://repo.maven.apache.org/maven2/org/apache/maven/plugins/maven-install-plugin/2.4/maven-install-plugin-2.4.pom">https://repo.maven.apache.org/maven2/org/apache/maven/plugins/maven-install-plugin/2.4/maven-install-plugin-2.4.pom</a> (6.4 kB at 12 kB/s)<br>Downloading from central: <a target="_blank" rel="noopener" href="https://repo.maven.apache.org/maven2/org/apache/maven/plugins/maven-plugins/23/maven-plugins-23.pom">https://repo.maven.apache.org/maven2/org/apache/maven/plugins/maven-plugins/23/maven-plugins-23.pom</a><br>Downloaded from central: <a target="_blank" rel="noopener" href="https://repo.maven.apache.org/maven2/org/apache/maven/plugins/maven-plugins/23/maven-plugins-23.pom">https://repo.maven.apache.org/maven2/org/apache/maven/plugins/maven-plugins/23/maven-plugins-23.pom</a> (9.2 kB at 19 kB/s)<br>Downloading from central: <a target="_blank" rel="noopener" href="https://repo.maven.apache.org/maven2/org/apache/maven/plugins/maven-install-plugin/2.4/maven-install-plugin-2.4.jar">https://repo.maven.apache.org/maven2/org/apache/maven/plugins/maven-install-plugin/2.4/maven-install-plugin-2.4.jar</a><br>Downloaded from central: <a target="_blank" rel="noopener" href="https://repo.maven.apache.org/maven2/org/apache/maven/plugins/maven-install-plugin/2.4/maven-install-plugin-2.4.jar">https://repo.maven.apache.org/maven2/org/apache/maven/plugins/maven-install-plugin/2.4/maven-install-plugin-2.4.jar</a> (27 kB at 46 kB/s)<br>[INFO]<br>[INFO] ——————&lt; org.apache.maven:standalone-pom &gt;——————-<br>[INFO] Building Maven Stub Project (No POM) 1<br>[INFO] ——————————–[ pom ]———————————<br>[INFO]<br>[INFO] — maven-install-plugin:2.4:install-file (default-cli) @ standalone-pom —<br>Downloading from central: <a target="_blank" rel="noopener" href="https://repo.maven.apache.org/maven2/org/apache/maven/maven-plugin-api/2.0.6/maven-plugin-api-2.0.6.pom">https://repo.maven.apache.org/maven2/org/apache/maven/maven-plugin-api/2.0.6/maven-plugin-api-2.0.6.pom</a><br>Downloaded from central: <a target="_blank" rel="noopener" href="https://repo.maven.apache.org/maven2/org/apache/maven/maven-plugin-api/2.0.6/maven-plugin-api-2.0.6.pom">https://repo.maven.apache.org/maven2/org/apache/maven/maven-plugin-api/2.0.6/maven-plugin-api-2.0.6.pom</a> (1.5 kB at 3.4 kB/s)<br>Downloading from central: <a target="_blank" rel="noopener" href="https://repo.maven.apache.org/maven2/org/apache/maven/maven/2.0.6/maven-2.0.6.pom">https://repo.maven.apache.org/maven2/org/apache/maven/maven/2.0.6/maven-2.0.6.pom</a><br>Downloaded from central: <a target="_blank" rel="noopener" href="https://repo.maven.apache.org/maven2/org/apache/maven/maven/2.0.6/maven-2.0.6.pom">https://repo.maven.apache.org/maven2/org/apache/maven/maven/2.0.6/maven-2.0.6.pom</a> (9.0 kB at 9.0 kB/s)<br>Downloading from central: <a target="_blank" rel="noopener" href="https://repo.maven.apache.org/maven2/org/apache/maven/maven-parent/5/maven-parent-5.pom">https://repo.maven.apache.org/maven2/org/apache/maven/maven-parent/5/maven-parent-5.pom</a><br>Downloaded from central: <a target="_blank" rel="noopener" href="https://repo.maven.apache.org/maven2/org/apache/maven/maven-parent/5/maven-parent-5.pom">https://repo.maven.apache.org/maven2/org/apache/maven/maven-parent/5/maven-parent-5.pom</a> (15 kB at 37 kB/s)<br>Downloading from central: <a target="_blank" rel="noopener" href="https://repo.maven.apache.org/maven2/org/apache/maven/maven-project/2.0.6/maven-project-2.0.6.pom">https://repo.maven.apache.org/maven2/org/apache/maven/maven-project/2.0.6/maven-project-2.0.6.pom</a><br>Downloaded from central: <a target="_blank" rel="noopener" href="https://repo.maven.apache.org/maven2/org/apache/maven/maven-project/2.0.6/maven-project-2.0.6.pom">https://repo.maven.apache.org/maven2/org/apache/maven/maven-project/2.0.6/maven-project-2.0.6.pom</a> (2.6 kB at 4.9 kB/s)<br>Downloading from central: <a target="_blank" rel="noopener" href="https://repo.maven.apache.org/maven2/org/apache/maven/maven-settings/2.0.6/maven-settings-2.0.6.pom">https://repo.maven.apache.org/maven2/org/apache/maven/maven-settings/2.0.6/maven-settings-2.0.6.pom</a><br>Downloaded from central: <a target="_blank" rel="noopener" href="https://repo.maven.apache.org/maven2/org/apache/maven/maven-settings/2.0.6/maven-settings-2.0.6.pom">https://repo.maven.apache.org/maven2/org/apache/maven/maven-settings/2.0.6/maven-settings-2.0.6.pom</a> (2.0 kB at 3.7 kB/s)<br>Downloading from central: <a target="_blank" rel="noopener" href="https://repo.maven.apache.org/maven2/org/apache/maven/maven-model/2.0.6/maven-model-2.0.6.pom">https://repo.maven.apache.org/maven2/org/apache/maven/maven-model/2.0.6/maven-model-2.0.6.pom</a><br>Downloaded from central: <a target="_blank" rel="noopener" href="https://repo.maven.apache.org/maven2/org/apache/maven/maven-model/2.0.6/maven-model-2.0.6.pom">https://repo.maven.apache.org/maven2/org/apache/maven/maven-model/2.0.6/maven-model-2.0.6.pom</a> (3.0 kB at 6.0 kB/s)<br>Downloading from central: <a target="_blank" rel="noopener" href="https://repo.maven.apache.org/maven2/org/codehaus/plexus/plexus-utils/1.4.1/plexus-utils-1.4.1.pom">https://repo.maven.apache.org/maven2/org/codehaus/plexus/plexus-utils/1.4.1/plexus-utils-1.4.1.pom</a><br>Downloaded from central: <a target="_blank" rel="noopener" href="https://repo.maven.apache.org/maven2/org/codehaus/plexus/plexus-utils/1.4.1/plexus-utils-1.4.1.pom">https://repo.maven.apache.org/maven2/org/codehaus/plexus/plexus-utils/1.4.1/plexus-utils-1.4.1.pom</a> (1.9 kB at 3.4 kB/s)<br>Downloading from central: <a target="_blank" rel="noopener" href="https://repo.maven.apache.org/maven2/org/apache/maven/maven-profile/2.0.6/maven-profile-2.0.6.pom">https://repo.maven.apache.org/maven2/org/apache/maven/maven-profile/2.0.6/maven-profile-2.0.6.pom</a><br>Downloaded from central: <a target="_blank" rel="noopener" href="https://repo.maven.apache.org/maven2/org/apache/maven/maven-profile/2.0.6/maven-profile-2.0.6.pom">https://repo.maven.apache.org/maven2/org/apache/maven/maven-profile/2.0.6/maven-profile-2.0.6.pom</a> (2.0 kB at 4.4 kB/s)<br>Downloading from central: <a target="_blank" rel="noopener" href="https://repo.maven.apache.org/maven2/org/apache/maven/maven-artifact-manager/2.0.6/maven-artifact-manager-2.0.6.pom">https://repo.maven.apache.org/maven2/org/apache/maven/maven-artifact-manager/2.0.6/maven-artifact-manager-2.0.6.pom</a><br>Downloaded from central: <a target="_blank" rel="noopener" href="https://repo.maven.apache.org/maven2/org/apache/maven/maven-artifact-manager/2.0.6/maven-artifact-manager-2.0.6.pom">https://repo.maven.apache.org/maven2/org/apache/maven/maven-artifact-manager/2.0.6/maven-artifact-manager-2.0.6.pom</a> (2.6 kB at 5.0 kB/s)<br>Downloading from central: <a target="_blank" rel="noopener" href="https://repo.maven.apache.org/maven2/org/apache/maven/maven-repository-metadata/2.0.6/maven-repository-metadata-2.0.6.pom">https://repo.maven.apache.org/maven2/org/apache/maven/maven-repository-metadata/2.0.6/maven-repository-metadata-2.0.6.pom</a><br>Downloaded from central: <a target="_blank" rel="noopener" href="https://repo.maven.apache.org/maven2/org/apache/maven/maven-repository-metadata/2.0.6/maven-repository-metadata-2.0.6.pom">https://repo.maven.apache.org/maven2/org/apache/maven/maven-repository-metadata/2.0.6/maven-repository-metadata-2.0.6.pom</a> (1.9 kB at 3.5 kB/s)<br>Downloading from central: <a target="_blank" rel="noopener" href="https://repo.maven.apache.org/maven2/org/apache/maven/maven-artifact/2.0.6/maven-artifact-2.0.6.pom">https://repo.maven.apache.org/maven2/org/apache/maven/maven-artifact/2.0.6/maven-artifact-2.0.6.pom</a><br>Downloaded from central: <a target="_blank" rel="noopener" href="https://repo.maven.apache.org/maven2/org/apache/maven/maven-artifact/2.0.6/maven-artifact-2.0.6.pom">https://repo.maven.apache.org/maven2/org/apache/maven/maven-artifact/2.0.6/maven-artifact-2.0.6.pom</a> (1.6 kB at 3.2 kB/s)<br>Downloading from central: <a target="_blank" rel="noopener" href="https://repo.maven.apache.org/maven2/org/apache/maven/maven-plugin-registry/2.0.6/maven-plugin-registry-2.0.6.pom">https://repo.maven.apache.org/maven2/org/apache/maven/maven-plugin-registry/2.0.6/maven-plugin-registry-2.0.6.pom</a><br>Downloaded from central: <a target="_blank" rel="noopener" href="https://repo.maven.apache.org/maven2/org/apache/maven/maven-plugin-registry/2.0.6/maven-plugin-registry-2.0.6.pom">https://repo.maven.apache.org/maven2/org/apache/maven/maven-plugin-registry/2.0.6/maven-plugin-registry-2.0.6.pom</a> (1.9 kB at 3.5 kB/s)<br>Downloading from central: <a target="_blank" rel="noopener" href="https://repo.maven.apache.org/maven2/org/codehaus/plexus/plexus-utils/3.0.5/plexus-utils-3.0.5.pom">https://repo.maven.apache.org/maven2/org/codehaus/plexus/plexus-utils/3.0.5/plexus-utils-3.0.5.pom</a><br>Downloaded from central: <a target="_blank" rel="noopener" href="https://repo.maven.apache.org/maven2/org/codehaus/plexus/plexus-utils/3.0.5/plexus-utils-3.0.5.pom">https://repo.maven.apache.org/maven2/org/codehaus/plexus/plexus-utils/3.0.5/plexus-utils-3.0.5.pom</a> (2.5 kB at 6.1 kB/s)<br>Downloading from central: <a target="_blank" rel="noopener" href="https://repo.maven.apache.org/maven2/org/codehaus/plexus/plexus/3.1/plexus-3.1.pom">https://repo.maven.apache.org/maven2/org/codehaus/plexus/plexus/3.1/plexus-3.1.pom</a><br>Downloaded from central: <a target="_blank" rel="noopener" href="https://repo.maven.apache.org/maven2/org/codehaus/plexus/plexus/3.1/plexus-3.1.pom">https://repo.maven.apache.org/maven2/org/codehaus/plexus/plexus/3.1/plexus-3.1.pom</a> (19 kB at 19 kB/s)<br>Downloading from central: <a target="_blank" rel="noopener" href="https://repo.maven.apache.org/maven2/org/codehaus/plexus/plexus-digest/1.0/plexus-digest-1.0.pom">https://repo.maven.apache.org/maven2/org/codehaus/plexus/plexus-digest/1.0/plexus-digest-1.0.pom</a><br>Downloaded from central: <a target="_blank" rel="noopener" href="https://repo.maven.apache.org/maven2/org/codehaus/plexus/plexus-digest/1.0/plexus-digest-1.0.pom">https://repo.maven.apache.org/maven2/org/codehaus/plexus/plexus-digest/1.0/plexus-digest-1.0.pom</a> (1.1 kB at 2.7 kB/s)<br>Downloading from central: <a target="_blank" rel="noopener" href="https://repo.maven.apache.org/maven2/org/codehaus/plexus/plexus-components/1.1.7/plexus-components-1.1.7.pom">https://repo.maven.apache.org/maven2/org/codehaus/plexus/plexus-components/1.1.7/plexus-components-1.1.7.pom</a><br>Downloaded from central: <a target="_blank" rel="noopener" href="https://repo.maven.apache.org/maven2/org/codehaus/plexus/plexus-components/1.1.7/plexus-components-1.1.7.pom">https://repo.maven.apache.org/maven2/org/codehaus/plexus/plexus-components/1.1.7/plexus-components-1.1.7.pom</a> (5.0 kB at 9.1 kB/s)<br>Downloading from central: <a target="_blank" rel="noopener" href="https://repo.maven.apache.org/maven2/org/codehaus/plexus/plexus/1.0.8/plexus-1.0.8.pom">https://repo.maven.apache.org/maven2/org/codehaus/plexus/plexus/1.0.8/plexus-1.0.8.pom</a><br>Downloaded from central: <a target="_blank" rel="noopener" href="https://repo.maven.apache.org/maven2/org/codehaus/plexus/plexus/1.0.8/plexus-1.0.8.pom">https://repo.maven.apache.org/maven2/org/codehaus/plexus/plexus/1.0.8/plexus-1.0.8.pom</a> (7.2 kB at 14 kB/s)<br>Downloading from central: <a target="_blank" rel="noopener" href="https://repo.maven.apache.org/maven2/org/codehaus/plexus/plexus-container-default/1.0-alpha-8/plexus-container-default-1.0-alpha-8.pom">https://repo.maven.apache.org/maven2/org/codehaus/plexus/plexus-container-default/1.0-alpha-8/plexus-container-default-1.0-alpha-8.pom</a><br>Downloaded from central: <a target="_blank" rel="noopener" href="https://repo.maven.apache.org/maven2/org/codehaus/plexus/plexus-container-default/1.0-alpha-8/plexus-container-default-1.0-alpha-8.pom">https://repo.maven.apache.org/maven2/org/codehaus/plexus/plexus-container-default/1.0-alpha-8/plexus-container-default-1.0-alpha-8.pom</a> (7.3 kB at 15 kB/s)<br>Downloading from central: <a target="_blank" rel="noopener" href="https://repo.maven.apache.org/maven2/org/apache/maven/maven-plugin-api/2.0.6/maven-plugin-api-2.0.6.jar">https://repo.maven.apache.org/maven2/org/apache/maven/maven-plugin-api/2.0.6/maven-plugin-api-2.0.6.jar</a><br>Downloading from central: <a target="_blank" rel="noopener" href="https://repo.maven.apache.org/maven2/org/apache/maven/maven-project/2.0.6/maven-project-2.0.6.jar">https://repo.maven.apache.org/maven2/org/apache/maven/maven-project/2.0.6/maven-project-2.0.6.jar</a><br>Downloading from central: <a target="_blank" rel="noopener" href="https://repo.maven.apache.org/maven2/org/apache/maven/maven-settings/2.0.6/maven-settings-2.0.6.jar">https://repo.maven.apache.org/maven2/org/apache/maven/maven-settings/2.0.6/maven-settings-2.0.6.jar</a><br>Downloading from central: <a target="_blank" rel="noopener" href="https://repo.maven.apache.org/maven2/org/apache/maven/maven-profile/2.0.6/maven-profile-2.0.6.jar">https://repo.maven.apache.org/maven2/org/apache/maven/maven-profile/2.0.6/maven-profile-2.0.6.jar</a><br>Downloading from central: <a target="_blank" rel="noopener" href="https://repo.maven.apache.org/maven2/org/apache/maven/maven-plugin-registry/2.0.6/maven-plugin-registry-2.0.6.jar">https://repo.maven.apache.org/maven2/org/apache/maven/maven-plugin-registry/2.0.6/maven-plugin-registry-2.0.6.jar</a><br>Downloaded from central: <a target="_blank" rel="noopener" href="https://repo.maven.apache.org/maven2/org/apache/maven/maven-plugin-api/2.0.6/maven-plugin-api-2.0.6.jar">https://repo.maven.apache.org/maven2/org/apache/maven/maven-plugin-api/2.0.6/maven-plugin-api-2.0.6.jar</a> (13 kB at 23 kB/s)<br>Downloading from central: <a target="_blank" rel="noopener" href="https://repo.maven.apache.org/maven2/org/apache/maven/maven-model/2.0.6/maven-model-2.0.6.jar">https://repo.maven.apache.org/maven2/org/apache/maven/maven-model/2.0.6/maven-model-2.0.6.jar</a><br>Downloaded from central: <a target="_blank" rel="noopener" href="https://repo.maven.apache.org/maven2/org/apache/maven/maven-plugin-registry/2.0.6/maven-plugin-registry-2.0.6.jar">https://repo.maven.apache.org/maven2/org/apache/maven/maven-plugin-registry/2.0.6/maven-plugin-registry-2.0.6.jar</a> (29 kB at 22 kB/s)<br>Downloading from central: <a target="_blank" rel="noopener" href="https://repo.maven.apache.org/maven2/org/apache/maven/maven-artifact-manager/2.0.6/maven-artifact-manager-2.0.6.jar">https://repo.maven.apache.org/maven2/org/apache/maven/maven-artifact-manager/2.0.6/maven-artifact-manager-2.0.6.jar</a><br>Downloaded from central: <a target="_blank" rel="noopener" href="https://repo.maven.apache.org/maven2/org/apache/maven/maven-model/2.0.6/maven-model-2.0.6.jar">https://repo.maven.apache.org/maven2/org/apache/maven/maven-model/2.0.6/maven-model-2.0.6.jar</a> (86 kB at 48 kB/s)<br>Downloading from central: <a target="_blank" rel="noopener" href="https://repo.maven.apache.org/maven2/org/apache/maven/maven-repository-metadata/2.0.6/maven-repository-metadata-2.0.6.jar">https://repo.maven.apache.org/maven2/org/apache/maven/maven-repository-metadata/2.0.6/maven-repository-metadata-2.0.6.jar</a><br>Downloaded from central: <a target="_blank" rel="noopener" href="https://repo.maven.apache.org/maven2/org/apache/maven/maven-project/2.0.6/maven-project-2.0.6.jar">https://repo.maven.apache.org/maven2/org/apache/maven/maven-project/2.0.6/maven-project-2.0.6.jar</a> (116 kB at 62 kB/s)<br>Downloading from central: <a target="_blank" rel="noopener" href="https://repo.maven.apache.org/maven2/org/apache/maven/maven-artifact/2.0.6/maven-artifact-2.0.6.jar">https://repo.maven.apache.org/maven2/org/apache/maven/maven-artifact/2.0.6/maven-artifact-2.0.6.jar</a><br>Downloaded from central: <a target="_blank" rel="noopener" href="https://repo.maven.apache.org/maven2/org/apache/maven/maven-artifact-manager/2.0.6/maven-artifact-manager-2.0.6.jar">https://repo.maven.apache.org/maven2/org/apache/maven/maven-artifact-manager/2.0.6/maven-artifact-manager-2.0.6.jar</a> (57 kB at 26 kB/s)<br>Downloading from central: <a target="_blank" rel="noopener" href="https://repo.maven.apache.org/maven2/org/codehaus/plexus/plexus-utils/3.0.5/plexus-utils-3.0.5.jar">https://repo.maven.apache.org/maven2/org/codehaus/plexus/plexus-utils/3.0.5/plexus-utils-3.0.5.jar</a><br>Downloaded from central: <a target="_blank" rel="noopener" href="https://repo.maven.apache.org/maven2/org/apache/maven/maven-repository-metadata/2.0.6/maven-repository-metadata-2.0.6.jar">https://repo.maven.apache.org/maven2/org/apache/maven/maven-repository-metadata/2.0.6/maven-repository-metadata-2.0.6.jar</a> (24 kB at 11 kB/s)<br>Downloading from central: <a target="_blank" rel="noopener" href="https://repo.maven.apache.org/maven2/org/codehaus/plexus/plexus-digest/1.0/plexus-digest-1.0.jar">https://repo.maven.apache.org/maven2/org/codehaus/plexus/plexus-digest/1.0/plexus-digest-1.0.jar</a><br>Downloaded from central: <a target="_blank" rel="noopener" href="https://repo.maven.apache.org/maven2/org/apache/maven/maven-settings/2.0.6/maven-settings-2.0.6.jar">https://repo.maven.apache.org/maven2/org/apache/maven/maven-settings/2.0.6/maven-settings-2.0.6.jar</a> (49 kB at 22 kB/s)<br>Downloaded from central: <a target="_blank" rel="noopener" href="https://repo.maven.apache.org/maven2/org/codehaus/plexus/plexus-digest/1.0/plexus-digest-1.0.jar">https://repo.maven.apache.org/maven2/org/codehaus/plexus/plexus-digest/1.0/plexus-digest-1.0.jar</a> (12 kB at 4.4 kB/s)<br>Downloaded from central: <a target="_blank" rel="noopener" href="https://repo.maven.apache.org/maven2/org/apache/maven/maven-artifact/2.0.6/maven-artifact-2.0.6.jar">https://repo.maven.apache.org/maven2/org/apache/maven/maven-artifact/2.0.6/maven-artifact-2.0.6.jar</a> (87 kB at 30 kB/s)<br>Downloaded from central: <a target="_blank" rel="noopener" href="https://repo.maven.apache.org/maven2/org/apache/maven/maven-profile/2.0.6/maven-profile-2.0.6.jar">https://repo.maven.apache.org/maven2/org/apache/maven/maven-profile/2.0.6/maven-profile-2.0.6.jar</a> (35 kB at 12 kB/s)<br>Downloaded from central: <a target="_blank" rel="noopener" href="https://repo.maven.apache.org/maven2/org/codehaus/plexus/plexus-utils/3.0.5/plexus-utils-3.0.5.jar">https://repo.maven.apache.org/maven2/org/codehaus/plexus/plexus-utils/3.0.5/plexus-utils-3.0.5.jar</a> (230 kB at 44 kB/s)<br>[INFO] Installing /maven/lib/gnete-bc-138.jar to /home/jenkins/repository/org/apache/gnete/gnete-bc/138/gnete-bc-138.jar<br>[INFO] Installing /tmp/mvninstall3072155994697874891.pom to /home/jenkins/repository/org/apache/gnete/gnete-bc/138/gnete-bc-138.pom<br>[INFO] ————————————————————————<br>[INFO] BUILD SUCCESS<br>[INFO] ————————————————————————<br>[INFO] Total time:  21.767 s<br>[INFO] Finished at: 2020-03-25T13:55:11+08:00<br>[INFO] ————————————————————————<br>[root-hzyzjenkins lib]#<br>[root-hzyzjenkins lib]# mvn install:install-file              <br>    -Dfile=gnete-security-1.1.jar        <br>    -DgroupId=org.apache.gnete    <br>    -DartifactId=gnete-security          <br>    -Dversion=1.1                    <br>    -Dpackaging=jar<br>[WARNING]<br>[WARNING] Some problems were encountered while building the effective settings<br>[WARNING] Unrecognised tag: ‘mirror’ (position: START_TAG seen …<!-- \u963f\u91cc\u4e91\u955c\u50cf-->\n        <mirror>… @138:17)  @ /maven/conf/settings.xml, line 138, column 17<br>[WARNING]<br>[INFO] Scanning for projects…<br>[INFO]<br>[INFO] ——————&lt; org.apache.maven:standalone-pom &gt;——————-<br>[INFO] Building Maven Stub Project (No POM) 1<br>[INFO] ——————————–[ pom ]———————————<br>[INFO]<br>[INFO] — maven-install-plugin:2.4:install-file (default-cli) @ standalone-pom —<br>[INFO] Installing /maven/lib/gnete-security-1.1.jar to /home/jenkins/repository/org/apache/gnete/gnete-security/1.1/gnete-security-1.1.jar<br>[INFO] Installing /tmp/mvninstall687871649075747491.pom to /home/jenkins/repository/org/apache/gnete/gnete-security/1.1/gnete-security-1.1.pom<br>[INFO] ————————————————————————<br>[INFO] BUILD SUCCESS<br>[INFO] ————————————————————————<br>[INFO] Total time:  0.756 s<br>[INFO] Finished at: 2020-03-25T13:56:15+08:00<br>[INFO] ————————————————————————</p>
+</blockquote>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2021/01/15/docker%E5%AE%B9%E5%99%A8%E5%86%85%E6%94%AF%E6%8C%81%E4%B8%AD%E6%96%87/" rel="prev" title="">
+      <i class="fa fa-chevron-left"></i> 
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2021/01/15/sed%E7%94%A8%E6%B3%95/" rel="next" title="">
+       <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%8A%A5%E9%94%99"><span class="nav-number">1.</span> <span class="nav-text">报错</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%AE%89%E8%A3%85"><span class="nav-number">2.</span> <span class="nav-text">安装</span></a></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="severus"
+      src="/images/00-00-00.JPG">
+  <p class="site-author-name" itemprop="name">severus</p>
+  <div class="site-description" itemprop="description">正在享受无法回避的痛苦</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">66</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-tags">
+        <span class="site-state-item-count">1</span>
+        <span class="site-state-item-name">标签</span>
+      </div>
+  </nav>
+</div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 1876 – 
+  <span itemprop="copyrightYear">2021</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">severus</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://muse.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Muse</a> 强力驱动
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/muse.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+</body>
+</html>

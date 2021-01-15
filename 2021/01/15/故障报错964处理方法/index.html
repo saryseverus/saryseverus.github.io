@@ -1,0 +1,436 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.3.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"example.com","root":"/","scheme":"Muse","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
+  </script>
+
+  <meta name="description" content="故障现象描述：执行 SQL 语句时，出现类似如下错误消息。  指令 SQL：insert into t_stat_file_tempSQLSTATE：57011，供应商错误代码：-964DB2 SQL 错误：SQLCODE：-964，SQLSTATE：57011，SQLERRMC：空  故障原因说明：数据库堆中没有足够的存储空间可用于处理该语句，此错误消息是事务日志中耗尽空间的结果。 故障处理方式">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Sary.severus&#96;s blog">
+<meta property="og:url" content="http://example.com/2021/01/15/%E6%95%85%E9%9A%9C%E6%8A%A5%E9%94%99964%E5%A4%84%E7%90%86%E6%96%B9%E6%B3%95/index.html">
+<meta property="og:site_name" content="Sary.severus&#96;s blog">
+<meta property="og:description" content="故障现象描述：执行 SQL 语句时，出现类似如下错误消息。  指令 SQL：insert into t_stat_file_tempSQLSTATE：57011，供应商错误代码：-964DB2 SQL 错误：SQLCODE：-964，SQLSTATE：57011，SQLERRMC：空  故障原因说明：数据库堆中没有足够的存储空间可用于处理该语句，此错误消息是事务日志中耗尽空间的结果。 故障处理方式">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://img2018.cnblogs.com/blog/1031517/201905/1031517-20190502092515510-912231282.png">
+<meta property="article:published_time" content="2021-01-15T06:28:30.810Z">
+<meta property="article:modified_time" content="2021-01-15T06:28:30.810Z">
+<meta property="article:author" content="severus">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://img2018.cnblogs.com/blog/1031517/201905/1031517-20190502092515510-912231282.png">
+
+<link rel="canonical" href="http://example.com/2021/01/15/%E6%95%85%E9%9A%9C%E6%8A%A5%E9%94%99964%E5%A4%84%E7%90%86%E6%96%B9%E6%B3%95/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title> | Sary.severus`s blog</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">Sary.severus`s blog</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a>
+
+  </li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2021/01/15/%E6%95%85%E9%9A%9C%E6%8A%A5%E9%94%99964%E5%A4%84%E7%90%86%E6%96%B9%E6%B3%95/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/00-00-00.JPG">
+      <meta itemprop="name" content="severus">
+      <meta itemprop="description" content="正在享受无法回避的痛苦">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Sary.severus`s blog">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2021-01-15 14:28:30" itemprop="dateCreated datePublished" datetime="2021-01-15T14:28:30+08:00">2021-01-15</time>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h1 id="故障现象描述："><a href="#故障现象描述：" class="headerlink" title="故障现象描述："></a>故障现象描述：</h1><p>执行 SQL 语句时，出现类似如下错误消息。</p>
+<blockquote>
+<p>指令 SQL：insert into t_stat_file_temp<br>SQLSTATE：57011，供应商错误代码：-964<br>DB2 SQL 错误：SQLCODE：-964，SQLSTATE：57011，<br>SQLERRMC：空</p>
+</blockquote>
+<h1 id="故障原因说明："><a href="#故障原因说明：" class="headerlink" title="故障原因说明："></a>故障原因说明：</h1><p>数据库堆中<strong>没有足够的存储空间</strong>可用于处理该语句，此错误消息是<strong>事务日志中耗尽空间</strong>的结果。</p>
+<h1 id="故障处理方式："><a href="#故障处理方式：" class="headerlink" title="故障处理方式："></a>故障处理方式：</h1><h2 id="1-方式一：扩展事务日志存储空间"><a href="#1-方式一：扩展事务日志存储空间" class="headerlink" title="1 方式一：扩展事务日志存储空间"></a>1 方式一：扩展事务日志存储空间</h2><p>通过类似如下语句调整主日志文件数，以及辅助日志文件数。<br>例如：分配八个主日志文件，同时<strong>最多分配</strong> 100 个辅助日志文件。<strong>注意</strong>：辅助日志文件将根据需要进行分配，并在<strong>不需要时删除</strong>。</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">db2 update db cfg for $DBNAME using logprimary 8</span><br><span class="line">db2 update db cfg for $DBNAME using logsecond 100</span><br></pre></td></tr></table></figure>
+<h2 id="2-方式二：处理异常事务"><a href="#2-方式二：处理异常事务" class="headerlink" title="2 方式二：处理异常事务"></a>2 方式二：处理异常事务</h2><p>如果出现因事务异常导致事务日志存储空间不足的情况，则单纯扩展存储空间往往难以彻底解决问题，因此需要本方式提供了彻底排查的步骤。<br>注意：以下操作均在 <code>db2 connect to $DBNAME</code> 连接至数据库后执行。</p>
+<h3 id="2-1-定位异常的数据库节点"><a href="#2-1-定位异常的数据库节点" class="headerlink" title="2.1 定位异常的数据库节点"></a>2.1 定位异常的数据库节点</h3><p>通过如下语句，查看各节点的日志空间使用情况，定位事务日志空间使用率（LOG_UTILIZATION_PERCENT）过高的节点。</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">db2 &quot; select DB_NAME, LOG_UTILIZATION_PERCENT, TOTAL_LOG_USED_KB,TOTAL_LOG_AVAILABLE_KB,TOTAL_LOG_USED_TOP_KB, DBPARTITIONNUM </span><br><span class="line">from SYSIBMADM.LOG_UTILIZATION order by DBPARTITIONNUM &quot;</span><br></pre></td></tr></table></figure>
+<p>执行结果类似如下。<br><img src="https://img2018.cnblogs.com/blog/1031517/201905/1031517-20190502092515510-912231282.png" alt="img"></p>
+<h3 id="2-2-检查异常活动连接"><a href="#2-2-检查异常活动连接" class="headerlink" title="2.2 检查异常活动连接"></a>2.2 检查异常活动连接</h3><p>在事务日志空间使用率过高的节点上，执行如下命令，定位<strong>是否存在</strong>事务日志使用量（UOW_LOG_SPACE_USED）过高的<strong>活动连接</strong>。</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">db2 &quot;select APPLICATION_HANDLE,UOW_LOG_SPACE_USED,UOW_START_TIME </span><br><span class="line">from TABLE(MON_GET_UNIT_OF_WORK(NULL,-1)) </span><br><span class="line">order by UOW_LOG_SPACE_USED&quot;</span><br></pre></td></tr></table></figure>
+<p>若存在异常的活动连接，则可以通过类似如下命令终止。</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">db2 &quot;force application (h1 [,h2,..hn])&quot;</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>h1 [,h2,..hn] 代表 application handle identifier</p>
+</blockquote>
+<h3 id="2-3-检查不确定事务（In-doubt-transaction）"><a href="#2-3-检查不确定事务（In-doubt-transaction）" class="headerlink" title="2.3 检查不确定事务（In-doubt transaction）"></a>2.3 检查不确定事务（In-doubt transaction）</h3><p>在事务日志空间使用率过高的节点上，执行如下命令，以<strong>交互</strong>模式定位<strong>是否存在</strong>不确定事务（In-doubt transaction）。</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">db2 list indoubt transactions with prompting</span><br></pre></td></tr></table></figure>
+<p>若存在不确定事务，则可以通过交互命令进行 COMMIT 或 ROLLBACK 等操作，具体操作参见 WITH PROMPTING 模式的说明。</p>
+<blockquote>
+<p>Command parameters <em>WITH PROMPTING</em> Indicates that indoubt transactions are to be processed. If this parameter is specified, an interactive dialog mode is initiated, permitting the user to commit, roll back, or forget indoubt transactions. If this parameter is not specified, indoubt transactions are written to the standard output device, and the interactive dialog mode is not initiated.<br>Interactive dialog mode permits the user to:</p>
+<ul>
+<li>List all indoubt transactions (enter <strong>l</strong>)</li>
+<li>List indoubt transaction number x (enter <strong>l</strong>, followed by a valid transaction number)</li>
+<li>Quit (enter <strong>q</strong>)</li>
+<li>Commit transaction number x (enter <strong>c</strong>, followed by a valid transaction number)</li>
+<li>Roll back transaction number x (enter <strong>r</strong>, followed by a valid transaction number)</li>
+<li>Forget transaction number x (enter <strong>f</strong>, followed by a valid transaction number).</li>
+</ul>
+</blockquote>
+<blockquote>
+<p>A blank space must separate the command letter from its argument.</p>
+</blockquote>
+<h1 id="参考资料："><a href="#参考资料：" class="headerlink" title="参考资料："></a>参考资料：</h1><ol>
+<li><a target="_blank" rel="noopener" href="https://www.ibm.com/support/knowledgecenter/zh/SS5R93_5.2.8/com.ibm.spectrum.sc.doc/fqz0_r_tbs_db2_sql_964.html">https://www.ibm.com/support/knowledgecenter/zh/SS5R93_5.2.8/com.ibm.spectrum.sc.doc/fqz0_r_tbs_db2_sql_964.html</a></li>
+<li><a target="_blank" rel="noopener" href="https://www.ibm.com/support/knowledgecenter/en/SSEPGG_9.7.0/com.ibm.db2.luw.admin.cmd.doc/doc/r0001963.html">https://www.ibm.com/support/knowledgecenter/en/SSEPGG_9.7.0/com.ibm.db2.luw.admin.cmd.doc/doc/r0001963.html</a></li>
+<li><a target="_blank" rel="noopener" href="http://www.talkwithtrend.com/Article/185911">http://www.talkwithtrend.com/Article/185911</a></li>
+</ol>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2021/01/15/%E7%A6%BB%E7%BA%BF%E5%AE%89%E8%A3%85Docker%E5%8F%8A%E5%AE%89%E8%A3%85DB2%E6%95%B0%E6%8D%AE%E5%BA%93/" rel="prev" title="">
+      <i class="fa fa-chevron-left"></i> 
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2021/01/15/%E7%BC%96%E8%AF%91%E5%AE%89%E8%A3%85PHP7.2.3/" rel="next" title="">
+       <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E6%95%85%E9%9A%9C%E7%8E%B0%E8%B1%A1%E6%8F%8F%E8%BF%B0%EF%BC%9A"><span class="nav-number">1.</span> <span class="nav-text">故障现象描述：</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E6%95%85%E9%9A%9C%E5%8E%9F%E5%9B%A0%E8%AF%B4%E6%98%8E%EF%BC%9A"><span class="nav-number">2.</span> <span class="nav-text">故障原因说明：</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E6%95%85%E9%9A%9C%E5%A4%84%E7%90%86%E6%96%B9%E5%BC%8F%EF%BC%9A"><span class="nav-number">3.</span> <span class="nav-text">故障处理方式：</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-%E6%96%B9%E5%BC%8F%E4%B8%80%EF%BC%9A%E6%89%A9%E5%B1%95%E4%BA%8B%E5%8A%A1%E6%97%A5%E5%BF%97%E5%AD%98%E5%82%A8%E7%A9%BA%E9%97%B4"><span class="nav-number">3.1.</span> <span class="nav-text">1 方式一：扩展事务日志存储空间</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-%E6%96%B9%E5%BC%8F%E4%BA%8C%EF%BC%9A%E5%A4%84%E7%90%86%E5%BC%82%E5%B8%B8%E4%BA%8B%E5%8A%A1"><span class="nav-number">3.2.</span> <span class="nav-text">2 方式二：处理异常事务</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#2-1-%E5%AE%9A%E4%BD%8D%E5%BC%82%E5%B8%B8%E7%9A%84%E6%95%B0%E6%8D%AE%E5%BA%93%E8%8A%82%E7%82%B9"><span class="nav-number">3.2.1.</span> <span class="nav-text">2.1 定位异常的数据库节点</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-2-%E6%A3%80%E6%9F%A5%E5%BC%82%E5%B8%B8%E6%B4%BB%E5%8A%A8%E8%BF%9E%E6%8E%A5"><span class="nav-number">3.2.2.</span> <span class="nav-text">2.2 检查异常活动连接</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-3-%E6%A3%80%E6%9F%A5%E4%B8%8D%E7%A1%AE%E5%AE%9A%E4%BA%8B%E5%8A%A1%EF%BC%88In-doubt-transaction%EF%BC%89"><span class="nav-number">3.2.3.</span> <span class="nav-text">2.3 检查不确定事务（In-doubt transaction）</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%8F%82%E8%80%83%E8%B5%84%E6%96%99%EF%BC%9A"><span class="nav-number">4.</span> <span class="nav-text">参考资料：</span></a></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="severus"
+      src="/images/00-00-00.JPG">
+  <p class="site-author-name" itemprop="name">severus</p>
+  <div class="site-description" itemprop="description">正在享受无法回避的痛苦</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">66</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-tags">
+        <span class="site-state-item-count">1</span>
+        <span class="site-state-item-name">标签</span>
+      </div>
+  </nav>
+</div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 1876 – 
+  <span itemprop="copyrightYear">2021</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">severus</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://muse.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Muse</a> 强力驱动
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/muse.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+</body>
+</html>

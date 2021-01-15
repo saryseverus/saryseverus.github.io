@@ -1,0 +1,400 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.3.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"example.com","root":"/","scheme":"Muse","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
+  </script>
+
+  <meta name="description" content="2019.12.11   PAJERO  1234567891011121314151617181920212223242526272829303132333435363738394041424344454647484950515253545556[root:o packages] #tar zxvf php-7.2.3.tar.gz -C &#x2F;usr&#x2F;local&#x2F;php&#x2F;[root:o packa">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Sary.severus&#96;s blog">
+<meta property="og:url" content="http://example.com/2021/01/15/%E7%BC%96%E8%AF%91%E5%AE%89%E8%A3%85PHP7.2.3/index.html">
+<meta property="og:site_name" content="Sary.severus&#96;s blog">
+<meta property="og:description" content="2019.12.11   PAJERO  1234567891011121314151617181920212223242526272829303132333435363738394041424344454647484950515253545556[root:o packages] #tar zxvf php-7.2.3.tar.gz -C &#x2F;usr&#x2F;local&#x2F;php&#x2F;[root:o packa">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2021-01-15T06:28:30.811Z">
+<meta property="article:modified_time" content="2021-01-15T06:28:30.811Z">
+<meta property="article:author" content="severus">
+<meta name="twitter:card" content="summary">
+
+<link rel="canonical" href="http://example.com/2021/01/15/%E7%BC%96%E8%AF%91%E5%AE%89%E8%A3%85PHP7.2.3/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title> | Sary.severus`s blog</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">Sary.severus`s blog</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a>
+
+  </li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2021/01/15/%E7%BC%96%E8%AF%91%E5%AE%89%E8%A3%85PHP7.2.3/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/00-00-00.JPG">
+      <meta itemprop="name" content="severus">
+      <meta itemprop="description" content="正在享受无法回避的痛苦">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Sary.severus`s blog">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2021-01-15 14:28:30" itemprop="dateCreated datePublished" datetime="2021-01-15T14:28:30+08:00">2021-01-15</time>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <pre><code>2019.12.11</code></pre>
+<hr>
+<blockquote>
+<p>PAJERO</p>
+</blockquote>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br></pre></td><td class="code"><pre><span class="line">[root:o packages] <span class="comment">#tar zxvf php-7.2.3.tar.gz -C /usr/local/php/</span></span><br><span class="line">[root:o packages] <span class="comment">#yum install libxml2-devel gcc -y \</span></span><br><span class="line">&gt; openssl openssl-devel \</span><br><span class="line">&gt; libxslt-devel postgresql-devel \</span><br><span class="line">&gt; freetype-devel libXpm libXpm-devel \</span><br><span class="line">&gt; libpng libpng-devel \</span><br><span class="line">&gt; libjpeg libjpeg-devel \</span><br><span class="line">&gt; bzip2-devel.x86_64</span><br><span class="line">[root:o packages] <span class="comment">#cd /usr/local/php/php-7.2.3/</span></span><br><span class="line">[root:o php-7.2.3] <span class="comment">#./configure --prefix=/usr/local/php \</span></span><br><span class="line">&gt; --with-config-file-path=/usr/<span class="built_in">local</span>/php/etc \</span><br><span class="line">&gt; --with-pdo-pgsql --with-zlib-dir \</span><br><span class="line">&gt; --with-freetype-dir --enable-mbstring \</span><br><span class="line">&gt; --with-libxml-dir=/usr --enable-soap \</span><br><span class="line">&gt; --enable-calendar \</span><br><span class="line">&gt; --with-mcrypt --with-gd --with-pgsql \</span><br><span class="line">&gt; --disable-rpath --enable-inline-optimization \</span><br><span class="line">&gt; --with-bz2 --with-zlib --enable-sockets \</span><br><span class="line">&gt; --enable-sysvsem --enable-sysvshm \</span><br><span class="line">&gt; --enable-pcntl --enable-mbregex \</span><br><span class="line">&gt; --enable-exif --enable-bcmath \</span><br><span class="line">&gt; --with-mhash --enable-zip \</span><br><span class="line">&gt; --with-pcre-regex --with-pdo-mysql \</span><br><span class="line">&gt; --with-mysqli --with-jpeg-dir=/usr \</span><br><span class="line">&gt; --with-png-dir=/usr --enable-gd-native-ttf \</span><br><span class="line">&gt; --with-openssl --with-fpm-user=www-data \</span><br><span class="line">&gt; --with-fpm-group=www-data \</span><br><span class="line">&gt; --with-libdir=/lib/x86_64-linux-gnu/ \</span><br><span class="line">&gt; --enable-ftp --with-gettext \</span><br><span class="line">&gt; --with-xmlrpc --with-xsl \</span><br><span class="line">&gt; --enable-opcache --enable-fpm \</span><br><span class="line">&gt; --with-iconv --with-xpm-dir=/usr</span><br><span class="line">[root:o php-7.2.3] <span class="comment">#make &amp;&amp; make install</span></span><br><span class="line">[root:o php] <span class="comment">#vim /etc/profile</span></span><br><span class="line"><span class="comment">#PHP-7.2.3</span></span><br><span class="line"><span class="built_in">export</span> PATH=<span class="variable">$PATH</span>:/usr/<span class="built_in">local</span>/php/bin:/usr/<span class="built_in">local</span>/php/sbin</span><br><span class="line">[root:o php] <span class="comment">#source /etc/profile</span></span><br><span class="line">[root:o php] <span class="comment">#php -v</span></span><br><span class="line">PHP 7.2.3 (cli) (built: Dec 11 2019 17:59:13) ( NTS )</span><br><span class="line">Copyright (c) 1997-2018 The PHP Group</span><br><span class="line">Zend Engine v3.2.0, Copyright (c) 1998-2018 Zend Technologies</span><br><span class="line">[root:o php] <span class="comment">#yum install php-mysql php-fpm -y</span></span><br><span class="line">[root:o ~] <span class="comment">#cp /etc/php-fpm.conf /usr/local/php/etc/php-fpm.conf</span></span><br><span class="line">[root:o ~] <span class="comment">#cp /etc/php-fpm.d/www.conf  /usr/local/php/etc/php-fpm.d/www.conf</span></span><br><span class="line">[root:o ~] <span class="comment">#mkdir /usr/local/php/etc/init.d</span></span><br><span class="line">[root:o ~] <span class="comment">#cp /usr/local/php/php-7.2.3/sapi/fpm/init.d.php-fpm.in /usr/local/php/etc/init.d/php-fpm</span></span><br><span class="line">[root:o ~] <span class="comment">#service php-fpm start</span></span><br><span class="line">Redirecting to /bin/systemctl start  php-fpm.service</span><br><span class="line">[root:o ~] <span class="comment">#ps  aux|grep php-fpm</span></span><br><span class="line">root     23154  0.1  0.5 327832 10184 ?        Ss   18:12   0:00 php-fpm: master process (/etc/php-fpm.conf)</span><br><span class="line">apache   23156  0.0  0.2 327832  4580 ?        S    18:12   0:00 php-fpm: pool www</span><br><span class="line">apache   23157  0.0  0.2 327832  4580 ?        S    18:12   0:00 php-fpm: pool www</span><br><span class="line">apache   23158  0.0  0.2 327832  4580 ?        S    18:12   0:00 php-fpm: pool www</span><br><span class="line">apache   23159  0.0  0.2 327832  4580 ?        S    18:12   0:00 php-fpm: pool www</span><br><span class="line">apache   23160  0.0  0.2 327832  4580 ?        S    18:12   0:00 php-fpm: pool www</span><br><span class="line">root     23162  0.0  0.0 112648   964 pts/0    R+   18:12   0:00 grep --color=auto php-fpm</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br></pre></td><td class="code"><pre><span class="line">编译安装PHP</span><br><span class="line">安装依赖</span><br><span class="line">yum -y install epel-release</span><br><span class="line"></span><br><span class="line">yum -y install  gcc gcc-c++ make pcre pcre-devel\</span><br><span class="line">zlib zlib-devel openssl openssl-devel libxml2\</span><br><span class="line">libxml2-devel libcurl libcurl-devel libjpeg \</span><br><span class="line">libjpeg-devel libpng libpng-devel freetype \</span><br><span class="line">freetype-devel openldap openldap-devel libmcrypt\</span><br><span class="line">libmcrypt-devel</span><br><span class="line"></span><br><span class="line">下载php5.6.40源码</span><br><span class="line">pwd &#x2F;data</span><br><span class="line">wget &#39;http:&#x2F;&#x2F;hk1.php.net&#x2F;distributions&#x2F;php-5.6.40.tar.gz&#39;</span><br><span class="line">tar -zxf php-5.6.40.tar.gz</span><br><span class="line">cd php-5.6.40</span><br><span class="line"></span><br><span class="line">编译安装 </span><br><span class="line">.&#x2F;configure --prefix&#x3D;&#x2F;usr&#x2F;local&#x2F;php \</span><br><span class="line">--with-config-file-path&#x3D;&#x2F;usr&#x2F;local&#x2F;php&#x2F;etc \</span><br><span class="line">--enable-ctype --with-mysql&#x3D;mysqlnd \</span><br><span class="line">--with-mysqli&#x3D;mysqlnd --with-freetype-dir \</span><br><span class="line">--with-jpeg-dir --with-png-dir --with-zlib \</span><br><span class="line">--with-libxml-dir&#x3D;&#x2F;usr --enable-xml \</span><br><span class="line">--disable-rpath --enable-bcmath \</span><br><span class="line">--enable-shmop --enable-sysvsem \</span><br><span class="line">--enable-inline-optimization --with-curl \</span><br><span class="line">--enable-mbregex --enable-mbstring \</span><br><span class="line">--with-mcrypt --with-gd --enable-gd-native-ttf \</span><br><span class="line">--with-openssl --with-mhash --enable-pcntl \</span><br><span class="line">--enable-sockets --with-ldap-sasl --with-xmlrpc \</span><br><span class="line">--enable-zip --enable-soap --with-gettext \</span><br><span class="line">--enable-fpm</span><br><span class="line"></span><br><span class="line">make &amp;&amp; make install</span><br><span class="line"></span><br><span class="line">复制配置文件</span><br><span class="line">cp &#x2F;data&#x2F;php-5.6.40&#x2F;php.ini-production &#x2F;usr&#x2F;local&#x2F;php&#x2F;etc&#x2F;php.ini</span><br><span class="line"></span><br><span class="line">php编译安装说明</span><br><span class="line">--prefix指定php的安装目录</span><br><span class="line">--with-config-file-path指定php的配置文件位置</span><br><span class="line">--with-mysql、--with-mysqli让php可以操作mysql</span><br><span class="line">--enable-fpm主要是nginx要来调用php语言得使用php-fpm</span><br><span class="line"></span><br><span class="line">环境变量</span><br><span class="line">vim &#x2F;etc&#x2F;profile</span><br><span class="line">export PATH&#x3D;$PATH:&#x2F;usr&#x2F;local&#x2F;php&#x2F;sbin&#x2F;:&#x2F;usr&#x2F;local&#x2F;php&#x2F;bin&#x2F;</span><br><span class="line">source &#x2F;etc&#x2F;profile</span><br><span class="line"></span><br><span class="line">修改php-fpm配置</span><br><span class="line">cp &#x2F;usr&#x2F;local&#x2F;php&#x2F;etc&#x2F;php-fpm.conf.default &#x2F;usr&#x2F;local&#x2F;php&#x2F;etc&#x2F;php-fpm.conf</span><br><span class="line">检验是否成功</span><br><span class="line">php-fpm -t</span><br><span class="line">	&quot;[20-Nov-2019 11:49:37] NOTICE: configuration file &#x2F;usr&#x2F;local&#x2F;php&#x2F;etc&#x2F;php-fpm.conf test is successful&quot;</span><br><span class="line"></span><br><span class="line">查看php-fpm监听端口</span><br><span class="line">cat &#x2F;usr&#x2F;local&#x2F;php&#x2F;etc&#x2F;php-fpm.conf | grep 9000</span><br><span class="line"></span><br><span class="line">设置启动脚本</span><br><span class="line">vim &#x2F;usr&#x2F;lib&#x2F;systemd&#x2F;system&#x2F;php-fpm.service</span><br><span class="line"></span><br><span class="line">[Unit]</span><br><span class="line">Description&#x3D;php-fpm</span><br><span class="line">After&#x3D;network.target</span><br><span class="line">[Service]</span><br><span class="line">Type&#x3D;forking</span><br><span class="line">ExecStart&#x3D;&#x2F;usr&#x2F;local&#x2F;php&#x2F;sbin&#x2F;php-fpm</span><br><span class="line">[Install]</span><br><span class="line">WantedBy&#x3D;multi-user.target</span><br><span class="line"></span><br><span class="line">chmod +x &#x2F;usr&#x2F;lib&#x2F;systemd&#x2F;system&#x2F;php-fpm.service</span><br><span class="line"></span><br><span class="line">systemctl daemon-reload</span><br><span class="line">systemctl start php-fpm.service</span><br><span class="line">systemctl enable php-fpm.service</span><br><span class="line"></span><br><span class="line">检查是否启动</span><br><span class="line">ps -ef |grep php</span><br><span class="line"></span><br><span class="line">创建phpinfo文件并与nginx对接更改nginx.conf</span><br><span class="line">[18:50:42 root@aliyun24 html]#cat info.php</span><br><span class="line">&lt;?php</span><br><span class="line">  phpinfo();</span><br><span class="line">?&gt;</span><br><span class="line"></span><br><span class="line">[18:51:25 root@aliyun24 html]#cat &#x2F;usr&#x2F;local&#x2F;nginx&#x2F;conf&#x2F;nginx.conf</span><br><span class="line">worker_processes  1;</span><br><span class="line">events &#123;</span><br><span class="line">    worker_connections  1024;</span><br><span class="line">&#125;</span><br><span class="line">http &#123;</span><br><span class="line">    include       mime.types;</span><br><span class="line">    default_type  application&#x2F;octet-stream;</span><br><span class="line">    sendfile        on;</span><br><span class="line">    keepalive_timeout  65;</span><br><span class="line">    server &#123;</span><br><span class="line">        listen       80;</span><br><span class="line">        server_name  localhost;</span><br><span class="line">        location &#x2F; &#123;</span><br><span class="line">            root   html;</span><br><span class="line">            index  index.html index.htm;</span><br><span class="line">        &#125;</span><br><span class="line">--&gt;		location ~ \.php$ &#123;</span><br><span class="line">--&gt;		  root  html;</span><br><span class="line">--&gt;		  fastcgi_pass      127.0.0.1:9000;</span><br><span class="line">--&gt;		  fastcgi_index     index.php;</span><br><span class="line">--&gt;		  fastcgi_param     SCRIPT_FILENAME  $document_root$fastcgi_script_name;</span><br><span class="line">--&gt;		  include	    fastcgi_params;</span><br><span class="line">--&gt;&#125;	</span><br><span class="line">        error_page   500 502 503 504  &#x2F;50x.html;</span><br><span class="line">        location &#x3D; &#x2F;50x.html &#123;</span><br><span class="line">            root   html;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">重新加载nginx</span><br><span class="line">nginx -s reload</span><br></pre></td></tr></table></figure>
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2021/01/15/%E6%95%85%E9%9A%9C%E6%8A%A5%E9%94%99964%E5%A4%84%E7%90%86%E6%96%B9%E6%B3%95/" rel="prev" title="">
+      <i class="fa fa-chevron-left"></i> 
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2021/01/15/%E7%A6%BB%E7%BA%BF%E5%AE%89%E8%A3%85gcc%E5%92%8Credis/" rel="next" title="">
+       <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="severus"
+      src="/images/00-00-00.JPG">
+  <p class="site-author-name" itemprop="name">severus</p>
+  <div class="site-description" itemprop="description">正在享受无法回避的痛苦</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">66</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-tags">
+        <span class="site-state-item-count">1</span>
+        <span class="site-state-item-name">标签</span>
+      </div>
+  </nav>
+</div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 1876 – 
+  <span itemprop="copyrightYear">2021</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">severus</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://muse.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Muse</a> 强力驱动
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/muse.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+</body>
+</html>

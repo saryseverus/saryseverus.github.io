@@ -1,0 +1,610 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.3.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"example.com","root":"/","scheme":"Muse","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
+  </script>
+
+  <meta name="description" content="表空间的概念数据库由称为表空间的部件组成。表空间是用来存储表的位置。当创建表时，您可以决定将特定对象（如索引和大对象）数据与其余表数据分开存放。表空间也可以分布在一个或多个物理存储设备上。 我们这一节主要讲讲如何创建表空间（如需要使用什么样的参数来创建最适用的表空间）  表空间类型选择表空间可分为SMS表空间和DMS表空间， 简单来说，SMS表空间易于管理，DMS表空间性能更优。 SMS表空间：">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Sary.severus&#96;s blog">
+<meta property="og:url" content="http://example.com/2021/01/15/%E5%85%B3%E4%BA%8EDB2%E8%A1%A8%E7%A9%BA%E9%97%B4/index.html">
+<meta property="og:site_name" content="Sary.severus&#96;s blog">
+<meta property="og:description" content="表空间的概念数据库由称为表空间的部件组成。表空间是用来存储表的位置。当创建表时，您可以决定将特定对象（如索引和大对象）数据与其余表数据分开存放。表空间也可以分布在一个或多个物理存储设备上。 我们这一节主要讲讲如何创建表空间（如需要使用什么样的参数来创建最适用的表空间）  表空间类型选择表空间可分为SMS表空间和DMS表空间， 简单来说，SMS表空间易于管理，DMS表空间性能更优。 SMS表空间：">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://s1.51cto.com/images/20180301/1519891302683389.png?x-oss-process=image/watermark,size_16,text_QDUxQ1RP5Y2a5a6i,color_FFFFFF,t_100,g_se,x_10,y_10,shadow_90,type_ZmFuZ3poZW5naGVpdGk=">
+<meta property="article:published_time" content="2021-01-15T06:28:30.805Z">
+<meta property="article:modified_time" content="2021-01-15T06:28:30.806Z">
+<meta property="article:author" content="severus">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://s1.51cto.com/images/20180301/1519891302683389.png?x-oss-process=image/watermark,size_16,text_QDUxQ1RP5Y2a5a6i,color_FFFFFF,t_100,g_se,x_10,y_10,shadow_90,type_ZmFuZ3poZW5naGVpdGk=">
+
+<link rel="canonical" href="http://example.com/2021/01/15/%E5%85%B3%E4%BA%8EDB2%E8%A1%A8%E7%A9%BA%E9%97%B4/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title> | Sary.severus`s blog</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">Sary.severus`s blog</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a>
+
+  </li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2021/01/15/%E5%85%B3%E4%BA%8EDB2%E8%A1%A8%E7%A9%BA%E9%97%B4/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/00-00-00.JPG">
+      <meta itemprop="name" content="severus">
+      <meta itemprop="description" content="正在享受无法回避的痛苦">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Sary.severus`s blog">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2021-01-15 14:28:30" itemprop="dateCreated datePublished" datetime="2021-01-15T14:28:30+08:00">2021-01-15</time>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h2 id="表空间的概念"><a href="#表空间的概念" class="headerlink" title="表空间的概念"></a>表空间的概念</h2><p>数据库由称为表空间的部件组成。表空间是用来存储表的位置。当创建表时，您可以决定将特定对象（如索引和大对象）数据与其余表数据分开存放。表空间也可以分布在一个或多个物理存储设备上。</p>
+<p>我们这一节主要讲讲如何创建表空间（如需要使用什么样的参数来创建最适用的表空间）</p>
+<p><img src="https://s1.51cto.com/images/20180301/1519891302683389.png?x-oss-process=image/watermark,size_16,text_QDUxQ1RP5Y2a5a6i,color_FFFFFF,t_100,g_se,x_10,y_10,shadow_90,type_ZmFuZ3poZW5naGVpdGk=" alt="1.png"></p>
+<h2 id="表空间类型选择"><a href="#表空间类型选择" class="headerlink" title="表空间类型选择"></a>表空间类型选择</h2><p>表空间可分为SMS表空间和DMS表空间，</p>
+<p>简单来说，SMS表空间易于管理，DMS表空间性能更优。</p>
+<p><strong>SMS表空间：</strong></p>
+<p>1）根据需要，系统按需分配；</p>
+<p>2）由于不必预定义容器，因此创建表空间需要的初始工作少。</p>
+<p>3）通过操作系统来管理空间，逻辑上数据是连续的，但物理上不是。</p>
+<p><strong>DMS表空间：</strong></p>
+<p>1）可通过ALTER TABLESPACE来添加或扩展容器来增加表空间大小，现有数据可以在新添加的容器集合中重新平衡以保持最佳I/O效率。</p>
+<p>2）可将数据分割存放在多个表空间中以提高性能和空间存储容量。</p>
+<p>3）可控制数据在磁盘上的位置（需操作系统允许）</p>
+<p>4）精心设计的DMS性能优于SMS表空间（涉及大量DML操作的应用程序，建议使用DMS表空间）</p>
+<p>5）数据在物理磁盘上是连续的。</p>
+<p>注：对于个人数据库用SMS表空间管理最容易。对于不断增长的大型数据库，建议使用SMS表空间做临时表空间和系统编目表空间，而将具有多个容器的单独的DMS表空间用于每个表。另外建议将长字段（LF）数据和索引存储在它们自己的表空间中。</p>
+<h3 id="从表中数据量考虑表空间选择"><a href="#从表中数据量考虑表空间选择" class="headerlink" title="从表中数据量考虑表空间选择"></a>从表中数据量考虑表空间选择</h3><p><strong>SMS表空间：</strong></p>
+<p>计划在一个表空间中存储许多小表，应考虑使用SMS表空间。（对于小标，DMS表现在I/O和空间管理效率方面优点没有那么重要）</p>
+<p><strong>DMS表空间：</strong></p>
+<p>表较大或者需要更快地访问表中的数据，应考虑具有较小扩展数据块大小的DMS表空间。</p>
+<h3 id="从表数据类型考虑表空间"><a href="#从表数据类型考虑表空间" class="headerlink" title="从表数据类型考虑表空间"></a>从表数据类型考虑表空间</h3><p>1）有的表包含不经常使用的历史记录数据，用户可能愿意接受较长的响应时间。可以为历史记录表使用单独的表空间，并分配给访问速率较低的较便宜的物理设备。</p>
+<p>2）有些表需要数据快速响应，需要将这些表分配给快速物理设备的表空间中。可以使用固态硬盘来存放访问最频繁的表。</p>
+<p>3）使用DMS表空间，可以将表数据分发在3个不同的表空间中：</p>
+<p>一个存储索引数据；</p>
+<p>一个存储大对象（LOB）和长字段（LF）数据；</p>
+<p>一个存储常规表数据。</p>
+<p>（如果将表分布在各个DMS表空间中，在启用表空间级备份恢复时，应考虑一起备份和复原那些表空间。SMS表空间不支持以此方式将数据分发在所有表空间中）。</p>
+<p>如果需要经常删除并重新创建特定表，应给这样的表表单独创建DMS表空间，因为删除DMS表空间比删除表更有效率。</p>
+<h2 id="选择合适的数据页大小"><a href="#选择合适的数据页大小" class="headerlink" title="选择合适的数据页大小"></a>选择合适的数据页大小</h2><p>数据页可选择使用4KB、8KB、16KB、32KB页大小，在选择数据页大小时需要综合考虑空间需求和业务类型（性能需求）以做出选择。</p>
+<p>DB2中每个页大小限定了可存储行的最大长度和可存储表空间的最大值，所以选择页大小的时候需要考虑这些。</p>
+<p>4KB – 最大可存放的行长度是4005字节</p>
+<table>
+<thead>
+<tr>
+<th>表空间特定于页大小的限制</th>
+<th></th>
+<th></th>
+<th></th>
+<th></th>
+</tr>
+</thead>
+<tbody><tr>
+<td>表空间类型</td>
+<td>4KB</td>
+<td>8KB</td>
+<td>16KB</td>
+<td>32KB</td>
+</tr>
+<tr>
+<td>SMS表空间</td>
+<td>64GB</td>
+<td>128GB</td>
+<td>256GB</td>
+<td>512GB</td>
+</tr>
+<tr>
+<td>DMS表空间（常规）</td>
+<td>64GB</td>
+<td>128GB</td>
+<td>256GB</td>
+<td>512GB</td>
+</tr>
+<tr>
+<td>DMS表空间（大型）</td>
+<td>8TB</td>
+<td>16TB</td>
+<td>32TB</td>
+<td>64TB</td>
+</tr>
+<tr>
+<td>自动存储表空间（常规）</td>
+<td>64GB</td>
+<td>128GB</td>
+<td>256GB</td>
+<td>512GB</td>
+</tr>
+<tr>
+<td>自动存储表空间（大型）</td>
+<td>8TB</td>
+<td>16TB</td>
+<td>32TB</td>
+<td>64TB</td>
+</tr>
+<tr>
+<td>临时表空间</td>
+<td>64GB</td>
+<td>128GB</td>
+<td>256GB</td>
+<td>512GB</td>
+</tr>
+</tbody></table>
+<p>数据页大小选择不当，可能造成空间浪费。</p>
+<p>建议常见表表空间时，尽量创建大型表空间，大型表空间的数据页可以存放更多的容量和行数。</p>
+<h3 id="根据业务类型选择合适的页大小（OLTP、OLAP、批处理、报表，混合类型）"><a href="#根据业务类型选择合适的页大小（OLTP、OLAP、批处理、报表，混合类型）" class="headerlink" title="根据业务类型选择合适的页大小（OLTP、OLAP、批处理、报表，混合类型）"></a>根据业务类型选择合适的页大小（OLTP、OLAP、批处理、报表，混合类型）</h3><p>联机事务处理（OLTP）工作负载的特征：事务需要对数据进行随机访问，涉及频繁插入或更新活动和返回一小组数据的查询。对于性能要求很高的OLTP应用，可以考虑把一些频繁访问的表创建在固态硬盘上。（使用裸设备容器的DMS表空间在这种情况下表现最好）</p>
+<p>OLAP查询工作负载的特征：事务需要对数据进行顺序访问或部分顺序访问，并常返回大的数据集。（使用多个设备容器且每个容器都在单独磁盘上的DMS表空间最有可能提供有效的并行预存取）。应将PREFETCHSIZE参数的值设为EXTENTSIZE参数的值乘以容器设备数之积。并可以将预取大小设置为-1（AUTOMATIC），这允许数据库管理器以并行方式从所有容器中预取。如果容器数目发生更改，或需要使预取更多或更少，那么可以使用ALTER TABLESPACE语句响应地更改PREFETCHSIZE值；强烈建议把PREFETCHSIZE设置为AUTOMATIC或-1。</p>
+<p>混合工作负载的目标：对于OLTP工作负载，使单个I/O请求尽可能有效率；对于OLAP查询工作负载，最大程度地提高并行I/O的效率。</p>
+<h3 id="表空间页大小选择注意事项"><a href="#表空间页大小选择注意事项" class="headerlink" title="表空间页大小选择注意事项"></a>表空间页大小选择注意事项</h3><p>1） 对于执行随机行读写操作的OLTP应用程序，通常最好使用较小的页大小（4KB、8KB），这样不需要的行就不会浪费缓冲池空间；</p>
+<p>2） 对于一次访问大量连续行的决策支持系统（DSS）和OLAP应用程序，页大小大点（16KB、32KB）比较好，这样能减少读取特定数目的行所需的I/O请求数。较大的页大小还允许减少索引中的层数，因为在一页中可以保留更多的行指针。</p>
+<p>3） 越大的页，支持的行越长。应根据业务需求选择合适的数据页。</p>
+<p>4） 4KB – 表有500列；8KB、16KB、32KB支持1012列。</p>
+<p>5） 表空间最大大小与表空间的页大小成正比（参考表3-3）</p>
+<h3 id="扩展数据块在进行大小选择时的注意事项"><a href="#扩展数据块在进行大小选择时的注意事项" class="headerlink" title="扩展数据块在进行大小选择时的注意事项"></a>扩展数据块在进行大小选择时的注意事项</h3><p>EXTENTSIZE指定在跳到下一个容器之前可以写入容器PAGESIZE页面的数量。存储数据时数据库管理器反复均衡使用所有容器。该参数只有在表空间中有多个容器时才起作用。合理的EXTENTSIZE会对表空间的性能产生重大影响。这个参数只能在创建表空间时定义，之后不能修改。</p>
+<p>以下经验法则建立在表空间中每个表的平均大小的基础上：</p>
+<p>1） 如果小于50MB，EXTENTSIZE为8</p>
+<p>2） 如果介于50MB到500MB之间，EXTENTSIZE为16</p>
+<p>3） 如果介于500MB到5GB之间，EXTENTSIZE为32</p>
+<p>4） 如果大于5GB，EXTENTSIZE为64</p>
+<p>对于OLAP数据库和大部分对表的访问包括许多查询或处理大量数据的事物（仅限于查询）的表，或者增长速度很快的表，从表中预取数据可以显著改善性能，应使用较大的extent，反之，使用较小的extent。</p>
+<h3 id="Prefetchsize大小选择"><a href="#Prefetchsize大小选择" class="headerlink" title="Prefetchsize大小选择"></a>Prefetchsize大小选择</h3><p>为了提高缓冲池命中率，数据库通过预取操作再查询使用所需的数据之前读入这些数据，因为数据已经存在于内存，查询在使用这些数据的时候就不必等待执行I/O了。数据库管理器会确定预取操作是否有助于提高性能。</p>
+<p>通过ALTER TABLEPSPACE可以修改预取大小。一般最优设置如下：</p>
+<p>Prefetch Size = (# Containers of the table space on different physical disks) * Extent Size</p>
+<p>如果表空间驻留在某个磁盘阵列上，那按如下设置：</p>
+<p>Prefetch Size = Extent Size * (# of non-parity disks in array)</p>
+<p>注：DB2 V9版本以后，可以在创建表空间时自动预取大小。</p>
+<p>在添加或删除容器后，要及时更新表空间的预取大小，否则数据库性能会明显降低。可以在创建表空间时指定Prefetchsize 为 Automatic，这样可以设置自动预取大小。可通过以下方法查看是否设置自动预取：</p>
+<p>db2 get snapshot for tablespaces on dbname| more</p>
+<p>Prefetchsize的大小设置和Extentsize的设置有关，所以需要合理设置 Extentsize大小，再根据Extentsize大小设置Prefetchsize。较好的建议是创建数据库时采用自动存储，这样数据库管理器可自动设置Prefetchsize和Extentsize的大小。</p>
+<h3 id="文件系统（CIO-DIO）和裸设备"><a href="#文件系统（CIO-DIO）和裸设备" class="headerlink" title="文件系统（CIO/DIO）和裸设备"></a>文件系统（CIO/DIO）和裸设备</h3><p>在创建DMS表空间容器时可以选择使用文件系统或裸设备。</p>
+<p>为避免操作系统做多一次缓存（数据库已经通过buffer pool做了一次缓存），可以采用裸设备作为数据文件的存储设备。裸设备也称为裸分区（Raw Partition），是没有被加载（mount）到操作系统的文件系统中的磁盘分区，通过字符设备驱动来访问。裸设备的I/O读写不由操作系统控制，而是由应用系统（如数据库）直接控制。</p>
+<p><strong>裸设备的优点：</strong></p>
+<p>\1.    具有更好的性能（屏蔽了文件系统缓冲区而进行直接读写）。对硬盘的直接读写意味着取消了硬盘与文件系统的同步需求。这一点对于纯OLTP系统非常有用，因为这种系统的读写随机性非常大，以至于一旦数据被读写之后，在今后较长一段时间内不会再次使用。改善决策支持系统（DSS）应用程序的性能：</p>
+<p>² 排序：DSS环境存在大量排序需求，裸设备提供的直接读写功能非常有用，因为对临时表空间的写动作速度更快。</p>
+<p>² 顺序访问：裸设备非常适合顺序I/O动作。DSS中常见顺序I/O（表/索引的全表扫描）</p>
+<p>\2.    直接读写，不需要经过操作系统级的缓存。</p>
+<p>\3.    避免了操作系统的cache预读功能，减少了I/O。</p>
+<p>\4.    避免了文件系统的开销，比如维护i-node、空闲块等。</p>
+<p><strong>裸设备的缺点：</strong></p>
+<p>\1.    裸设备的空间大小管理不灵活。需要预先规划裸设备的空间使用，还应当保留一部分裸设备以应付突发情况。</p>
+<p>\2.    需要操作系统root用户干预，因为裸设备的创建、更改权限、扩展大小等都需要由root用户完成，这增加的了管理成本。</p>
+<p><strong>文件系统的优点：</strong></p>
+<p>易于管理和维护，比如文件的基本管理以及安全和备份等。</p>
+<p><strong>文件系统的缺点：</strong></p>
+<p>性能比不上裸设备</p>
+<p>选择表空间容器时，从性能上考虑尽量采用裸设备；如果使用自动存储方式创建数据库和表空间，则不支持裸设备。或者为了便于管理而采用文件系统方式，这时需要合理设置文件系统相关选项和表空间相关选项。</p>
+<p>直接I/O(DIO)可以绕过在文件系统级别进行高速缓存，因此能改进内存性能。此过程可减少CPU开销并使得更多的内存可用于数据库实例。</p>
+<p>并发I/O(CIO)具有DIO的优点，并且可消除串行化写访问。与使用文件系统缓冲I/O相比，在具有大量事务处理工作负载和回滚时，CIO/DIO机制可增大吞吐量。</p>
+<p>注：DIO和CIO具体的支持列表查看最新的DB2信息中心。</p>
+<p>关键字 NO FILE SYSTEM CACHING 和 FILE SYSTEM CACHING是CREATE 和 ALTER TABLEPACE 语句的一部分。</p>
+<p>当 NO FILE SYSTEM CACHING有效时，只要可能，数据库管理器会尝试使用“并发I/O(CIO)”。在不支持CIO时，（例如使用了JFS）将取而代之使用DIO。</p>
+<p>建议在表空间级别启用或禁用操作系统中的非缓冲I/O。这将允许在特定表空间上启用或禁用非缓冲I/O，同时可避免数据库物理布局中的任何依赖性。另外还可允许数据库管理器确定每个文件最适合使用哪种I/O，缓冲的还是非缓冲的。</p>
+<p>NO FILE SYSTEM CACHING子句用于启用非缓冲I/O，从而禁用特定表空间的文件高速缓存。一旦启用非缓冲I/O，数据库管理器会根据平台自动确定将使用直接I/O还是并发I/O。使用CIO可提高性能，只要CIO受支持，数据库管理器就会启用。</p>
+<p>FILE SYSTEM CACHING一般用于应用程序检索LOB和LONG数据，这些大对象数据不能经过数据库缓冲池。</p>
+<p>查看是否启用FILE SYSTEM CACHING属性，可使用：</p>
+<p>db2 get snapshot for tablespaces on <dbname>|more</p>
+<p>db2pd -d <dbname> -tablespaces</p>
+<p>db2look -d <dbname> l</p>
+<p>建议创建表空间时，表空间的容器采用裸设备或支持并发I/O或直接I/O的文件系统。</p>
+<h3 id="设置OVERHEAD和TRANSFERRATE"><a href="#设置OVERHEAD和TRANSFERRATE" class="headerlink" title="设置OVERHEAD和TRANSFERRATE"></a>设置OVERHEAD和TRANSFERRATE</h3><p>这两个参数用于确定查询优化期间的I/O成本。这两个值的测量单位都是毫秒，而且它们是所有容器开销和传送速率的平均值。开销是与I/O控制器活动、磁盘寻道时间和旋转延迟时间相关联的时间。传送速率是将一页读入内存所必须的时间量。它们的默认值分别是24.1和0.9。可根据硬件规格计算这些值：</p>
+<p>Transrate = (1/传送速率)<em>1000/1024000</em>4096（假设用4KB页大小）</p>
+<p>Overhead = 平均寻道时间+（（1/磁盘转速）<em>60</em>1000）/2)</p>
+<p>平均寻道时间、磁盘旋转速度和传送速率是由硬盘本身决定（可通过操作系统命令或从硬盘厂商获得底层硬盘的物理特性）</p>
+<p>所以合理设置这两个值，可让优化器了解底层存储的物理特性，从而制定最优的执行计划。</p>
+<h2 id="优化RAID设备上表空间的性能"><a href="#优化RAID设备上表空间的性能" class="headerlink" title="优化RAID设备上表空间的性能"></a>优化RAID设备上表空间的性能</h2><p>现在很多应用系统吧数据库存放在“独立磁盘冗余阵列”（RAID）设备上，要优化存放在RAID设备上的表空间性能，可遵循以下准则：</p>
+<p>\1.    在一组RAID设备上创建表空间时，应该把表空间容器创建在多个RAID GROUP上。</p>
+<p>\2.    为表空间选择适当的扩展数据块（extent）大小。理想状态下，扩展数据块大小应该等于磁盘底层strip大小或其倍数，其中strip大小等于strip大小乘以活动磁盘数。Strip大小表示磁盘控制器在向一个物理磁盘写入多少数据后才转向下一个物理磁盘。</p>
+<p>如果strip大小为64KB，页大小为16KB，那适当的扩展数据块大小可能是256KB（64KB*4）</p>
+<p>\3.    使用DB2_PARALLEL_IO注册变量为所有表空间启用并行I/O，并为每个容器指定物理磁盘数。</p>
+<p>DB2_PARALLEL_IO注册变量用来确定每个容器的底层物理硬盘数以及对表空间上并行I/O的影响。当为表空间设置多个容器或者设置DB2_PARALLEL_IO注册变量时，会为表空间启动并行预取。如未设置DB2_PARALLEL_IO，那表空间的并行度与容器数目相等。否则，表空间的并行度由表空间预取大小和EXTENT大小决定，建议将预取大小设置为AUTOMATIC，由DB2自动计算预取大小，让DB2选择最合适的并行度。</p>
+<p>DB2_PARALLEL_IO = TablespaceID:[n]，如果没有指定n，那么使用默认值6（就是假设容器跨越6个RAID底层物理磁盘）。</p>
+<p>DB2_PARALLEL_IO =* （*表示所有表空间均启用并行I/O，没有指定n，所以所有表空间使用容器磁盘数目等于6的默认值。将预取请求分解成“6x容器数目”个并行请求，每个请求的读取大小为extent大小。</p>
+<p>DB2_PARALLEL_IO =*:3 (*表示所有表空间均启用并行I/O，3表示所有表空间使用容器磁盘数目等于3。将预取请求分解成“3x容器数目”个并行请求，每个请求的读取大小为extent大小。)</p>
+<p>DB2_PARALLEL_IO =*:3 1:1 (*表示所有表空间均启用并行I/O，3表示所有表空间使用容器磁盘数目等于3。将预取请求分解成“3x容器数目”个并行请求，每个请求的读取大小为extent大小。对于ID为1的表空间，将预取请求分解成“1x容器数目”个并行请求，每个请求的读取大小为extent大小。)</p>
+<p>如果将表空间的预取大小设置为AUTOMATIC， 那么数据库管理器将使用为DB2_PARALLEL_IO 指定的物理磁盘数值来确定预取大小值。如果预取大小未设置为AUTOMATIC，可以手动设置，需考虑RAID条带大小，它是strip大小乘以活动磁盘数产生的值：</p>
+<p>l 等于RAID条带大小乘以RAID并行设备数（或此乘积的整数表示）</p>
+<p>l 是扩展数据块的大小的整数表示。</p>
+<p>不要设置DB2_USE_PAGE_CONTAINER_TAG注册变量，如果设置为ON，将使用单页容器标记，并且扩展数据块不会与RAID条带对其。 应使用等于RAID条带大小或其倍数的扩展数据块大小来创建表空间。</p>
+<h2 id="举例"><a href="#举例" class="headerlink" title="举例"></a>举例</h2><p>说了那么多建表空间的参数选择，下面我们举例子来实际操作，以下是创建表空间的完整语句：</p>
+<p><strong>创建单区的表空间</strong></p>
+<p>CREATE REGULAR TABLESPACE “TBS_BASS_WEB” IN DATABASE PARTITION GROUP IBMDEFAULTGROUP PAGESIZE 32768 MANAGED BY DATABASE</p>
+<p>​     USING (FILE ‘/db2home/db2inst1/db2inst1/NODE0000/tbs_bass_web’655360,</p>
+<p>​        FILE ‘/db2home/db2inst1/db2inst1/NODE0000/tbs_bass_web1’655360,</p>
+<p>​        FILE ‘/db2data/tbs/tbs_bass_web7’655360,</p>
+<p>​        FILE ‘/db2data/tbs/tbs_bass_web8’655360)</p>
+<p>​     EXTENTSIZE 32</p>
+<p>​     PREFETCHSIZE AUTOMATIC</p>
+<p>​     BUFFERPOOL BASS_WEB</p>
+<p>​     OVERHEAD 24.100000</p>
+<p>​     TRANSFERRATE 0.900000</p>
+<p>​     FILE SYSTEM CACHING </p>
+<p>​     DROPPED TABLE RECOVERY ON;</p>
+<p>​    </p>
+<p>​    </p>
+<p>​    </p>
+<p><strong>创建多分区的表空间（指定了多个分区 “DBPARTITIONNUMS”）</strong></p>
+<p>CREATE LARGE TABLESPACE “TBS_DWD” IN DATABASE PARTITION GROUP NDGRP11 PAGESIZE 32768 MANAGED BY DATABASE</p>
+<p>​     USING (DEVICE ‘/dev/md/vgmt01/rdsk/d503’ 655360,</p>
+<p>​         DEVICE ‘/dev/md/vgmt01/rdsk/d509’655360,</p>
+<p>​         DEVICE ‘/dev/md/vgmt01/rdsk/d510’6553600) ON DBPARTITIONNUMS (1)</p>
+<p>​     USING (DEVICE ‘/dev/md/vgmt02/rdsk/d503’ 655360,</p>
+<p>​         DEVICE ‘/dev/md/vgmt02/rdsk/d509’655360,</p>
+<p>​         DEVICE ‘/dev/md/vgmt02/rdsk/d510’6553600) ON DBPARTITIONNUMS (2)</p>
+<p>​     USING (DEVICE ‘/dev/md/vgmt03/rdsk/d503’ 655360,</p>
+<p>​         DEVICE ‘/dev/md/vgmt03/rdsk/d509’655360,</p>
+<p>​         DEVICE ‘/dev/md/vgmt03/rdsk/d510’6553600) ON DBPARTITIONNUMS (3)</p>
+<p>​     USING (DEVICE ‘/dev/md/vgmt04/rdsk/d503’ 655360,</p>
+<p>​         DEVICE ‘/dev/md/vgmt04/rdsk/d509’655360,</p>
+<p>​         DEVICE ‘/dev/md/vgmt04/rdsk/d510’6553600) ON DBPARTITIONNUMS (4)</p>
+<p>​     EXTENTSIZE 16</p>
+<p>​     PREFETCHSIZE 32</p>
+<p>​     BUFFERPOOL POOL_32K</p>
+<p>​     OVERHEAD 7.500000</p>
+<p>​     TRANSFERRATE 0.060000</p>
+<p>​     FILE SYSTEM CACHING </p>
+<p>​     DROPPED TABLE RECOVERY ON;</p>
+<p>如果不通过详细的参数设置，也可以使用以下简单方式，其他参数则会默认设置</p>
+<p>db2 create tablespace test managed by DATABASE;</p>
+<p>db2 create tablespace test managed by SYSTEM;</p>
+<p>db2 create tablespace test managed by AUTOMATIC STORAGE;(自动存储，自动分配容器）</p>
+<p>注：在创建DMS表空间时，表空间文件容器由DB2自动来创建，但裸设备容器无法自动创建，需要root用户参与。</p>
+<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>SMS和DMS表空间相比，SMS表空间特别适合一般用途。</p>
+<p>SMS表空间能够提供一定的性能，且管理成本很低。</p>
+<p>如果需要达到最佳的性能，则应该选用DMS表空间。</p>
+<p>因为使用文件容器或者SMS表空间移动数据时会发生双重缓冲（在数据库管理程序级首先缓冲一次数据，然后在文件系统再缓冲一次数据，这就是双重缓冲），所以使用设备容器可能提供更好的性能。</p>
+<p>至于如何取舍，还是要实事求是！</p>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2021/01/15/vim%E6%93%8D%E4%BD%9C/" rel="prev" title="">
+      <i class="fa fa-chevron-left"></i> 
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2021/01/15/%E5%85%B3%E4%BA%8EDB2%E6%97%A5%E5%BF%97%E6%B8%85%E7%90%86/" rel="next" title="">
+       <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%A1%A8%E7%A9%BA%E9%97%B4%E7%9A%84%E6%A6%82%E5%BF%B5"><span class="nav-number">1.</span> <span class="nav-text">表空间的概念</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%A1%A8%E7%A9%BA%E9%97%B4%E7%B1%BB%E5%9E%8B%E9%80%89%E6%8B%A9"><span class="nav-number">2.</span> <span class="nav-text">表空间类型选择</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BB%8E%E8%A1%A8%E4%B8%AD%E6%95%B0%E6%8D%AE%E9%87%8F%E8%80%83%E8%99%91%E8%A1%A8%E7%A9%BA%E9%97%B4%E9%80%89%E6%8B%A9"><span class="nav-number">2.1.</span> <span class="nav-text">从表中数据量考虑表空间选择</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BB%8E%E8%A1%A8%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B%E8%80%83%E8%99%91%E8%A1%A8%E7%A9%BA%E9%97%B4"><span class="nav-number">2.2.</span> <span class="nav-text">从表数据类型考虑表空间</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%80%89%E6%8B%A9%E5%90%88%E9%80%82%E7%9A%84%E6%95%B0%E6%8D%AE%E9%A1%B5%E5%A4%A7%E5%B0%8F"><span class="nav-number">3.</span> <span class="nav-text">选择合适的数据页大小</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%A0%B9%E6%8D%AE%E4%B8%9A%E5%8A%A1%E7%B1%BB%E5%9E%8B%E9%80%89%E6%8B%A9%E5%90%88%E9%80%82%E7%9A%84%E9%A1%B5%E5%A4%A7%E5%B0%8F%EF%BC%88OLTP%E3%80%81OLAP%E3%80%81%E6%89%B9%E5%A4%84%E7%90%86%E3%80%81%E6%8A%A5%E8%A1%A8%EF%BC%8C%E6%B7%B7%E5%90%88%E7%B1%BB%E5%9E%8B%EF%BC%89"><span class="nav-number">3.1.</span> <span class="nav-text">根据业务类型选择合适的页大小（OLTP、OLAP、批处理、报表，混合类型）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%A1%A8%E7%A9%BA%E9%97%B4%E9%A1%B5%E5%A4%A7%E5%B0%8F%E9%80%89%E6%8B%A9%E6%B3%A8%E6%84%8F%E4%BA%8B%E9%A1%B9"><span class="nav-number">3.2.</span> <span class="nav-text">表空间页大小选择注意事项</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%89%A9%E5%B1%95%E6%95%B0%E6%8D%AE%E5%9D%97%E5%9C%A8%E8%BF%9B%E8%A1%8C%E5%A4%A7%E5%B0%8F%E9%80%89%E6%8B%A9%E6%97%B6%E7%9A%84%E6%B3%A8%E6%84%8F%E4%BA%8B%E9%A1%B9"><span class="nav-number">3.3.</span> <span class="nav-text">扩展数据块在进行大小选择时的注意事项</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Prefetchsize%E5%A4%A7%E5%B0%8F%E9%80%89%E6%8B%A9"><span class="nav-number">3.4.</span> <span class="nav-text">Prefetchsize大小选择</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%96%87%E4%BB%B6%E7%B3%BB%E7%BB%9F%EF%BC%88CIO-DIO%EF%BC%89%E5%92%8C%E8%A3%B8%E8%AE%BE%E5%A4%87"><span class="nav-number">3.5.</span> <span class="nav-text">文件系统（CIO&#x2F;DIO）和裸设备</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%AE%BE%E7%BD%AEOVERHEAD%E5%92%8CTRANSFERRATE"><span class="nav-number">3.6.</span> <span class="nav-text">设置OVERHEAD和TRANSFERRATE</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BC%98%E5%8C%96RAID%E8%AE%BE%E5%A4%87%E4%B8%8A%E8%A1%A8%E7%A9%BA%E9%97%B4%E7%9A%84%E6%80%A7%E8%83%BD"><span class="nav-number">4.</span> <span class="nav-text">优化RAID设备上表空间的性能</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%B8%BE%E4%BE%8B"><span class="nav-number">5.</span> <span class="nav-text">举例</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%80%BB%E7%BB%93"><span class="nav-number">6.</span> <span class="nav-text">总结</span></a></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="severus"
+      src="/images/00-00-00.JPG">
+  <p class="site-author-name" itemprop="name">severus</p>
+  <div class="site-description" itemprop="description">正在享受无法回避的痛苦</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">66</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-tags">
+        <span class="site-state-item-count">1</span>
+        <span class="site-state-item-name">标签</span>
+      </div>
+  </nav>
+</div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 1876 – 
+  <span itemprop="copyrightYear">2021</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">severus</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://muse.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Muse</a> 强力驱动
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/muse.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+</body>
+</html>

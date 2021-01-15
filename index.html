@@ -162,7 +162,7 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://example.com/2021/01/15/hello-world/">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2021/01/15/%E6%95%B0%E6%8D%AE%E5%BA%93%E6%89%80%E6%9C%89%E8%A1%A8%E7%BB%93%E6%9E%84%E5%8F%8A%E5%AD%98%E5%82%A8%E8%BF%87%E7%A8%8B%E5%AF%BC%E5%87%BA/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/00-00-00.JPG">
@@ -176,7 +176,7 @@
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
           
-            <a href="/2021/01/15/hello-world/" class="post-title-link" itemprop="url">Hello World</a>
+            <a href="/2021/01/15/%E6%95%B0%E6%8D%AE%E5%BA%93%E6%89%80%E6%9C%89%E8%A1%A8%E7%BB%93%E6%9E%84%E5%8F%8A%E5%AD%98%E5%82%A8%E8%BF%87%E7%A8%8B%E5%AF%BC%E5%87%BA/" class="post-title-link" itemprop="url">未命名</a>
         </h2>
 
         <div class="post-meta">
@@ -186,7 +186,7 @@
               </span>
               <span class="post-meta-item-text">发表于</span>
 
-              <time title="创建时间：2021-01-15 09:38:44" itemprop="dateCreated datePublished" datetime="2021-01-15T09:38:44+08:00">2021-01-15</time>
+              <time title="创建时间：2021-01-15 14:28:30" itemprop="dateCreated datePublished" datetime="2021-01-15T14:28:30+08:00">2021-01-15</time>
             </span>
 
           
@@ -200,16 +200,757 @@
     <div class="post-body" itemprop="articleBody">
 
       
-          <p>Welcome to <a target="_blank" rel="noopener" href="https://hexo.io/">Hexo</a>! This is your very first post. Check <a target="_blank" rel="noopener" href="https://hexo.io/docs/">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a target="_blank" rel="noopener" href="https://hexo.io/docs/troubleshooting.html">troubleshooting</a> or you can ask me on <a target="_blank" rel="noopener" href="https://github.com/hexojs/hexo/issues">GitHub</a>.</p>
-<h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo new <span class="string">&quot;My New Post&quot;</span></span><br></pre></td></tr></table></figure>
-<p>More info: <a target="_blank" rel="noopener" href="https://hexo.io/docs/writing.html">Writing</a></p>
-<h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo server</span><br></pre></td></tr></table></figure>
-<p>More info: <a target="_blank" rel="noopener" href="https://hexo.io/docs/server.html">Server</a></p>
-<h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo generate</span><br></pre></td></tr></table></figure>
-<p>More info: <a target="_blank" rel="noopener" href="https://hexo.io/docs/generating.html">Generating</a></p>
-<h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo deploy</span><br></pre></td></tr></table></figure>
-<p>More info: <a target="_blank" rel="noopener" href="https://hexo.io/docs/one-command-deployment.html">Deployment</a></p>
+          <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">## 连接数据库为前提</span></span><br><span class="line"></span><br><span class="line">db2 connect to [数据库名]</span><br><span class="line"></span><br><span class="line"><span class="comment">## 导出数据库所有表结构及存储过程</span></span><br><span class="line"></span><br><span class="line">db2look -d [数据库名] -a -e -x -o [文件名].sql</span><br><span class="line"><span class="comment">## 如：db2look -d HZYZDB -a -e -x -o hzyzdb_DDL.sql</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 导出的数据库表结构可以方便从中筛选建表SQL以及建主键、建索引SQL</span></span><br></pre></td></tr></table></figure>
 
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2021/01/15/%E9%98%BF%E9%87%8C%E4%BA%91%E4%BA%91%E7%9B%98%E6%89%A9%E5%AE%B9/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/00-00-00.JPG">
+      <meta itemprop="name" content="severus">
+      <meta itemprop="description" content="正在享受无法回避的痛苦">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Sary.severus`s blog">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2021/01/15/%E9%98%BF%E9%87%8C%E4%BA%91%E4%BA%91%E7%9B%98%E6%89%A9%E5%AE%B9/" class="post-title-link" itemprop="url">未命名</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2021-01-15 14:28:30" itemprop="dateCreated datePublished" datetime="2021-01-15T14:28:30+08:00">2021-01-15</time>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <p>一.根据操作系统安装growpart或者xfsprogs扩容格式化工具。<br>CentOS 7、Aliyun Linux：<br>yum install cloud-utils-growpart<br>yum install xfsprogs</p>
+<p>Ubuntu 14、Ubuntu 16、Ubuntu 18、Debian 9：<br>apt install cloud-guest-utils<br>apt install xfsprogs</p>
+<p>Debian 8、OpenSUSE 42.3、OpenSUSE 13.1、SUSE Linux Enterprise Server 12 SP2：请使用上游版本（upstream）的growpart或者xfsprogs工具<br>说明： 当出现因扩容格式化工具问题导致的扩容失败时，您可以卸载工具后重新安装。</p>
+<p>二.CentOS 7操作系统为例演示分区扩展的步骤。</p>
+<p>1.运行fdisk -l命令查看现有云盘大小。<br>fdisk -l</p>
+<p>2.运行df -h 命令查看云盘分区大小，是否有其他磁盘挂载<br>df -h</p>
+<p>3.运行growpart 命令调用growpart为需要扩容的云盘和对应的第几个分区扩容。<br>示例命令表示为系统盘的第一个分区扩容。<br>growpart /dev/vda 1</p>
+<p>&amp;&amp;若运行命令后报以下错误，您可以运行LANG=en_US.UTF-8切换ECS实例的字符编码类型。<br>[root@ecshost ~]# growpart /dev/vda 1<br>unexpected output in sfdisk –version [sfdisk，来自 util-linux 2.23.2]<br>[root@ecshost ~]# LANG=en_US.UTF-8</p>
+<p>4.根据文件系统类别调用命令扩容文件系统<br>resize2fs /dev/vda1<br>xfs_grows /dev/vda1</p>
+<p>5.运行df -h命令查看云盘分区大小<br>df -h</p>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2021/01/15/%E5%88%86%E5%8C%BA%E8%A1%A8%E5%A2%9E%E5%8A%A0%E5%88%86%E5%8C%BA/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/00-00-00.JPG">
+      <meta itemprop="name" content="severus">
+      <meta itemprop="description" content="正在享受无法回避的痛苦">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Sary.severus`s blog">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2021/01/15/%E5%88%86%E5%8C%BA%E8%A1%A8%E5%A2%9E%E5%8A%A0%E5%88%86%E5%8C%BA/" class="post-title-link" itemprop="url">未命名</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2021-01-15 14:28:30" itemprop="dateCreated datePublished" datetime="2021-01-15T14:28:30+08:00">2021-01-15</time>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <p>最近，需要在DB2的分区表中增加新的分区，用于存储数据，因此，就研究了DB2表的分区机制。现在总结，实现的方式共有三种，分别是：</p>
+<p>  1）、创建临时表，将原表数据导入临时表，之后将原表重建，扩大分区；</p>
+<p>  2）、通过ALTER TABLE TAB_NAME ADD PARTITION，为表增加分区；</p>
+<p>  3）、创建临时分区表，向临时分区表中导入数据，之后将临时分区表设置为主表的一个分区。</p>
+<p>  下面将分别说明三种方式的具体实现：</p>
+<p>  前提：原分区表PART_MAIN，建表SQL为：</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">CREATE</span> <span class="keyword">TABLE</span> PART_MAIN(</span><br><span class="line">P_ID <span class="type">VARCHAR</span>(<span class="number">10</span>),</span><br><span class="line">P_DATE <span class="type">DATE</span></span><br><span class="line">)</span><br><span class="line"><span class="keyword">PARTITION</span> <span class="keyword">BY</span> <span class="keyword">RANGE</span>(P_DATE) (</span><br><span class="line"><span class="keyword">PARTITION</span> OTHERS STARTING MINVALUE ENDING <span class="string">&#x27;2012-03-31&#x27;</span>,</span><br><span class="line"><span class="keyword">PARTITION</span> P201204 STARTING <span class="string">&#x27;2012-04-01&#x27;</span> ENDING <span class="string">&#x27;2012-04-30&#x27;</span>,</span><br><span class="line"><span class="keyword">PARTITION</span> P201205 STARTING <span class="string">&#x27;2012-05-01&#x27;</span> ENDING <span class="string">&#x27;2012-05-31&#x27;</span>,</span><br><span class="line"><span class="keyword">PARTITION</span> P201206 STARTING <span class="string">&#x27;2012-06-01&#x27;</span> ENDING <span class="string">&#x27;2012-06-30&#x27;</span></span><br><span class="line">)</span><br><span class="line">;</span><br></pre></td></tr></table></figure>
+<p> 需要为PART_MAIN表，增加2012-12-01–2012-12-31的数据分区。</p>
+<p>  方法一：</p>
+<p>a、创建临时表</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">CREATE</span> <span class="keyword">TABLE</span> TMP_PART_MAIN <span class="keyword">LIKE</span> PART_MAIN;</span><br></pre></td></tr></table></figure>
+<p>b、将数据导入临时表中</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">INSERT</span> <span class="keyword">INTO</span> TMP_PART_MAIN <span class="keyword">SELECT</span> <span class="operator">*</span> </span><br><span class="line"><span class="keyword">FROM</span> PART_MAIN;</span><br></pre></td></tr></table></figure>
+<p>c、重建原表</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">DROP</span> <span class="keyword">TABLE</span> PART_MAIN;</span><br><span class="line"><span class="keyword">CREATE</span> <span class="keyword">TABLE</span> PART_MAIN(</span><br><span class="line">P_ID <span class="type">VARCHAR</span>(<span class="number">10</span>),</span><br><span class="line">P_DATE <span class="type">DATE</span></span><br><span class="line">)</span><br><span class="line"><span class="keyword">PARTITION</span> <span class="keyword">BY</span> <span class="keyword">RANGE</span>(P_DATE) (</span><br><span class="line"><span class="keyword">PARTITION</span> OTHERS STARTING MINVALUE ENDING <span class="string">&#x27;2012-03-31&#x27;</span>,</span><br><span class="line"><span class="keyword">PARTITION</span> P201204 STARTING <span class="string">&#x27;2012-04-01&#x27;</span> ENDING <span class="string">&#x27;2012-04-30&#x27;</span>,</span><br><span class="line"><span class="keyword">PARTITION</span> P201205 STARTING <span class="string">&#x27;2012-05-01&#x27;</span> ENDING <span class="string">&#x27;2012-05-31&#x27;</span>,</span><br><span class="line"><span class="keyword">PARTITION</span> P201206 STARTING <span class="string">&#x27;2012-06-01&#x27;</span> ENDING <span class="string">&#x27;2012-06-30&#x27;</span>,</span><br><span class="line"><span class="keyword">PARTITION</span> P201212 STARTING <span class="string">&#x27;2012-12-01&#x27;</span> ENDING <span class="string">&#x27;2012-12-31&#x27;</span></span><br><span class="line">)</span><br><span class="line">;</span><br></pre></td></tr></table></figure>
+<p>d、将数据从临时表导入原表中</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">INSERT</span> <span class="keyword">INTO</span> PART_MAIN <span class="keyword">SELECT</span> <span class="operator">*</span> <span class="keyword">FROM</span> TMP_PART_MAIN;</span><br></pre></td></tr></table></figure>
+<p>注：该方法是最简单的一种实现方式，不需要掌握DB2分区知识，就可以实现，对于老鸟来说，这种方式是不屑使用的。下面的方法将是技术提升阶段。</p>
+<p>  方法二：</p>
+<p>a、为表增加分区</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">ALTER</span> <span class="keyword">TABLE</span> PART_MAIN <span class="keyword">ADD</span> <span class="keyword">PARTITION</span> P201212 STARTING <span class="string">&#x27;2012-12-01&#x27;</span> ENDING <span class="string">&#x27;2012-12-31&#x27;</span></span><br><span class="line">;</span><br></pre></td></tr></table></figure>
+<p>b、增加分区OK，插入数据即可</p>
+<p>注：该方法是最直接的，只要记住ALTER TABLE TAB_NAME ADD PARTITION命令就OK。</p>
+<p>  方法三：</p>
+<p>a、创建临时分区表</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">CREATE</span> <span class="keyword">TABLE</span> PART_OTHER (</span><br><span class="line">P_ID <span class="type">VARCHAR</span>(<span class="number">10</span>),</span><br><span class="line">P_DATE <span class="type">DATE</span></span><br><span class="line">)</span><br><span class="line"><span class="keyword">PARTITION</span> <span class="keyword">BY</span> <span class="keyword">RANGE</span>(P_DATE) (</span><br><span class="line"><span class="keyword">PARTITION</span> P201212 STARTING <span class="string">&#x27;2012-12-01&#x27;</span> ENDING <span class="string">&#x27;2012-12-31&#x27;</span></span><br><span class="line">)</span><br><span class="line">;</span><br></pre></td></tr></table></figure>
+<p>b、往临时表中增加数据（此步可以省略，在最后一步执行）</p>
+<p>c、将临时分区表设为原表的一个分区</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">ALTER</span> <span class="keyword">TABLE</span> PART_MAIN ATTACH </span><br><span class="line"><span class="keyword">PARTITION</span> P201212 STARTING <span class="string">&#x27;2012-12-01&#x27;</span> ENDING <span class="string">&#x27;2012-12-31&#x27;</span></span><br><span class="line"><span class="keyword">FROM</span> PART_OTHER</span><br><span class="line">;</span><br></pre></td></tr></table></figure>
+<p>注：此命令执行后，临时分区表PAR T_OTHER，将不以表的方式存在，而是作为PART_MAIN表的一个分区。</p>
+<p>d、为原表新增加的分区，设置访问权限</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SET</span> INTEGRITY <span class="keyword">FOR</span> PART_MAIN</span><br><span class="line">ALLOW WRITE ACCESS</span><br><span class="line">IMMEDIATE CHECKED </span><br><span class="line">;</span><br></pre></td></tr></table></figure>
+<p>OK，分区增加完成，可以往新分区中增加数据了。</p>
+<p>注：该方法实现起来过于繁琐，建议了解就好。</p>
+<p>如果想继续了解DB2的分区功能，可参考另一篇文章：<a target="_blank" rel="noopener" href="http://blog.csdn.net/huaxin520/article/details/7853232%E3%80%82">http://blog.csdn.net/huaxin520/article/details/7853232。</a></p>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2021/01/15/%E7%A6%BB%E7%BA%BF%E5%AE%89%E8%A3%85gcc%E5%92%8Credis/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/00-00-00.JPG">
+      <meta itemprop="name" content="severus">
+      <meta itemprop="description" content="正在享受无法回避的痛苦">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Sary.severus`s blog">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2021/01/15/%E7%A6%BB%E7%BA%BF%E5%AE%89%E8%A3%85gcc%E5%92%8Credis/" class="post-title-link" itemprop="url">未命名</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2021-01-15 14:28:30" itemprop="dateCreated datePublished" datetime="2021-01-15T14:28:30+08:00">2021-01-15</time>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h1 id="反洗钱上线流程"><a href="#反洗钱上线流程" class="headerlink" title="反洗钱上线流程"></a>反洗钱上线流程</h1><hr>
+<ol>
+<li>部署DB2数据库</li>
+<li>部署Redis</li>
+<li>部署Jdk</li>
+<li>部署反洗钱程序</li>
+</ol>
+<hr>
+<h2 id="一、部署DB2数据库"><a href="#一、部署DB2数据库" class="headerlink" title="一、部署DB2数据库"></a>一、部署DB2数据库</h2><h3 id="1-部署DB2数据库程序并启动数据库"><a href="#1-部署DB2数据库程序并启动数据库" class="headerlink" title="1. 部署DB2数据库程序并启动数据库"></a>1. 部署DB2数据库程序并启动数据库</h3><h3 id="2-部署必要表结构"><a href="#2-部署必要表结构" class="headerlink" title="2. 部署必要表结构"></a>2. 部署必要表结构</h3><h3 id="3-部署必要数据"><a href="#3-部署必要数据" class="headerlink" title="3. 部署必要数据"></a>3. 部署必要数据</h3><hr>
+<h2 id="二、部署Redis"><a href="#二、部署Redis" class="headerlink" title="二、部署Redis"></a>二、部署Redis</h2><h4 id="离线安装gcc"><a href="#离线安装gcc" class="headerlink" title="- 离线安装gcc -"></a>- 离线安装gcc -</h4><ol>
+<li><p>上传gcc离线安装包到 /root/</p>
+ <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">mpfr-3.1.1-4.el7.x86_64.rpm</span><br><span class="line">libmpc-1.0.1-3.el7.x86_64.rpm</span><br><span class="line">kernel-headers-3.10.0-862.el7.x86_64.rpm</span><br><span class="line">glibc-headers-2.17-222.el7.x86_64.rpm</span><br><span class="line">glibc-devel-2.17-222.el7.x86_64.rpm</span><br><span class="line">cpp-4.8.5-28.el7.x86_64.rpm</span><br><span class="line">gcc-4.8.5-28.el7.x86_64.rpm</span><br></pre></td></tr></table></figure></li>
+<li><p>安装gcc</p>
+ <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">cd</span> /root/</span><br><span class="line">rpm -ivh *.rpm</span><br></pre></td></tr></table></figure></li>
+<li><p>验证</p>
+ <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">gcc -v</span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+<hr>
+<h4 id="离线安装Redis"><a href="#离线安装Redis" class="headerlink" title="- 离线安装Redis -"></a>- 离线安装Redis -</h4><ol>
+<li><p>上传Redis安装包到 /root/</p>
+</li>
+<li><p>解压</p>
+ <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">tar xvf redis-5.0.10.tar.gz</span><br></pre></td></tr></table></figure></li>
+<li><p>编译</p>
+ <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">cd</span> redis-5.0.10/</span><br><span class="line">make &amp;&amp; make install</span><br></pre></td></tr></table></figure></li>
+<li><p>配置</p>
+ <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 拷贝redis控制文件</span></span><br><span class="line"><span class="built_in">cd</span> /root/redis-5.0.10/utils</span><br><span class="line">cp redis_init_script /etc/init.d</span><br><span class="line"></span><br><span class="line"><span class="comment"># 拷贝配置文件</span></span><br><span class="line">mkdir /usr/<span class="built_in">local</span>/redis</span><br><span class="line">cp /root/redis-5.0.10/redis.conf /usr/<span class="built_in">local</span>/redis/</span><br><span class="line"></span><br><span class="line"><span class="comment"># 配置文件必要修改项</span></span><br><span class="line">vim /usr/<span class="built_in">local</span>/redis/redis.conf</span><br><span class="line"><span class="comment"># redis支持后台运行</span></span><br><span class="line">daemonize yes</span><br><span class="line"><span class="comment"># 修改redis工作目录，需要确保目录存在</span></span><br><span class="line">dir /usr/<span class="built_in">local</span>/redis/working</span><br><span class="line"><span class="comment"># 不限制登录地址</span></span><br><span class="line"><span class="built_in">bind</span> 0.0.0.0</span><br><span class="line"><span class="comment"># 设置密码</span></span><br><span class="line">requirepass 123456</span><br><span class="line"></span><br><span class="line"><span class="comment"># 修改/etc/init.d/redis_init_script</span></span><br><span class="line"><span class="comment"># 修改CONF=&quot;&quot;为实际路径</span></span><br><span class="line">CONF=<span class="string">&quot;/usr/local/redis/<span class="variable">$&#123;REDISPORT&#125;</span>.conf&quot;</span></span><br><span class="line"><span class="comment"># 配置文件改名</span></span><br><span class="line">mv /usr/<span class="built_in">local</span>/redis/redis.conf /usr/<span class="built_in">local</span>/redis/6379.conf</span><br><span class="line"></span><br><span class="line"><span class="comment"># 赋予执行权限</span></span><br><span class="line">chmod +x /etc/init.d/redis_init_script</span><br></pre></td></tr></table></figure></li>
+<li><p>启动</p>
+ <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 启动</span></span><br><span class="line">/etc/init.d/redis_init_script start</span><br><span class="line"></span><br><span class="line"><span class="comment"># 验证</span></span><br><span class="line">ps -ef | grep redis</span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+<hr>
+<h2 id="三、部署Jdk"><a href="#三、部署Jdk" class="headerlink" title="三、部署Jdk"></a>三、部署Jdk</h2><hr>
+<h2 id="四、部署反洗钱程序"><a href="#四、部署反洗钱程序" class="headerlink" title="四、部署反洗钱程序"></a>四、部署反洗钱程序</h2><hr>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2021/01/15/%E7%BC%96%E8%AF%91%E5%AE%89%E8%A3%85PHP7.2.3/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/00-00-00.JPG">
+      <meta itemprop="name" content="severus">
+      <meta itemprop="description" content="正在享受无法回避的痛苦">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Sary.severus`s blog">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2021/01/15/%E7%BC%96%E8%AF%91%E5%AE%89%E8%A3%85PHP7.2.3/" class="post-title-link" itemprop="url">未命名</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2021-01-15 14:28:30" itemprop="dateCreated datePublished" datetime="2021-01-15T14:28:30+08:00">2021-01-15</time>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <pre><code>2019.12.11</code></pre>
+<hr>
+<blockquote>
+<p>PAJERO</p>
+</blockquote>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br></pre></td><td class="code"><pre><span class="line">[root:o packages] <span class="comment">#tar zxvf php-7.2.3.tar.gz -C /usr/local/php/</span></span><br><span class="line">[root:o packages] <span class="comment">#yum install libxml2-devel gcc -y \</span></span><br><span class="line">&gt; openssl openssl-devel \</span><br><span class="line">&gt; libxslt-devel postgresql-devel \</span><br><span class="line">&gt; freetype-devel libXpm libXpm-devel \</span><br><span class="line">&gt; libpng libpng-devel \</span><br><span class="line">&gt; libjpeg libjpeg-devel \</span><br><span class="line">&gt; bzip2-devel.x86_64</span><br><span class="line">[root:o packages] <span class="comment">#cd /usr/local/php/php-7.2.3/</span></span><br><span class="line">[root:o php-7.2.3] <span class="comment">#./configure --prefix=/usr/local/php \</span></span><br><span class="line">&gt; --with-config-file-path=/usr/<span class="built_in">local</span>/php/etc \</span><br><span class="line">&gt; --with-pdo-pgsql --with-zlib-dir \</span><br><span class="line">&gt; --with-freetype-dir --enable-mbstring \</span><br><span class="line">&gt; --with-libxml-dir=/usr --enable-soap \</span><br><span class="line">&gt; --enable-calendar \</span><br><span class="line">&gt; --with-mcrypt --with-gd --with-pgsql \</span><br><span class="line">&gt; --disable-rpath --enable-inline-optimization \</span><br><span class="line">&gt; --with-bz2 --with-zlib --enable-sockets \</span><br><span class="line">&gt; --enable-sysvsem --enable-sysvshm \</span><br><span class="line">&gt; --enable-pcntl --enable-mbregex \</span><br><span class="line">&gt; --enable-exif --enable-bcmath \</span><br><span class="line">&gt; --with-mhash --enable-zip \</span><br><span class="line">&gt; --with-pcre-regex --with-pdo-mysql \</span><br><span class="line">&gt; --with-mysqli --with-jpeg-dir=/usr \</span><br><span class="line">&gt; --with-png-dir=/usr --enable-gd-native-ttf \</span><br><span class="line">&gt; --with-openssl --with-fpm-user=www-data \</span><br><span class="line">&gt; --with-fpm-group=www-data \</span><br><span class="line">&gt; --with-libdir=/lib/x86_64-linux-gnu/ \</span><br><span class="line">&gt; --enable-ftp --with-gettext \</span><br><span class="line">&gt; --with-xmlrpc --with-xsl \</span><br><span class="line">&gt; --enable-opcache --enable-fpm \</span><br><span class="line">&gt; --with-iconv --with-xpm-dir=/usr</span><br><span class="line">[root:o php-7.2.3] <span class="comment">#make &amp;&amp; make install</span></span><br><span class="line">[root:o php] <span class="comment">#vim /etc/profile</span></span><br><span class="line"><span class="comment">#PHP-7.2.3</span></span><br><span class="line"><span class="built_in">export</span> PATH=<span class="variable">$PATH</span>:/usr/<span class="built_in">local</span>/php/bin:/usr/<span class="built_in">local</span>/php/sbin</span><br><span class="line">[root:o php] <span class="comment">#source /etc/profile</span></span><br><span class="line">[root:o php] <span class="comment">#php -v</span></span><br><span class="line">PHP 7.2.3 (cli) (built: Dec 11 2019 17:59:13) ( NTS )</span><br><span class="line">Copyright (c) 1997-2018 The PHP Group</span><br><span class="line">Zend Engine v3.2.0, Copyright (c) 1998-2018 Zend Technologies</span><br><span class="line">[root:o php] <span class="comment">#yum install php-mysql php-fpm -y</span></span><br><span class="line">[root:o ~] <span class="comment">#cp /etc/php-fpm.conf /usr/local/php/etc/php-fpm.conf</span></span><br><span class="line">[root:o ~] <span class="comment">#cp /etc/php-fpm.d/www.conf  /usr/local/php/etc/php-fpm.d/www.conf</span></span><br><span class="line">[root:o ~] <span class="comment">#mkdir /usr/local/php/etc/init.d</span></span><br><span class="line">[root:o ~] <span class="comment">#cp /usr/local/php/php-7.2.3/sapi/fpm/init.d.php-fpm.in /usr/local/php/etc/init.d/php-fpm</span></span><br><span class="line">[root:o ~] <span class="comment">#service php-fpm start</span></span><br><span class="line">Redirecting to /bin/systemctl start  php-fpm.service</span><br><span class="line">[root:o ~] <span class="comment">#ps  aux|grep php-fpm</span></span><br><span class="line">root     23154  0.1  0.5 327832 10184 ?        Ss   18:12   0:00 php-fpm: master process (/etc/php-fpm.conf)</span><br><span class="line">apache   23156  0.0  0.2 327832  4580 ?        S    18:12   0:00 php-fpm: pool www</span><br><span class="line">apache   23157  0.0  0.2 327832  4580 ?        S    18:12   0:00 php-fpm: pool www</span><br><span class="line">apache   23158  0.0  0.2 327832  4580 ?        S    18:12   0:00 php-fpm: pool www</span><br><span class="line">apache   23159  0.0  0.2 327832  4580 ?        S    18:12   0:00 php-fpm: pool www</span><br><span class="line">apache   23160  0.0  0.2 327832  4580 ?        S    18:12   0:00 php-fpm: pool www</span><br><span class="line">root     23162  0.0  0.0 112648   964 pts/0    R+   18:12   0:00 grep --color=auto php-fpm</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br></pre></td><td class="code"><pre><span class="line">编译安装PHP</span><br><span class="line">安装依赖</span><br><span class="line">yum -y install epel-release</span><br><span class="line"></span><br><span class="line">yum -y install  gcc gcc-c++ make pcre pcre-devel\</span><br><span class="line">zlib zlib-devel openssl openssl-devel libxml2\</span><br><span class="line">libxml2-devel libcurl libcurl-devel libjpeg \</span><br><span class="line">libjpeg-devel libpng libpng-devel freetype \</span><br><span class="line">freetype-devel openldap openldap-devel libmcrypt\</span><br><span class="line">libmcrypt-devel</span><br><span class="line"></span><br><span class="line">下载php5.6.40源码</span><br><span class="line">pwd &#x2F;data</span><br><span class="line">wget &#39;http:&#x2F;&#x2F;hk1.php.net&#x2F;distributions&#x2F;php-5.6.40.tar.gz&#39;</span><br><span class="line">tar -zxf php-5.6.40.tar.gz</span><br><span class="line">cd php-5.6.40</span><br><span class="line"></span><br><span class="line">编译安装 </span><br><span class="line">.&#x2F;configure --prefix&#x3D;&#x2F;usr&#x2F;local&#x2F;php \</span><br><span class="line">--with-config-file-path&#x3D;&#x2F;usr&#x2F;local&#x2F;php&#x2F;etc \</span><br><span class="line">--enable-ctype --with-mysql&#x3D;mysqlnd \</span><br><span class="line">--with-mysqli&#x3D;mysqlnd --with-freetype-dir \</span><br><span class="line">--with-jpeg-dir --with-png-dir --with-zlib \</span><br><span class="line">--with-libxml-dir&#x3D;&#x2F;usr --enable-xml \</span><br><span class="line">--disable-rpath --enable-bcmath \</span><br><span class="line">--enable-shmop --enable-sysvsem \</span><br><span class="line">--enable-inline-optimization --with-curl \</span><br><span class="line">--enable-mbregex --enable-mbstring \</span><br><span class="line">--with-mcrypt --with-gd --enable-gd-native-ttf \</span><br><span class="line">--with-openssl --with-mhash --enable-pcntl \</span><br><span class="line">--enable-sockets --with-ldap-sasl --with-xmlrpc \</span><br><span class="line">--enable-zip --enable-soap --with-gettext \</span><br><span class="line">--enable-fpm</span><br><span class="line"></span><br><span class="line">make &amp;&amp; make install</span><br><span class="line"></span><br><span class="line">复制配置文件</span><br><span class="line">cp &#x2F;data&#x2F;php-5.6.40&#x2F;php.ini-production &#x2F;usr&#x2F;local&#x2F;php&#x2F;etc&#x2F;php.ini</span><br><span class="line"></span><br><span class="line">php编译安装说明</span><br><span class="line">--prefix指定php的安装目录</span><br><span class="line">--with-config-file-path指定php的配置文件位置</span><br><span class="line">--with-mysql、--with-mysqli让php可以操作mysql</span><br><span class="line">--enable-fpm主要是nginx要来调用php语言得使用php-fpm</span><br><span class="line"></span><br><span class="line">环境变量</span><br><span class="line">vim &#x2F;etc&#x2F;profile</span><br><span class="line">export PATH&#x3D;$PATH:&#x2F;usr&#x2F;local&#x2F;php&#x2F;sbin&#x2F;:&#x2F;usr&#x2F;local&#x2F;php&#x2F;bin&#x2F;</span><br><span class="line">source &#x2F;etc&#x2F;profile</span><br><span class="line"></span><br><span class="line">修改php-fpm配置</span><br><span class="line">cp &#x2F;usr&#x2F;local&#x2F;php&#x2F;etc&#x2F;php-fpm.conf.default &#x2F;usr&#x2F;local&#x2F;php&#x2F;etc&#x2F;php-fpm.conf</span><br><span class="line">检验是否成功</span><br><span class="line">php-fpm -t</span><br><span class="line">	&quot;[20-Nov-2019 11:49:37] NOTICE: configuration file &#x2F;usr&#x2F;local&#x2F;php&#x2F;etc&#x2F;php-fpm.conf test is successful&quot;</span><br><span class="line"></span><br><span class="line">查看php-fpm监听端口</span><br><span class="line">cat &#x2F;usr&#x2F;local&#x2F;php&#x2F;etc&#x2F;php-fpm.conf | grep 9000</span><br><span class="line"></span><br><span class="line">设置启动脚本</span><br><span class="line">vim &#x2F;usr&#x2F;lib&#x2F;systemd&#x2F;system&#x2F;php-fpm.service</span><br><span class="line"></span><br><span class="line">[Unit]</span><br><span class="line">Description&#x3D;php-fpm</span><br><span class="line">After&#x3D;network.target</span><br><span class="line">[Service]</span><br><span class="line">Type&#x3D;forking</span><br><span class="line">ExecStart&#x3D;&#x2F;usr&#x2F;local&#x2F;php&#x2F;sbin&#x2F;php-fpm</span><br><span class="line">[Install]</span><br><span class="line">WantedBy&#x3D;multi-user.target</span><br><span class="line"></span><br><span class="line">chmod +x &#x2F;usr&#x2F;lib&#x2F;systemd&#x2F;system&#x2F;php-fpm.service</span><br><span class="line"></span><br><span class="line">systemctl daemon-reload</span><br><span class="line">systemctl start php-fpm.service</span><br><span class="line">systemctl enable php-fpm.service</span><br><span class="line"></span><br><span class="line">检查是否启动</span><br><span class="line">ps -ef |grep php</span><br><span class="line"></span><br><span class="line">创建phpinfo文件并与nginx对接更改nginx.conf</span><br><span class="line">[18:50:42 root@aliyun24 html]#cat info.php</span><br><span class="line">&lt;?php</span><br><span class="line">  phpinfo();</span><br><span class="line">?&gt;</span><br><span class="line"></span><br><span class="line">[18:51:25 root@aliyun24 html]#cat &#x2F;usr&#x2F;local&#x2F;nginx&#x2F;conf&#x2F;nginx.conf</span><br><span class="line">worker_processes  1;</span><br><span class="line">events &#123;</span><br><span class="line">    worker_connections  1024;</span><br><span class="line">&#125;</span><br><span class="line">http &#123;</span><br><span class="line">    include       mime.types;</span><br><span class="line">    default_type  application&#x2F;octet-stream;</span><br><span class="line">    sendfile        on;</span><br><span class="line">    keepalive_timeout  65;</span><br><span class="line">    server &#123;</span><br><span class="line">        listen       80;</span><br><span class="line">        server_name  localhost;</span><br><span class="line">        location &#x2F; &#123;</span><br><span class="line">            root   html;</span><br><span class="line">            index  index.html index.htm;</span><br><span class="line">        &#125;</span><br><span class="line">--&gt;		location ~ \.php$ &#123;</span><br><span class="line">--&gt;		  root  html;</span><br><span class="line">--&gt;		  fastcgi_pass      127.0.0.1:9000;</span><br><span class="line">--&gt;		  fastcgi_index     index.php;</span><br><span class="line">--&gt;		  fastcgi_param     SCRIPT_FILENAME  $document_root$fastcgi_script_name;</span><br><span class="line">--&gt;		  include	    fastcgi_params;</span><br><span class="line">--&gt;&#125;	</span><br><span class="line">        error_page   500 502 503 504  &#x2F;50x.html;</span><br><span class="line">        location &#x3D; &#x2F;50x.html &#123;</span><br><span class="line">            root   html;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">重新加载nginx</span><br><span class="line">nginx -s reload</span><br></pre></td></tr></table></figure>
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2021/01/15/%E6%95%85%E9%9A%9C%E6%8A%A5%E9%94%99964%E5%A4%84%E7%90%86%E6%96%B9%E6%B3%95/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/00-00-00.JPG">
+      <meta itemprop="name" content="severus">
+      <meta itemprop="description" content="正在享受无法回避的痛苦">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Sary.severus`s blog">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2021/01/15/%E6%95%85%E9%9A%9C%E6%8A%A5%E9%94%99964%E5%A4%84%E7%90%86%E6%96%B9%E6%B3%95/" class="post-title-link" itemprop="url">未命名</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2021-01-15 14:28:30" itemprop="dateCreated datePublished" datetime="2021-01-15T14:28:30+08:00">2021-01-15</time>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h1 id="故障现象描述："><a href="#故障现象描述：" class="headerlink" title="故障现象描述："></a>故障现象描述：</h1><p>执行 SQL 语句时，出现类似如下错误消息。</p>
+<blockquote>
+<p>指令 SQL：insert into t_stat_file_temp<br>SQLSTATE：57011，供应商错误代码：-964<br>DB2 SQL 错误：SQLCODE：-964，SQLSTATE：57011，<br>SQLERRMC：空</p>
+</blockquote>
+<h1 id="故障原因说明："><a href="#故障原因说明：" class="headerlink" title="故障原因说明："></a>故障原因说明：</h1><p>数据库堆中<strong>没有足够的存储空间</strong>可用于处理该语句，此错误消息是<strong>事务日志中耗尽空间</strong>的结果。</p>
+<h1 id="故障处理方式："><a href="#故障处理方式：" class="headerlink" title="故障处理方式："></a>故障处理方式：</h1><h2 id="1-方式一：扩展事务日志存储空间"><a href="#1-方式一：扩展事务日志存储空间" class="headerlink" title="1 方式一：扩展事务日志存储空间"></a>1 方式一：扩展事务日志存储空间</h2><p>通过类似如下语句调整主日志文件数，以及辅助日志文件数。<br>例如：分配八个主日志文件，同时<strong>最多分配</strong> 100 个辅助日志文件。<strong>注意</strong>：辅助日志文件将根据需要进行分配，并在<strong>不需要时删除</strong>。</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">db2 update db cfg for $DBNAME using logprimary 8</span><br><span class="line">db2 update db cfg for $DBNAME using logsecond 100</span><br></pre></td></tr></table></figure>
+<h2 id="2-方式二：处理异常事务"><a href="#2-方式二：处理异常事务" class="headerlink" title="2 方式二：处理异常事务"></a>2 方式二：处理异常事务</h2><p>如果出现因事务异常导致事务日志存储空间不足的情况，则单纯扩展存储空间往往难以彻底解决问题，因此需要本方式提供了彻底排查的步骤。<br>注意：以下操作均在 <code>db2 connect to $DBNAME</code> 连接至数据库后执行。</p>
+<h3 id="2-1-定位异常的数据库节点"><a href="#2-1-定位异常的数据库节点" class="headerlink" title="2.1 定位异常的数据库节点"></a>2.1 定位异常的数据库节点</h3><p>通过如下语句，查看各节点的日志空间使用情况，定位事务日志空间使用率（LOG_UTILIZATION_PERCENT）过高的节点。</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">db2 &quot; select DB_NAME, LOG_UTILIZATION_PERCENT, TOTAL_LOG_USED_KB,TOTAL_LOG_AVAILABLE_KB,TOTAL_LOG_USED_TOP_KB, DBPARTITIONNUM </span><br><span class="line">from SYSIBMADM.LOG_UTILIZATION order by DBPARTITIONNUM &quot;</span><br></pre></td></tr></table></figure>
+<p>执行结果类似如下。<br><img src="https://img2018.cnblogs.com/blog/1031517/201905/1031517-20190502092515510-912231282.png" alt="img"></p>
+<h3 id="2-2-检查异常活动连接"><a href="#2-2-检查异常活动连接" class="headerlink" title="2.2 检查异常活动连接"></a>2.2 检查异常活动连接</h3><p>在事务日志空间使用率过高的节点上，执行如下命令，定位<strong>是否存在</strong>事务日志使用量（UOW_LOG_SPACE_USED）过高的<strong>活动连接</strong>。</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">db2 &quot;select APPLICATION_HANDLE,UOW_LOG_SPACE_USED,UOW_START_TIME </span><br><span class="line">from TABLE(MON_GET_UNIT_OF_WORK(NULL,-1)) </span><br><span class="line">order by UOW_LOG_SPACE_USED&quot;</span><br></pre></td></tr></table></figure>
+<p>若存在异常的活动连接，则可以通过类似如下命令终止。</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">db2 &quot;force application (h1 [,h2,..hn])&quot;</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>h1 [,h2,..hn] 代表 application handle identifier</p>
+</blockquote>
+<h3 id="2-3-检查不确定事务（In-doubt-transaction）"><a href="#2-3-检查不确定事务（In-doubt-transaction）" class="headerlink" title="2.3 检查不确定事务（In-doubt transaction）"></a>2.3 检查不确定事务（In-doubt transaction）</h3><p>在事务日志空间使用率过高的节点上，执行如下命令，以<strong>交互</strong>模式定位<strong>是否存在</strong>不确定事务（In-doubt transaction）。</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">db2 list indoubt transactions with prompting</span><br></pre></td></tr></table></figure>
+<p>若存在不确定事务，则可以通过交互命令进行 COMMIT 或 ROLLBACK 等操作，具体操作参见 WITH PROMPTING 模式的说明。</p>
+<blockquote>
+<p>Command parameters <em>WITH PROMPTING</em> Indicates that indoubt transactions are to be processed. If this parameter is specified, an interactive dialog mode is initiated, permitting the user to commit, roll back, or forget indoubt transactions. If this parameter is not specified, indoubt transactions are written to the standard output device, and the interactive dialog mode is not initiated.<br>Interactive dialog mode permits the user to:</p>
+<ul>
+<li>List all indoubt transactions (enter <strong>l</strong>)</li>
+<li>List indoubt transaction number x (enter <strong>l</strong>, followed by a valid transaction number)</li>
+<li>Quit (enter <strong>q</strong>)</li>
+<li>Commit transaction number x (enter <strong>c</strong>, followed by a valid transaction number)</li>
+<li>Roll back transaction number x (enter <strong>r</strong>, followed by a valid transaction number)</li>
+<li>Forget transaction number x (enter <strong>f</strong>, followed by a valid transaction number).</li>
+</ul>
+</blockquote>
+<blockquote>
+<p>A blank space must separate the command letter from its argument.</p>
+</blockquote>
+<h1 id="参考资料："><a href="#参考资料：" class="headerlink" title="参考资料："></a>参考资料：</h1><ol>
+<li><a target="_blank" rel="noopener" href="https://www.ibm.com/support/knowledgecenter/zh/SS5R93_5.2.8/com.ibm.spectrum.sc.doc/fqz0_r_tbs_db2_sql_964.html">https://www.ibm.com/support/knowledgecenter/zh/SS5R93_5.2.8/com.ibm.spectrum.sc.doc/fqz0_r_tbs_db2_sql_964.html</a></li>
+<li><a target="_blank" rel="noopener" href="https://www.ibm.com/support/knowledgecenter/en/SSEPGG_9.7.0/com.ibm.db2.luw.admin.cmd.doc/doc/r0001963.html">https://www.ibm.com/support/knowledgecenter/en/SSEPGG_9.7.0/com.ibm.db2.luw.admin.cmd.doc/doc/r0001963.html</a></li>
+<li><a target="_blank" rel="noopener" href="http://www.talkwithtrend.com/Article/185911">http://www.talkwithtrend.com/Article/185911</a></li>
+</ol>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2021/01/15/%E7%A6%BB%E7%BA%BF%E5%AE%89%E8%A3%85Docker%E5%8F%8A%E5%AE%89%E8%A3%85DB2%E6%95%B0%E6%8D%AE%E5%BA%93/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/00-00-00.JPG">
+      <meta itemprop="name" content="severus">
+      <meta itemprop="description" content="正在享受无法回避的痛苦">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Sary.severus`s blog">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2021/01/15/%E7%A6%BB%E7%BA%BF%E5%AE%89%E8%A3%85Docker%E5%8F%8A%E5%AE%89%E8%A3%85DB2%E6%95%B0%E6%8D%AE%E5%BA%93/" class="post-title-link" itemprop="url">未命名</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2021-01-15 14:28:30" itemprop="dateCreated datePublished" datetime="2021-01-15T14:28:30+08:00">2021-01-15</time>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h1 id="离线安装Docker及离线安装DB2数据库"><a href="#离线安装Docker及离线安装DB2数据库" class="headerlink" title="离线安装Docker及离线安装DB2数据库"></a>离线安装Docker及离线安装DB2数据库</h1><hr>
+<p><strong>2020-10-19 22:34 00</strong></p>
+<h2 id="离线安装Docker"><a href="#离线安装Docker" class="headerlink" title="离线安装Docker"></a>离线安装Docker</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 1. 上传离线安装包 &#x27;docker-18.06.3-ce.tgz&#x27;</span></span><br><span class="line"><span class="comment"># 2. 解压安装包</span></span><br><span class="line">tar xvf docker-18.06.3-ce.tgz</span><br><span class="line"><span class="comment"># 3. 进入解压后生成的 &#x27;docker&#x27; 目录</span></span><br><span class="line"><span class="built_in">cd</span> docker/</span><br><span class="line"><span class="comment"># 4. 拷贝文件到 &#x27;/usr/bin/&#x27; 目录下</span></span><br><span class="line">cp * /usr/bin/</span><br><span class="line"><span class="comment"># 5. 在 &#x27;/etc/systemd/system/&#x27; 路径下新增 &#x27;docker.service&#x27; 文件</span></span><br><span class="line">vim /etc.systemd/system/docker.service</span><br><span class="line"><span class="comment"># 6. 内容如下</span></span><br><span class="line"></span><br><span class="line">[Unit]</span><br><span class="line">Description=Docker Application Container Engine</span><br><span class="line">Documentation=https://docs.docker.com</span><br><span class="line">After=network-online.target firewalld.service</span><br><span class="line">Wants=network-online.target</span><br><span class="line">  </span><br><span class="line">[Service]</span><br><span class="line">Type=notify</span><br><span class="line"><span class="comment"># the default is not to use systemd for cgroups because the delegate issues still</span></span><br><span class="line"><span class="comment"># exists and systemd currently does not support the cgroup feature set required</span></span><br><span class="line"><span class="comment"># for containers run by docker</span></span><br><span class="line">ExecStart=/usr/bin/dockerd --selinux-enabled=<span class="literal">false</span> --insecure-registry=127.0.0.1</span><br><span class="line">ExecReload=/bin/<span class="built_in">kill</span> -s HUP <span class="variable">$MAINPID</span></span><br><span class="line"><span class="comment"># Having non-zero Limit*s causes performance problems due to accounting overhead</span></span><br><span class="line"><span class="comment"># in the kernel. We recommend using cgroups to do container-local accounting.</span></span><br><span class="line">LimitNOFILE=infinity</span><br><span class="line">LimitNPROC=infinity</span><br><span class="line">LimitCORE=infinity</span><br><span class="line"><span class="comment"># Uncomment TasksMax if your systemd version supports it.</span></span><br><span class="line"><span class="comment"># Only systemd 226 and above support this version.</span></span><br><span class="line"><span class="comment">#TasksMax=infinity</span></span><br><span class="line">TimeoutStartSec=0</span><br><span class="line"><span class="comment"># set delegate yes so that systemd does not reset the cgroups of docker containers</span></span><br><span class="line">Delegate=yes</span><br><span class="line"><span class="comment"># kill only the docker process, not all processes in the cgroup</span></span><br><span class="line">KillMode=process</span><br><span class="line"><span class="comment"># restart the docker process if it exits prematurely</span></span><br><span class="line">Restart=on-failure</span><br><span class="line">StartLimitBurst=3</span><br><span class="line">StartLimitInterval=60s</span><br><span class="line">  </span><br><span class="line">[Install]</span><br><span class="line">WantedBy=multi-user.target</span><br><span class="line"></span><br><span class="line"><span class="comment"># 7. 赋予文件执行权限</span></span><br><span class="line">chmod +x /etc/systemd/system/docker.service </span><br><span class="line"><span class="comment"># 8. 重新加载配置文件</span></span><br><span class="line">systemctl daemon-reload                </span><br><span class="line"><span class="comment"># 9. 启动Docker</span></span><br><span class="line">systemctl start docker</span><br><span class="line">systemctl <span class="built_in">enable</span> docker</span><br><span class="line"><span class="comment"># 10. 查看服务状态</span></span><br><span class="line">systemctl status docker</span><br><span class="line"><span class="comment"># Docker服务安装成功！</span></span><br></pre></td></tr></table></figure>
+
+
+<h2 id="Docker离线安装DB2数据库"><a href="#Docker离线安装DB2数据库" class="headerlink" title="Docker离线安装DB2数据库"></a>Docker离线安装DB2数据库</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 1. 上传 &#x27;DB2_11.5.4&#x27; 镜像包 &#x27;db2_11.5.4.tar&#x27;</span></span><br><span class="line"><span class="comment"># 2. Docker导入镜像</span></span><br><span class="line">docker load &lt; db2_11.5.4.tar</span><br><span class="line"><span class="comment"># 3. 启动DB2容器</span></span><br><span class="line">docker run -d -p 50000:50000 --name db2 --privileged -e DB2INST1_PASSWORD=12345678 -e DBNAME=testdb -e LICENSE=accept -v /db2_home:/database [<span class="string">&#x27;镜像ID&#x27;</span>]</span><br><span class="line"><span class="comment"># 命令略解</span></span><br><span class="line"><span class="comment"># -p 50000:50000 映射容器50000端口为宿主机端口50000，50000（宿主机）:50000（容器）</span></span><br><span class="line"><span class="comment"># -name db2      指定容器名为db2</span></span><br><span class="line"><span class="comment"># --privileged   使得容器内的 root 拥有真正的 root 权限</span></span><br><span class="line"><span class="comment"># -e DB2INST1_PASSWORD   指定实例用户DB2INST1密码为12345678</span></span><br><span class="line"><span class="comment"># -e DBNAME=testdb       创建数据库testdb</span></span><br><span class="line"><span class="comment"># -e LICENSE=accept      接受协议</span></span><br><span class="line"><span class="comment"># -v /db2_home:/database 挂在目录，映射宿主机/db2_home目录为容器db2实例数据库目录</span></span><br><span class="line"><span class="comment"># 最后添加镜像ID</span></span><br><span class="line"><span class="comment"># 容器启动后会自动启动数据库实例</span></span><br><span class="line"><span class="comment"># 容器创建成功后初始化需要一段时间，约为1分钟左右，期间db2命令会无法执行成功，莫急</span></span><br><span class="line"><span class="comment"># 4. 进入容器</span></span><br><span class="line">docker <span class="built_in">exec</span> -ti db2 bash</span><br><span class="line"><span class="comment"># 5. 切换用户</span></span><br><span class="line">su - db2inst1</span><br><span class="line"><span class="comment"># 6. 一些基础命令</span></span><br><span class="line">db2start  启动实例</span><br><span class="line">db2stop   停止实例</span><br><span class="line">db2pd -   查看实例状态</span><br><span class="line">db2 list db directory  查看实例拥有的库</span><br><span class="line">db2 connect to [<span class="string">&#x27;数据库名字，如：testdb&#x27;</span>]  连接库</span><br><span class="line">db2 disconnect [<span class="string">&#x27;数据库名字，如：testdb&#x27;</span>]  断开库</span><br><span class="line">db2 list tables  查看库下拥有的表，需连接库</span><br><span class="line"><span class="comment"># 7. 上传已有数据库备份文件 &#x27;20201011073659.tar.gz&#x27; 至宿主机</span></span><br><span class="line"><span class="comment"># 8. 解压被打包的备份文件 &#x27;20201011073659.tar.gz&#x27;</span></span><br><span class="line">tar xvf 20201011073659.tar.gz</span><br><span class="line"><span class="comment"># 备份文件名为 &#x27;HZYZDB.0.db2inst1.DBPART000.20201011073659.001&#x27;</span></span><br><span class="line"><span class="comment"># 9. 将备份文件放置容器内，有两种方式！</span></span><br><span class="line"><span class="comment"># 使用docker命令</span></span><br><span class="line">docker cp HZYZDB.0.db2inst1.DBPART000.20201011073659.001 db2:/database/config/db2inst1</span><br><span class="line"><span class="comment"># 赋予用户及组</span></span><br><span class="line">chown db2inst1.db2iadm1 HZYZDB.0.db2inst1.DBPART000.20201011073659.001</span><br><span class="line"><span class="comment"># 不使用docker命令，简单粗暴</span></span><br><span class="line">mv HZYZDB.0.db2inst1.DBPART000.20201011073659.001 /database/config/db2inst1</span><br><span class="line"><span class="comment"># 赋予用户及组</span></span><br><span class="line">chown db2inst1.db2iadm1 HZYZDB.0.db2inst1.DBPART000.20201011073659.001</span><br><span class="line"><span class="comment"># 10. 恢复备份</span></span><br><span class="line"><span class="comment"># db名必须与备份的db名相同</span></span><br><span class="line"><span class="comment"># taken即备份文件的时间戳</span></span><br><span class="line">su - db2inst1</span><br><span class="line">db2 restore db hzyzdb taken at 20201011073659</span><br><span class="line">db2 rollforward db hzyzdb to end of logs and stop</span><br><span class="line"><span class="comment"># 连接恢复的库验证</span></span><br><span class="line">db2 connect to hzyzdb</span><br><span class="line">db2 list tables</span><br><span class="line"><span class="comment"># 此时可使用可视化工具连接进行验证</span></span><br></pre></td></tr></table></figure>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2021/01/15/%E5%8E%9F%E5%9B%A0%E7%A0%81%227%22%E8%A7%A3%E5%86%B3/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/00-00-00.JPG">
+      <meta itemprop="name" content="severus">
+      <meta itemprop="description" content="正在享受无法回避的痛苦">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Sary.severus`s blog">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2021/01/15/%E5%8E%9F%E5%9B%A0%E7%A0%81%227%22%E8%A7%A3%E5%86%B3/" class="post-title-link" itemprop="url">未命名</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2021-01-15 14:28:30" itemprop="dateCreated datePublished" datetime="2021-01-15T14:28:30+08:00">2021-01-15</time>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <p>title: DB2原因码7解决办法<br>date: 2020-9-11 16:47:05<br>categories: Shell<br>tags: bash</p>
+<h1 id="Operation-not-allowed-for-reason-code-“7”-on-table-原因码-“7”的解决"><a href="#Operation-not-allowed-for-reason-code-“7”-on-table-原因码-“7”的解决" class="headerlink" title="Operation not allowed for reason code “7” on table 原因码 “7”的解决"></a><a target="_blank" rel="noopener" href="https://www.cnblogs.com/QQParadise/articles/2319757.html">Operation not allowed for reason code “7” on table 原因码 “7”的解决</a></h1><p>对表进行任何操作都不被允许，提示SQLSTATE=57016 SQLCODE=-668 ，原因码 “7”的错误：SQL0668N Operation not allowed for reason code “7” on table XXX. </p>
+<p>解决方法：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">db2 <span class="string">&quot;reorg table TABLE.NAME&quot;</span></span><br></pre></td></tr></table></figure>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2021/01/15/%E5%8F%8D%E6%B4%97%E9%92%B1POC%E8%B7%91%E6%95%B0%E6%96%87%E6%A1%A3v20201123/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/00-00-00.JPG">
+      <meta itemprop="name" content="severus">
+      <meta itemprop="description" content="正在享受无法回避的痛苦">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Sary.severus`s blog">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2021/01/15/%E5%8F%8D%E6%B4%97%E9%92%B1POC%E8%B7%91%E6%95%B0%E6%96%87%E6%A1%A3v20201123/" class="post-title-link" itemprop="url">未命名</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2021-01-15 14:28:30" itemprop="dateCreated datePublished" datetime="2021-01-15T14:28:30+08:00">2021-01-15</time>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h1 id="反洗钱POC跑数文档v20201123"><a href="#反洗钱POC跑数文档v20201123" class="headerlink" title="反洗钱POC跑数文档v20201123"></a>反洗钱POC跑数文档v20201123</h1><h3 id="2020-11-23"><a href="#2020-11-23" class="headerlink" title="2020-11-23"></a>2020-11-23</h3><h5 id="富晓虎-166-0130-0472"><a href="#富晓虎-166-0130-0472" class="headerlink" title="富晓虎 166-0130-0472"></a>富晓虎 166-0130-0472</h5><hr>
+<hr>
+<h1 id="Windows环境部署"><a href="#Windows环境部署" class="headerlink" title="Windows环境部署"></a>Windows环境部署</h1><h2 id="一、安装Redis"><a href="#一、安装Redis" class="headerlink" title="一、安装Redis"></a>一、安装Redis</h2><pre><code>    安装包名：redis.zip
+
+    解压后进入解压生成的文件夹内
+    按住Shift + 鼠标右键
+    选择 &quot;在此处打开命令行&quot;
+    输入
+
+    redis-server.exe redis.windows.conf
+
+    回车
+    验证
+
+    其中文件夹内 redis.windows.conf 是redis的配置文件，根据实时情况进行修改</code></pre>
+<h2 id="二、安装Mariadb"><a href="#二、安装Mariadb" class="headerlink" title="二、安装Mariadb"></a>二、安装Mariadb</h2><pre><code>    安装包名：mariadb-10.1.47-winx64.msi
+
+    双击默认安装</code></pre>
+<h2 id="三、安装Navicat"><a href="#三、安装Navicat" class="headerlink" title="三、安装Navicat"></a>三、安装Navicat</h2><pre><code>    安装包名：mariadb-10.1.47-winx64.msi
+
+    双击默认安装</code></pre>
+<h2 id="四、安装DataGrip"><a href="#四、安装DataGrip" class="headerlink" title="四、安装DataGrip"></a>四、安装DataGrip</h2><pre><code>    安装包名：datagrip-2020.2.3.exe
+
+    双击默认安装
+
+    DataGrip安装连接DB2驱动，不会的自行百度：datagrip离线安装db2驱动
+
+    驱动文件：db2jcc4_4.26.14.jar</code></pre>
+<h2 id="五、安装Notepad"><a href="#五、安装Notepad" class="headerlink" title="五、安装Notepad++"></a>五、安装Notepad++</h2><pre><code>    安装包名：npp.7.9.Installer.exe
+
+    双击默认安装</code></pre>
+<h2 id="六、安装Xshell"><a href="#六、安装Xshell" class="headerlink" title="六、安装Xshell"></a>六、安装Xshell</h2><pre><code>    安装包名：Xshell6_wm.exe
+
+    双击默认安装</code></pre>
+<h2 id="七、安装WinSCP"><a href="#七、安装WinSCP" class="headerlink" title="七、安装WinSCP"></a>七、安装WinSCP</h2><pre><code>    安装包名：WinSCP-5.17.2-Setup.exe
+
+    双击默认安装</code></pre>
+<hr>
+<hr>
+<h1 id="LINUX安装"><a href="#LINUX安装" class="headerlink" title="LINUX安装"></a>LINUX安装</h1><h2 id="一、安装JDK"><a href="#一、安装JDK" class="headerlink" title="一、安装JDK"></a>一、安装JDK</h2><h3 id="涉及安装包：jdk-8u271-linux-x64-tar-gz"><a href="#涉及安装包：jdk-8u271-linux-x64-tar-gz" class="headerlink" title="涉及安装包：jdk-8u271-linux-x64.tar.gz"></a>涉及安装包：jdk-8u271-linux-x64.tar.gz</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">## 在安装jdk前先在Linux服务器上执行如下命令</span></span><br><span class="line"></span><br><span class="line">java -version</span><br><span class="line"></span><br><span class="line"><span class="comment">## 如果提示没有java程序再按照以下操作进行安装，有java就不需要安装直接跳过此步</span></span><br><span class="line"><span class="comment">## 上传JDK包到Linux服务器/root/</span></span><br><span class="line"><span class="comment">## 解压jdk-8u271-linux-x64.tar.gz到/usr/local/目录下</span></span><br><span class="line"></span><br><span class="line">tar xvf jdk-8u271-linux-x64.tar.gz -C /usr/<span class="built_in">local</span>/</span><br><span class="line"></span><br><span class="line"><span class="comment">## 编辑/etc/profile文件配置环境变量</span></span><br><span class="line">	</span><br><span class="line">vim /etc/profile</span><br><span class="line"></span><br><span class="line"><span class="comment">## 在文件最后一行新增如下内容</span></span><br><span class="line"></span><br><span class="line">JAVA_HOME=/usr/java/jdk1.8.0_91</span><br><span class="line">CLASSPATH=<span class="variable">$JAVA_HOME</span>/lib/</span><br><span class="line">PATH=<span class="variable">$PATH</span>:<span class="variable">$JAVA_HOME</span>/bin</span><br><span class="line"><span class="built_in">export</span> PATH JAVA_HOME CLASSPATH</span><br><span class="line"></span><br><span class="line"><span class="comment">## 保存并退出vim</span></span><br><span class="line"></span><br><span class="line"><span class="built_in">source</span> /etc/profile</span><br><span class="line"></span><br><span class="line"><span class="comment">## 验证</span></span><br><span class="line"><span class="comment">## 执行命令 </span></span><br><span class="line"></span><br><span class="line">java -version</span><br><span class="line"></span><br><span class="line"><span class="comment">## 出现以下内容即安装成功</span></span><br><span class="line"></span><br><span class="line">java version <span class="string">&quot;1.8.0_91&quot;</span></span><br><span class="line">Java(TM) SE Runtime Environment (build 1.8.0_91-b14)</span><br><span class="line">Java HotSpot(TM) 64-Bit Server VM (build 25.91-b14, mixed mode)</span><br></pre></td></tr></table></figure>
+<h2 id="二、安装DB2-V10-5"><a href="#二、安装DB2-V10-5" class="headerlink" title="二、安装DB2_V10.5"></a>二、安装DB2_V10.5</h2><h3 id="涉及安装包："><a href="#涉及安装包：" class="headerlink" title="涉及安装包："></a>涉及安装包：</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">pam-1.1.8-23.el7.i686.rpm</span><br><span class="line">pam-1.1.8-23.el7.x86_64.rpm</span><br><span class="line">v10.5.8fp8_linuxx64_server_t.tar.gz</span><br><span class="line">db2aese_c.lic</span><br></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">## 安装依赖</span></span><br><span class="line"><span class="comment">## 上传依赖包到/root/</span></span><br><span class="line"></span><br><span class="line">ls /root/</span><br><span class="line">pam-1.1.8-23.el7.i686.rpm</span><br><span class="line">pam-1.1.8-23.el7.x86_64.rpm</span><br><span class="line"></span><br><span class="line"><span class="comment">## root用户安装依赖包</span></span><br><span class="line"><span class="comment">## 实质上缺少依赖不影响DB2正常运行</span></span><br><span class="line"><span class="comment">## 实质上缺少依赖不影响DB2正常运行</span></span><br><span class="line"><span class="comment">## 实质上缺少依赖不影响DB2正常运行</span></span><br><span class="line"></span><br><span class="line"><span class="built_in">cd</span> /root/</span><br><span class="line">rpm -ivh pam-1.1.8-23.el7.i686.rpm</span><br><span class="line">rpm -ivh pam-1.1.8-23.el7.x86_64.rpm</span><br><span class="line"></span><br><span class="line"><span class="comment">## 实质上缺少依赖不影响DB2正常运行</span></span><br><span class="line"><span class="comment">## 实质上缺少依赖不影响DB2正常运行</span></span><br><span class="line"><span class="comment">## 实质上缺少依赖不影响DB2正常运行</span></span><br><span class="line"></span><br><span class="line"><span class="comment">## 安装数据库程序</span></span><br><span class="line"><span class="comment">## 上传预先下载好的安装包 &#x27;v10.5.8fp8_linuxx64_server_t.tar.gz&#x27; 和 &#x27;db2aese_c.lic&#x27; 到/root/</span></span><br><span class="line"><span class="comment">## root用户登录并解压</span></span><br><span class="line"></span><br><span class="line">tar xvf v10.5.8fp8_linuxx64_server_t.tar.gz -C /opt/</span><br><span class="line"></span><br><span class="line"><span class="comment">## 解压后同级目录下会有一个名为 &#x27;server_t&#x27; 目录</span></span><br><span class="line"></span><br><span class="line"><span class="built_in">cd</span> /opt/server_t/</span><br><span class="line"></span><br><span class="line"><span class="comment">## 安装</span></span><br><span class="line"></span><br><span class="line">./db2_install</span><br><span class="line"></span><br><span class="line"><span class="comment">## 按照提示进行操作</span></span><br><span class="line"><span class="comment">## 有是的输入： 			是</span></span><br><span class="line"><span class="comment">## 有yes的输入： 		yes</span></span><br><span class="line"><span class="comment">## 提示安装类型时输入： 	SERVER</span></span><br><span class="line"><span class="comment">## 如果有提示需要仔细查看</span></span><br><span class="line"><span class="comment">## 注册license</span></span><br><span class="line"></span><br><span class="line">/opt/ibm/db2/V10.5/adm/db2licm –a /root/db2aese_c.lic</span><br><span class="line"></span><br><span class="line"><span class="comment">## 创建用户组及用户</span></span><br><span class="line"></span><br><span class="line">groupadd -g 901 db2iadm1</span><br><span class="line">groupadd -g 902 db2fadm1</span><br><span class="line">groupadd -g 903 db2dadm1</span><br><span class="line"></span><br><span class="line">useradd -g db2iadm1 -u 101 -d /home/db2inst1 -m db2inst1</span><br><span class="line">useradd -g db2fadm1 -u 102 -d /home/db2fenc1 -m db2fenc1</span><br><span class="line">useradd -g db2dadm1 -u 103 -d /home/db2dasusr1 -m db2dasusr1</span><br><span class="line"></span><br><span class="line"><span class="comment">## 分别设置用户密码</span></span><br><span class="line"><span class="comment">## 建议密码设置为与用户名相同</span></span><br><span class="line"></span><br><span class="line">passwd db2inst1</span><br><span class="line">passwd db2fenc1</span><br><span class="line">passwd db2dasusr1</span><br><span class="line"></span><br><span class="line"><span class="comment">## 检查验证是否有创建的用户及组</span></span><br><span class="line"></span><br><span class="line">cat /etc/group | grep db2</span><br><span class="line">cat /etc/passwd | grep db2</span><br><span class="line"></span><br><span class="line"><span class="comment">## 创建实例</span></span><br><span class="line"><span class="comment">## 进入指定目录下</span></span><br><span class="line"></span><br><span class="line"><span class="built_in">cd</span> /opt/ibm/db2/V10.5/instance</span><br><span class="line"></span><br><span class="line"><span class="comment">## 安装并绑定端口号 &#x27;50000&#x27;</span></span><br><span class="line"></span><br><span class="line">./db2icrt -p 50000 -u db2fenc1 db2inst1</span><br><span class="line"></span><br><span class="line"><span class="comment">## 基本配置</span></span><br><span class="line"><span class="comment">## 设置DB2自启动，以root身份进行操作</span></span><br><span class="line"></span><br><span class="line"><span class="built_in">cd</span> /opt/ibm/db2/V10.5/instance</span><br><span class="line">./db2iauto -on db2inst1</span><br><span class="line"></span><br><span class="line"><span class="comment">## 修改网络连接服务端口</span></span><br><span class="line"></span><br><span class="line">su - db2inst1</span><br><span class="line">db2 update dbm cfg using SVCENAME 50000</span><br><span class="line"></span><br><span class="line"><span class="comment">## 修改DB2连接方式为TCP/IP模式</span></span><br><span class="line"></span><br><span class="line">su - db2inst1</span><br><span class="line">db2set DB2COMM=TCPIP</span><br><span class="line"></span><br><span class="line"><span class="comment">## 修改字符集</span></span><br><span class="line">   </span><br><span class="line"><span class="comment"># &#x27;db2codepage=1208&#x27; UTF-8</span></span><br><span class="line"><span class="comment"># &#x27;db2codepage=1386&#x27; GBK</span></span><br><span class="line"></span><br><span class="line">su - db2inst1</span><br><span class="line">db2set db2codepage=1208</span><br><span class="line"></span><br><span class="line"><span class="comment">## 查看DB2许可证</span></span><br><span class="line"></span><br><span class="line">su - db2isnt1</span><br><span class="line">db2licm -l</span><br><span class="line"></span><br><span class="line">Product name:                     <span class="string">&quot;DB2 Advanced Enterprise Server Edition&quot;</span></span><br><span class="line">License <span class="built_in">type</span>:                     <span class="string">&quot;CPU Option&quot;</span></span><br><span class="line">Expiry date:                      <span class="string">&quot;Permanent&quot;</span></span><br><span class="line">Product identifier:               <span class="string">&quot;db2aese&quot;</span></span><br><span class="line">Version information:              <span class="string">&quot;10.5&quot;</span></span><br><span class="line">Enforcement policy:               <span class="string">&quot;Soft Stop&quot;</span></span><br></pre></td></tr></table></figure>
+<h1 id="三、部署项目"><a href="#三、部署项目" class="headerlink" title="三、部署项目"></a>三、部署项目</h1><h3 id="涉及安装包：-1"><a href="#涉及安装包：-1" class="headerlink" title="涉及安装包："></a>涉及安装包：</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">amlnp.tar.gz</span><br></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">## 使用WinSCP工具上传项目包amlnp.tar.gz到/root/下</span></span><br><span class="line"><span class="comment">## root用户解压，并创建目录</span></span><br><span class="line"></span><br><span class="line"><span class="built_in">cd</span> /root/</span><br><span class="line">mkdir /home/amlnp</span><br><span class="line">tar xvf amlnp.tar.gz -C /home/amlnp</span><br><span class="line"></span><br><span class="line"><span class="comment">## 按照需求更换jar包</span></span><br><span class="line"><span class="comment">## 按需求修改配置文件</span></span><br><span class="line"><span class="comment">## 配置文件位于 /home/amlnp/conf 目录中</span></span><br><span class="line"><span class="comment">## 如数据库连接信息</span></span><br><span class="line"><span class="comment">## Redis连接信息</span></span><br><span class="line"><span class="comment">## 项目监听端口信息等</span></span><br><span class="line"><span class="comment">## root用户启动项目</span></span><br><span class="line"></span><br><span class="line"><span class="built_in">cd</span> /home/amlnp</span><br><span class="line">bash run.sh</span><br><span class="line"></span><br><span class="line"><span class="comment">## 观察日志验证项目</span></span><br><span class="line"></span><br><span class="line">tailf /home/amlnp/logs/sys-info.log</span><br></pre></td></tr></table></figure>
+<h1 id="四、数据库表空间"><a href="#四、数据库表空间" class="headerlink" title="四、数据库表空间"></a>四、数据库表空间</h1><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">## 系统自建的表空间无法满足实际需求，需要调整</span></span><br><span class="line"><span class="comment">## 创建缓冲池</span></span><br><span class="line"></span><br><span class="line">CREATE BUFFERPOOL BUFFERPOOL PAGESIZE 32768;</span><br><span class="line"><span class="comment"># 这条命令中第二个 &#x27;BUFFERPOOL&#x27; 是定义了缓冲池的名字</span></span><br><span class="line"></span><br><span class="line"><span class="comment">## 新建一个与系统表空间相同格式的系统表空间，但是表空间路径要重新指定到一个磁盘空间较大的路径</span></span><br><span class="line"><span class="comment">## 这条sql需要在可视化工具执行</span></span><br><span class="line"><span class="comment">## 表空间路径根据实际情况进行分配</span></span><br><span class="line"></span><br><span class="line">CREATE TEMPORARY TABLESPACE <span class="string">&quot;临时表空间名字&quot;</span>  PAGESIZE 32768 MANAGED BY SYSTEM</span><br><span class="line"> USING (<span class="string">&#x27;/绝对路径&#x27;</span>)</span><br><span class="line"> EXTENTSIZE 64</span><br><span class="line"> PREFETCHSIZE AUTOMATIC</span><br><span class="line"> BUFFERPOOL <span class="string">&quot;BUFFERPOOL&quot;</span></span><br><span class="line"> OVERHEAD 6.725000</span><br><span class="line"> TRANSFERRATE 0.320000</span><br><span class="line"> </span><br><span class="line"><span class="comment">## 删除系统自建表空间</span></span><br><span class="line"></span><br><span class="line">db2 connect to DATABASE</span><br><span class="line">db2 drop tablespace TEMPSPACE1</span><br><span class="line"></span><br><span class="line"><span class="comment">## 创建表空间</span></span><br><span class="line"><span class="comment">## 表空间路径根据实际情况进行分配</span></span><br><span class="line"></span><br><span class="line">CREATE TABLESPACE <span class="string">&quot;表空间名字&quot;</span>  PAGESIZE 32768 MANAGED BY DATABASE</span><br><span class="line"> USING (file <span class="string">&#x27;/database/Tablespace/IDMINDX01&#x27;</span> 1G)</span><br><span class="line"> EXTENTSIZE 256</span><br><span class="line"> PREFETCHSIZE AUTOMATIC</span><br><span class="line"> BUFFERPOOL <span class="string">&quot;BUFFERPOOL&quot;</span></span><br><span class="line"> OVERHEAD 6.725000</span><br><span class="line"> TRANSFERRATE 32000;</span><br><span class="line"> </span><br><span class="line"><span class="comment">## 根据实际需求扩容表空间</span></span><br><span class="line"><span class="comment">## 扩展表空间实则扩展表空间下容器，该命令实现的是对该表空间下所有容器进行100页大小扩展</span></span><br><span class="line"></span><br><span class="line">db2 <span class="string">&quot;alter tablespace TABLESPACE.NAME extend (all 1G)&quot;</span></span><br><span class="line"></span><br><span class="line"><span class="comment">## 具体表空间大小需要多大无法给出范围，建议在初期根据实际情况进行分配，可常用以下命令对关注的表空间进行监控，避免因表空间不足问题导致数据传输中断等尴尬问题产生</span></span><br><span class="line"></span><br><span class="line">db2 list tablespaces show detail</span><br></pre></td></tr></table></figure>
+<h1 id="六、配置日志管理"><a href="#六、配置日志管理" class="headerlink" title="六、配置日志管理"></a>六、配置日志管理</h1><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">## 连接库</span></span><br><span class="line"></span><br><span class="line">db2 connect to DATABASE</span><br><span class="line"></span><br><span class="line"><span class="comment">## 修改日志相关配置</span></span><br><span class="line"></span><br><span class="line">db2 update db cfg using LOGFILSIZ 10240</span><br><span class="line">db2 update db cfg using LOGPRIMARY 100</span><br><span class="line">db2 update db cfg using LOGSECOND 100</span><br><span class="line"></span><br><span class="line"><span class="comment">## 重启数据库</span></span><br><span class="line"></span><br><span class="line">db2 force application all</span><br><span class="line">db2stop</span><br><span class="line">db2start</span><br></pre></td></tr></table></figure>
+<h1 id="五、数据"><a href="#五、数据" class="headerlink" title="五、数据"></a>五、数据</h1><h2 id="MySQL新建五张表"><a href="#MySQL新建五张表" class="headerlink" title="MySQL新建五张表"></a>MySQL新建五张表</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">存量单位客户身份信息表</span><br><span class="line">存量个人客户身份信息表</span><br><span class="line">机构表</span><br><span class="line">交易流水中建表</span><br><span class="line">账户信息表</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br></pre></td><td class="code"><pre><span class="line">-- Table structure for 存量单位客户身份信息表</span><br><span class="line"></span><br><span class="line">CREATE TABLE &#96;存量单位客户身份信息表&#96; (</span><br><span class="line">  &#96;客户号归属机构网点代码&#96; varchar(20) DEFAULT &#39;&#39;,</span><br><span class="line">  &#96;客户号&#96; varchar(50) DEFAULT NULL,</span><br><span class="line">  &#96;创建日期&#96; varchar(8) DEFAULT NULL,</span><br><span class="line">  &#96;客户名称&#96; varchar(120) DEFAULT NULL,</span><br><span class="line">  &#96;住所地&#96; varchar(120) DEFAULT NULL,</span><br><span class="line">  &#96;经营范围&#96; varchar(160) DEFAULT NULL,</span><br><span class="line">  &#96;依法设立或经营的执照名称&#96; varchar(2) DEFAULT &#39;&#39;,</span><br><span class="line">  &#96;依法设立或经营的执照号码&#96; varchar(50) DEFAULT &#39;&#39;,</span><br><span class="line">  &#96;依法设立或精灵的执照有效期限到期日&#96; varchar(8) DEFAULT &#39;&#39;,</span><br><span class="line">  &#96;组织机构代码&#96; varchar(20) DEFAULT NULL,</span><br><span class="line">  &#96;税务登记证号码&#96; varchar(20) DEFAULT &#39;&#39;,</span><br><span class="line">  &#96;法定代表人或负责人姓名&#96; varchar(40) DEFAULT &#39;&#39;,</span><br><span class="line">  &#96;法定代表人或负责人身份证件类型&#96; varchar(2) DEFAULT &#39;&#39;,</span><br><span class="line">  &#96;法定代表人或负责人身份证件号码&#96; varchar(50) DEFAULT &#39;&#39;,</span><br><span class="line">  &#96;法定代表人或负责人身份证件有效期限到期日&#96; varchar(8) DEFAULT &#39;&#39;,</span><br><span class="line">  &#96;控股股东或者实际控制人姓名&#96; varchar(40) DEFAULT &#39;&#39;,</span><br><span class="line">  &#96;控股股东或者实际控制人身份证件类型&#96; varchar(2) DEFAULT &#39;&#39;,</span><br><span class="line">  &#96;控股股东或者实际控制人身份证件号码&#96; varchar(50) DEFAULT &#39;&#39;,</span><br><span class="line">  &#96;控股股东或者实际控制人身份证件有效期限到期日&#96; varchar(8) DEFAULT &#39;&#39;,</span><br><span class="line">  &#96;授权办理业务人员姓名&#96; varchar(40) DEFAULT &#39;&#39;,</span><br><span class="line">  &#96;授权办理业务人员身份证件类型&#96; varchar(2) DEFAULT &#39;&#39;,</span><br><span class="line">  &#96;授权办理业务人员身份证件号码&#96; varchar(50) DEFAULT &#39;&#39;,</span><br><span class="line">  &#96;授权办理业务人员身份证件有效期限到期日&#96; varchar(8) DEFAULT &#39;&#39;,</span><br><span class="line">  &#96;行业&#96; varchar(80) DEFAULT NULL,</span><br><span class="line">  &#96;注册资本金&#96; varchar(18) DEFAULT &#39;&#39;,</span><br><span class="line">  &#96;注册资本金币种&#96; varchar(3) DEFAULT &#39;&#39;,</span><br><span class="line">  &#96;系统名称&#96; varchar(120) DEFAULT &#39;&#39;,</span><br><span class="line">  &#96;机构&#96; varchar(20) DEFAULT NULL,</span><br><span class="line">  KEY &#96;idx_客户号&#96; (&#96;客户号&#96;),</span><br><span class="line">  KEY &#96;idx_机构&#96; (&#96;客户号归属机构网点代码&#96;)</span><br><span class="line">) ENGINE&#x3D;InnoDB DEFAULT CHARSET&#x3D;utf8mb4;</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line">-- Table structure for 存量个人客户身份信息表</span><br><span class="line">	</span><br><span class="line">  &#96;客户号归属机构网点代码&#96; varchar(20) DEFAULT NULL,</span><br><span class="line">  &#96;客户号&#96; varchar(50) DEFAULT NULL,</span><br><span class="line">  &#96;创建日期&#96; varchar(8) DEFAULT NULL,</span><br><span class="line">  &#96;结束日期&#96; varchar(8) DEFAULT NULL,</span><br><span class="line">  &#96;客户姓名&#96; varchar(40) DEFAULT NULL,</span><br><span class="line">  &#96;性别&#96; varchar(2) DEFAULT NULL,</span><br><span class="line">  &#96;国籍（地区）&#96; varchar(20) DEFAULT &#39;&#39;,</span><br><span class="line">  &#96;身份证件种类&#96; varchar(2) DEFAULT &#39;&#39;,</span><br><span class="line">  &#96;身份证件号码&#96; varchar(50) DEFAULT &#39;&#39;,</span><br><span class="line">  &#96;身份证件有效期限到期日&#96; varchar(8) DEFAULT &#39;&#39;,</span><br><span class="line">  &#96;职业&#96; varchar(80) DEFAULT NULL,</span><br><span class="line">  &#96;年收入&#96; varchar(16) DEFAULT NULL,</span><br><span class="line">  &#96;联系方式&#96; varchar(20) DEFAULT NULL,</span><br><span class="line">  &#96;其他联系方式1&#96; varchar(20) DEFAULT &#39;&#39;,</span><br><span class="line">  &#96;其他联系方式2&#96; varchar(20) DEFAULT &#39;&#39;,</span><br><span class="line">  &#96;住所地或工作单位地址&#96; varchar(255) DEFAULT &#39;&#39;,</span><br><span class="line">  &#96;其他住所地或工作单位地址1&#96; varchar(255) DEFAULT &#39;&#39;,</span><br><span class="line">  &#96;其他住所地或工作单位地址2&#96; varchar(255) DEFAULT &#39;&#39;,</span><br><span class="line">  &#96;工作单位&#96; varchar(120) DEFAULT NULL,</span><br><span class="line">  &#96;系统名称&#96; varchar(120) DEFAULT NULL,</span><br><span class="line">  &#96;机构&#96; varchar(20) DEFAULT NULL,</span><br><span class="line">  KEY &#96;idx_客户号&#96; (&#96;客户号&#96;),</span><br><span class="line">  KEY &#96;idx_身份证件号&#96; (&#96;身份证件号码&#96;),</span><br><span class="line">  KEY &#96;idx_机构代码&#96; (&#96;客户号归属机构网点代码&#96;),</span><br><span class="line">  KEY &#96;idx_国籍&#96; (&#96;国籍（地区）&#96;)</span><br><span class="line">) ENGINE&#x3D;InnoDB DEFAULT CHARSET&#x3D;utf8mb4;</span><br></pre></td></tr></table></figure>
+<hr>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">-- Table structure for 机构表</span><br><span class="line"></span><br><span class="line">CREATE TABLE &#96;机构表&#96; (</span><br><span class="line">  &#96;机构网点代码&#96; varchar(20) DEFAULT &#39;&#39;,</span><br><span class="line">  &#96;金融机构编码&#96; varchar(16) DEFAULT &#39;&#39;,</span><br><span class="line">  &#96;机构名称&#96; varchar(120) DEFAULT NULL,</span><br><span class="line">  &#96;跨境标识&#96; varchar(2) DEFAULT NULL,</span><br><span class="line">  &#96;备注&#96; varchar(8) DEFAULT NULL</span><br><span class="line">) ENGINE&#x3D;InnoDB DEFAULT CHARSET&#x3D;utf8mb4;</span><br></pre></td></tr></table></figure>
+
+<hr>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br></pre></td><td class="code"><pre><span class="line">-- Table structure for 交易流水中间表</span><br><span class="line"></span><br><span class="line">CREATE TABLE &#96;交易流水中间表&#96; (</span><br><span class="line">  &#96;交易日期&#96; varchar(50) DEFAULT &#39;&#39;,</span><br><span class="line">  &#96;交易时间&#96; varchar(50) DEFAULT &#39;&#39;,</span><br><span class="line">  &#96;交易行代码&#96; varchar(255) DEFAULT &#39;&#39;,</span><br><span class="line">  &#96;公私标识&#96; varchar(255) DEFAULT &#39;&#39;,</span><br><span class="line">  &#96;客户号&#96; varchar(255) DEFAULT &#39;&#39;,</span><br><span class="line">  &#96;身份证件号码&#96; varchar(60) DEFAULT &#39;&#39;,</span><br><span class="line">  &#96;账号&#96; varchar(255) DEFAULT &#39;&#39;,</span><br><span class="line">  &#96;卡号&#96; varchar(255) DEFAULT &#39;&#39;,</span><br><span class="line">  &#96;账户名称&#96; varchar(255) DEFAULT &#39;&#39;,</span><br><span class="line">  &#96;交易对手账户类别&#96; varchar(255) DEFAULT &#39;&#39;,</span><br><span class="line">  &#96;交易对方行代码&#96; varchar(255) DEFAULT &#39;&#39;,</span><br><span class="line">  &#96;交易对方行名称&#96; varchar(255) DEFAULT &#39;&#39;,</span><br><span class="line">  &#96;交易对方账号（卡号）&#96; varchar(255) DEFAULT &#39;&#39;,</span><br><span class="line">  &#96;交易对方户名&#96; varchar(255) DEFAULT &#39;&#39;,</span><br><span class="line">  &#96;资金收付标识&#96; varchar(255) DEFAULT &#39;&#39;,</span><br><span class="line">  &#96;现金、转账标识&#96; varchar(255) DEFAULT &#39;&#39;,</span><br><span class="line">  &#96;币种&#96; varchar(255) DEFAULT &#39;&#39;,</span><br><span class="line">  &#96;原币种交易金额&#96; varchar(255) DEFAULT &#39;&#39;,</span><br><span class="line">  &#96;折美元交易金额&#96; varchar(255) DEFAULT &#39;&#39;,</span><br><span class="line">  &#96;折人民币交易金额&#96; varchar(255) DEFAULT &#39;&#39;,</span><br><span class="line">  &#96;账户余额&#96; varchar(255) DEFAULT &#39;&#39;,</span><br><span class="line">  &#96;代理交易标识&#96; varchar(255) DEFAULT &#39;&#39;,</span><br><span class="line">  &#96;代理人姓名&#96; varchar(255) DEFAULT &#39;&#39;,</span><br><span class="line">  &#96;代理人联系方式&#96; varchar(255) DEFAULT &#39;&#39;,</span><br><span class="line">  &#96;代理人身份证件种类&#96; varchar(255) DEFAULT &#39;&#39;,</span><br><span class="line">  &#96;代理人身份证件号码&#96; varchar(255) DEFAULT &#39;&#39;,</span><br><span class="line">  &#96;业务流水号&#96; varchar(255) DEFAULT &#39;&#39;,</span><br><span class="line">  &#96;柜员号&#96; varchar(255) DEFAULT &#39;&#39;,</span><br><span class="line">  &#96;业务类型&#96; varchar(255) DEFAULT &#39;&#39;,</span><br><span class="line">  &#96;冲账标识&#96; varchar(255) DEFAULT &#39;&#39;,</span><br><span class="line">  &#96;摘要说明&#96; varchar(255) DEFAULT &#39;&#39;,</span><br><span class="line">  &#96;跨境交易标识&#96; varchar(255) DEFAULT &#39;&#39;,</span><br><span class="line">  &#96;交易对方所在国家或地区&#96; varchar(255) DEFAULT &#39;&#39;,</span><br><span class="line">  &#96;交易对方标识&#96; varchar(255) DEFAULT &#39;&#39;,</span><br><span class="line">  &#96;IP地址&#96; varchar(255) DEFAULT &#39;&#39;,</span><br><span class="line">  &#96;ATM机具编号&#96; varchar(255) DEFAULT &#39;&#39;,</span><br><span class="line">  &#96;ATM机具所属行行号&#96; varchar(255) DEFAULT &#39;&#39;,</span><br><span class="line">  &#96;MAC或者IMEI地址&#96; varchar(255) DEFAULT &#39;&#39;,</span><br><span class="line">  &#96;机构&#96; varchar(255) DEFAULT &#39;&#39;,</span><br><span class="line">  &#96;时期&#96; varchar(255) DEFAULT &#39;&#39;,</span><br><span class="line">  &#96;时间&#96; varchar(255) DEFAULT &#39;&#39;,</span><br><span class="line">  KEY &#96;身份证件号&#96; (&#96;身份证件号码&#96;),</span><br><span class="line">  KEY &#96;客户号&#96; (&#96;客户号&#96;),</span><br><span class="line">  KEY &#96;交易日期&#96; (&#96;交易日期&#96;),</span><br><span class="line">  KEY &#96;交易时间&#96; (&#96;交易时间&#96;),</span><br><span class="line">  KEY &#96;交易对方户名&#96; (&#96;交易对方户名&#96;),</span><br><span class="line">  KEY &#96;原币种交易金额&#96; (&#96;原币种交易金额&#96;),</span><br><span class="line">  KEY &#96;摘要说明&#96; (&#96;摘要说明&#96;),</span><br><span class="line">  KEY &#96;idx_证件_交易时间&#96; (&#96;交易时间&#96;,&#96;身份证件号码&#96;) USING BTREE,</span><br><span class="line">  KEY &#96;idx_客户号_原币种金额&#96; (&#96;客户号&#96;,&#96;原币种交易金额&#96;) USING BTREE,</span><br><span class="line">  KEY &#96;idx_证件_交易对手时间&#96; (&#96;身份证件号码&#96;,&#96;交易对方户名&#96;) USING BTREE,</span><br><span class="line">  KEY &#96;idx_对手属性_名称&#96; (&#96;交易对手账户类别&#96;,&#96;交易对方户名&#96;) USING BTREE,</span><br><span class="line">  KEY &#96;idx_交易方式_证件号码&#96; (&#96;身份证件号码&#96;,&#96;摘要说明&#96;) USING BTREE,</span><br><span class="line">  KEY &#96;idx_摘要_证件号码_原币种金额&#96; (&#96;摘要说明&#96;,&#96;身份证件号码&#96;,&#96;原币种交易金额&#96;) USING BTREE,</span><br><span class="line">  KEY &#96;idx_客户号_交易日期_交易时间_币种金额&#96; (&#96;交易日期&#96;,&#96;交易时间&#96;,&#96;客户号&#96;,&#96;原币种交易金额&#96;) USING BTREE,</span><br><span class="line">  KEY &#96;idx_交易日期_证件号_收付标识&#96; (&#96;交易日期&#96;,&#96;身份证件号码&#96;,&#96;资金收付标识&#96;,&#96;客户号&#96;) USING BTREE,</span><br><span class="line">  KEY &#96;idx_交易日期_客户号_资金收付标识&#96; (&#96;交易日期&#96;,&#96;客户号&#96;,&#96;资金收付标识&#96;),</span><br><span class="line">  KEY &#96;idx_现金_收付_公私&#96; (&#96;现金、转账标识&#96;,&#96;资金收付标识&#96;,&#96;公私标识&#96;)</span><br><span class="line">) ENGINE&#x3D;InnoDB DEFAULT CHARSET&#x3D;utf8mb4;</span><br></pre></td></tr></table></figure>
+
+<hr>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br></pre></td><td class="code"><pre><span class="line">-- Table structure for 账户信息表</span><br><span class="line"></span><br><span class="line">CREATE TABLE &#96;账户信息表&#96; (</span><br><span class="line">  &#96;未知&#96; varchar(20) DEFAULT NULL,</span><br><span class="line">  &#96;开户行代码&#96; varchar(20) DEFAULT NULL,</span><br><span class="line">  &#96;账户户名&#96; varchar(120) DEFAULT &#39;&#39;,</span><br><span class="line">  &#96;账户状态&#96; varchar(20) DEFAULT &#39;&#39;,</span><br><span class="line">  &#96;账号&#96; varchar(40) DEFAULT NULL,</span><br><span class="line">  &#96;卡号&#96; varchar(40) DEFAULT NULL,</span><br><span class="line">  &#96;公私标识&#96; varchar(20) DEFAULT &#39;&#39;,</span><br><span class="line">  &#96;个人账户种类&#96; varchar(8) DEFAULT &#39;&#39;,</span><br><span class="line">  &#96;身份证件号码&#96; varchar(50) DEFAULT &#39;&#39;,</span><br><span class="line">  &#96;客户号&#96; varchar(50) DEFAULT NULL,</span><br><span class="line">  &#96;定活期标识&#96; varchar(20) DEFAULT &#39;&#39;,</span><br><span class="line">  &#96;单位账户类型&#96; varchar(8) DEFAULT &#39;&#39;,</span><br><span class="line">  &#96;本外币标识&#96; varchar(8) DEFAULT &#39;&#39;,</span><br><span class="line">  &#96;开户日期&#96; varchar(8) DEFAULT NULL,</span><br><span class="line">  &#96;销户日期&#96; varchar(8) DEFAULT NULL,</span><br><span class="line">  &#96;银行卡收单账户标识&#96; varchar(8) DEFAULT &#39;&#39;,</span><br><span class="line">  &#96;借贷记卡标识&#96; varchar(8) DEFAULT &#39;&#39;,</span><br><span class="line">  &#96;账户网银标识&#96; varchar(8) DEFAULT &#39;&#39;,</span><br><span class="line">  &#96;手机银行号码&#96; varchar(16) DEFAULT NULL,</span><br><span class="line">  &#96;开户标识&#96; varchar(20) DEFAULT &#39;&#39;,</span><br><span class="line">  &#96;开户标识1&#96; varchar(20) DEFAULT &#39;&#39;,</span><br><span class="line">  &#96;代理人姓名&#96; varchar(60) DEFAULT NULL,</span><br><span class="line">  &#96;代理人联系方式&#96; varchar(60) DEFAULT NULL,</span><br><span class="line">  &#96;代理人身份证件种类&#96; varchar(10) DEFAULT &#39;&#39;,</span><br><span class="line">  &#96;代理人身份证件号码&#96; varchar(50) DEFAULT &#39;&#39;,</span><br><span class="line">  &#96;备注&#96; varchar(20) DEFAULT &#39;&#39;,</span><br><span class="line">  KEY &#96;客户号&#96; (&#96;客户号&#96;),</span><br><span class="line">  KEY &#96;开户日期&#96; (&#96;开户日期&#96;),</span><br><span class="line">  KEY &#96;idx_客户号_开户日期&#96; (&#96;客户号&#96;,&#96;开户日期&#96;),</span><br><span class="line">  KEY &#96;身份证件号码&#96; (&#96;身份证件号码&#96;),</span><br><span class="line">  KEY &#96;代理人身份证件号码&#96; (&#96;代理人身份证件号码&#96;)</span><br><span class="line">) ENGINE&#x3D;InnoDB DEFAULT CHARSET&#x3D;utf8mb4;</span><br></pre></td></tr></table></figure>
+<hr>
+<h2 id="处理大文件"><a href="#处理大文件" class="headerlink" title="处理大文件"></a>处理大文件</h2><p>大文件Windows无法打开处理时，将文件上传到Linux中</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">## 使用sed命令进行替换</span></span><br><span class="line"></span><br><span class="line">sed -i <span class="string">&quot;1i文本&quot;</span> 文件名</span><br></pre></td></tr></table></figure>
+<hr>
+<h2 id="数据确认及处理"><a href="#数据确认及处理" class="headerlink" title="数据确认及处理"></a>数据确认及处理</h2><ol>
+<li>统计出来导入数据库的数据 对私客户数、对公客户数、账户数、交易量</li>
+</ol>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">-- 查询对私客户数SQL</span><br><span class="line">select count(*) from 存量个人客户身份信息表</span><br><span class="line">-- 查询对公客户数SQL</span><br><span class="line">select count(*) from 存量单位客户身份信息表</span><br><span class="line">-- 查询账户数SQL</span><br><span class="line">select count(*) from 账户信息表</span><br><span class="line">-- 查询交易量</span><br><span class="line">select count(*) from 交易流水中间表</span><br></pre></td></tr></table></figure>
+
+
+<ol start="2">
+<li>与行里科技询问他们的 对私客户数、对公客户数、账户数、交易量（跑数时间段内的大致数即可）如果对应的数据量大致差不多则继续往下执行</li>
+<li>踢除不动户以及其他不正常账户后的账户数、对私客户数、对公客户数，然后统计去重后的数据数</li>
+</ol>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line">-- 创建账户中间表</span><br><span class="line">create table 账户中间表 as</span><br><span class="line">select * from 账户信息表</span><br><span class="line">where (备注!&#x3D;&#39;不动户&#39; or 备注 is null ) and 账户状态 &#x3D; &#39;11&#39; and (销户日期&#x3D; &#39;&#39; or 销户日期 is null);</span><br><span class="line"></span><br><span class="line">-- 创建账户信息表去重</span><br><span class="line">create table 账户信息表去重 as</span><br><span class="line">select t1.* from 账户中间表 t1</span><br><span class="line">left join 账户中间表 t2 on t1.客户号 &#x3D;t2.客户号</span><br><span class="line">and t1.开户日期 &lt; t2.开户日期</span><br><span class="line">group by t1.客户号 ,t1.开户日期</span><br><span class="line">HAVING count(t2.客户号) &lt;1;</span><br><span class="line"></span><br><span class="line">-- 创建单位客户身份信息表去重</span><br><span class="line">create table 单位客户身份信息表去重 as</span><br><span class="line">select b.*,a.账户状态,a.账号,a.卡号,a.个人账户种类,a.定活期标识,a.本外币标识,a.开户日期,a.销户日期,a.银行卡收单账户标识,a.借贷记卡标识,a.账户网银标识,a.手机银行号码,a.开户标识,a.备注</span><br><span class="line">from </span><br><span class="line">账户信息表去重 a,&#96;存量单位客户身份信息表&#96; b where a.客户号 &#x3D; b.客户号</span><br><span class="line">and a.开户行代码 &#x3D; b.客户号归属机构网点代码;</span><br><span class="line"></span><br><span class="line">-- 创建个人客户身份信息表去重</span><br><span class="line">create table 个人客户身份信息表去重 as</span><br><span class="line">select b.*,a.账户状态,a.账号,a.卡号,a.个人账户种类,a.定活期标识,a.本外币标识,a.开户日期,a.销户日期,a.银行卡收单账户标识,a.借贷记卡标识,a.账户网银标识,a.手机银行号码,a.开户标识,a.备注</span><br><span class="line">from </span><br><span class="line">账户信息表去重 a,&#96;存量个人客户身份信息表&#96; b where a.客户号 &#x3D; b.客户号</span><br><span class="line">and a.开户行代码 &#x3D; b.客户号归属机构网点代码</span><br></pre></td></tr></table></figure>
+
+<hr>
+  <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">-- 查询对私客户数SQL</span><br><span class="line">select count(*) from 个人客户身份信息表去重</span><br><span class="line">-- 查询对公客户数SQL</span><br><span class="line">select count(*) from 单位客户身份信息表去重</span><br><span class="line">-- 查询账户数SQL</span><br><span class="line">select count(*) from 账户信息表去重</span><br><span class="line">-- 查询交易量</span><br><span class="line">select count(*) from 交易流水中间表</span><br></pre></td></tr></table></figure>
+<p> 然后将去重后的数据导出到 csv 或者 txt 用于下面导数需要的数据源</p>
+<ol start="4">
+<li>跟他们的业务人员沟通登陆他们的核心系统，抽查几个客户的基本信息是否一致，对公对私都进行抽查，若信息对不上则让行里的科技那边重新提数<pre><code>    核心系统一般都是通过身份证号进行查询</code></pre>
+</li>
+<li>如果客户数据量与行里问到的数据量差距很大，或者与核心系统客户信息对不上则让行里的科技那边重新提数</li>
+<li>如果确认信息没有问题则提数结束</li>
+</ol>
+<hr>
+<h1 id="导数"><a href="#导数" class="headerlink" title="导数"></a>导数</h1><h2 id="导入DB2数据库"><a href="#导入DB2数据库" class="headerlink" title="导入DB2数据库"></a>导入DB2数据库</h2><h3 id="涉及包文件："><a href="#涉及包文件：" class="headerlink" title="涉及包文件："></a>涉及包文件：</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">QRTZ.zip</span><br><span class="line">SYS.zip</span><br><span class="line">HZYZ_DDL.sql</span><br></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">## 建库</span></span><br><span class="line"><span class="comment">## 建库前务必确认客户DB2数据库编码！</span></span><br><span class="line"><span class="comment">## 建库前务必确认客户DB2数据库编码！</span></span><br><span class="line"><span class="comment">## 建库前务必确认客户DB2数据库编码！</span></span><br><span class="line"></span><br><span class="line"><span class="comment">## 连接客户DB2数据库</span></span><br><span class="line"></span><br><span class="line">db2 connect to DATABASE.NAME</span><br><span class="line">db2 get db cfg | grep code</span><br><span class="line"></span><br><span class="line"><span class="comment">## 确认数据库编码后进行建库</span></span><br><span class="line"><span class="comment">## 任选其一即可</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># utf-8</span></span><br><span class="line">db2 create db hzyzdb using codeset utf-8 territory zh_cn pagesize 32768</span><br><span class="line"><span class="comment"># gbk</span></span><br><span class="line">db2 create db hzyzdb using codeset gbk territory zh_cn pagesize 32768</span><br><span class="line"></span><br><span class="line"><span class="comment">## 导入整库表结构</span></span><br><span class="line"><span class="comment">## 上传准备好的表结构附件到 /home/db2inst1/ 目录下</span></span><br><span class="line"><span class="comment">## 先以root用户登录Linux服务器</span></span><br><span class="line"></span><br><span class="line">chown db2inst1.db2iadm1 /home/db2inst1/HZYZ_DDL.sql</span><br><span class="line"></span><br><span class="line"><span class="comment">## 切换到DB2用户</span></span><br><span class="line"></span><br><span class="line">su - db2inst1</span><br><span class="line"></span><br><span class="line"><span class="comment">## 连接数据库</span></span><br><span class="line"></span><br><span class="line">db2 connect to hzyzdb</span><br><span class="line"></span><br><span class="line"><span class="comment">## 导入表结构</span></span><br><span class="line"></span><br><span class="line"><span class="built_in">cd</span> /home/db2inst1</span><br><span class="line">db2 -tvf HZYZ_DDL.sql &gt; DDL.log</span><br><span class="line"></span><br><span class="line"><span class="comment">## 导完后大致看一眼 DDL.log 日志有无报错</span></span><br><span class="line"><span class="comment">## 导入需要的表</span></span><br><span class="line"><span class="comment">## 先导入系统所需的表</span></span><br><span class="line"><span class="comment">## 分别上传文件夹 QRTZ 和 SYS 里的表上传到/home/db2inst1/目录下</span></span><br><span class="line"><span class="comment">## root身份登录</span></span><br><span class="line"></span><br><span class="line">chown -R db2inst1.db2iadm1 /home/db2inst1/</span><br><span class="line"></span><br><span class="line"><span class="comment">## 进入SYS文件夹内，分别对每个sql文件执行</span></span><br><span class="line"></span><br><span class="line">su - db2inst1</span><br><span class="line"><span class="built_in">cd</span> /home/db2inst1/SYS/</span><br><span class="line">db2 -tvf DB2INST1_SYS_DICT_DATA.sql</span><br><span class="line">db2 -tvf DB2INST1_SYS_DICT_TYPE.sql</span><br><span class="line">db2 -tvf DB2INST1_SYS_JOB_LOG.sql</span><br><span class="line">db2 -tvf DB2INST1_SYS_JOB.sql</span><br><span class="line">db2 -tvf DB2INST1_SYS_LOGININFOR.sql</span><br><span class="line">db2 -tvf DB2INST1_SYS_MENU.sql</span><br><span class="line">db2 -tvf DB2INST1_SYS_NOTICE.sql</span><br><span class="line">db2 -tvf DB2INST1_SYS_OPER_LOG.sql</span><br><span class="line">db2 -tvf DB2INST1_SYS_ORG.sql</span><br><span class="line">db2 -tvf DB2INST1_SYS_POST.sql</span><br><span class="line">db2 -tvf DB2INST1_SYS_ROLE_MENU.sql</span><br><span class="line">db2 -tvf DB2INST1_SYS_ROLE.sql</span><br><span class="line">db2 -tvf DB2INST1_SYS_USER_ONLINE.sql</span><br><span class="line">db2 -tvf DB2INST1_SYS_USER_POST.sql</span><br><span class="line">db2 -tvf DB2INST1_SYS_USER_ROLE.sql</span><br><span class="line">db2 -tvf DB2INST1_SYS_USER.sql</span><br><span class="line"></span><br><span class="line"><span class="comment">## 进入QRTZ文件夹内，分别对每个sql文件执行</span></span><br><span class="line"></span><br><span class="line"><span class="built_in">cd</span> /home/db2inst1/QRTZ</span><br><span class="line">db2 -tvf DB2INST1_QRTZ_CRON_TRIGGERS.sql</span><br><span class="line">db2 -tvf DB2INST1_QRTZ_JOB_DETAILS.sql</span><br><span class="line">db2 -tvf DB2INST1_QRTZ_LOCKS.sql</span><br><span class="line">db2 -tvf DB2INST1_QRTZ_SCHEDULER_STATE.sql</span><br><span class="line">db2 -tvf DB2INST1_QRTZ_TRIGGERS.sql</span><br><span class="line"></span><br><span class="line"><span class="comment">## 再导入跑数需要的表</span></span><br><span class="line"></span><br><span class="line">db2 connect to hzyzdb</span><br><span class="line">db2 <span class="string">&quot;load from TABLENAME.del of del insert into TABLENAME&quot;</span></span><br><span class="line">如：</span><br><span class="line">db2 <span class="string">&quot;load from TB_BASIC_ACC.del of del insert into TB_BASIC_ACC&quot;</span></span><br><span class="line"></span><br><span class="line"><span class="comment">## 当存在自增长字段时使用如下语句</span></span><br><span class="line"><span class="comment">## 命令中增加了 &#x27;modified by identiryignore&#x27; 选项</span></span><br><span class="line"></span><br><span class="line">db2 <span class="string">&quot;load from TABLENAME.del of del modified by identityignore insert into TABLENAME&quot;</span></span><br><span class="line"></span><br><span class="line"><span class="comment">## 清空指定表数据SQL</span></span><br><span class="line"><span class="comment">## 这条命令属于破坏性命令！其目的是当发现导入数据有问题时快速清空指定表数据！使用前请务必再三确认数据库连接，SCHEMA，TABLE是否正确！</span></span><br><span class="line"><span class="comment">## 这条命令属于破坏性命令！其目的是当发现导入数据有问题时快速清空指定表数据！使用前请务必再三确认数据库连接，SCHEMA，TABLE是否正确！</span></span><br><span class="line"><span class="comment">## 这条命令属于破坏性命令！其目的是当发现导入数据有问题时快速清空指定表数据！使用前请务必再三确认数据库连接，SCHEMA，TABLE是否正确！</span></span><br><span class="line"></span><br><span class="line">db2 <span class="string">&quot;ALTER TABLE 表名 ACTIVATE NOT LOGGED INITIALLY WITH EMPTY TABLE&quot;</span></span><br><span class="line"></span><br><span class="line">或者在可视化工具执行</span><br><span class="line"></span><br><span class="line">ALTER TABLE 表名 ACTIVATE NOT LOGGED INITIALLY WITH EMPTY TABLE;</span><br></pre></td></tr></table></figure>
+<hr>
+<h1 id="跑数"><a href="#跑数" class="headerlink" title="跑数"></a>跑数</h1><p>跑数、数据治理确认跑数结果的正确性</p>
+<ol>
+<li><p>数据治理跑数的存储过程直接运行 </p>
+ <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">CALL PROC_TB_DATA_COMP_PRI();</span><br><span class="line">CALL PROC_TB_DATA_COMP_PUB();</span><br></pre></td></tr></table></figure></li>
+<li><p>把每个存储过程中每个sql都拿出来运行一下，并且distinct 对应的合规项的对应字段查询跑出来的不合规是否存在合规的数据             对私重点关注地址和手机号，以及职业和职业描述（数据在哪个表就用哪个表名查询）以下需要人为识别是否合规</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line">-- 地址</span><br><span class="line"></span><br><span class="line">select distinct ADRESS from TB_BASIC_CST_PERS;</span><br><span class="line">select distinct OTHER_ADRESS1 from TB_BASIC_CST_PERS;</span><br><span class="line">select distinct OTHER_ADRESS2 from TB_BASIC_CST_PERS;</span><br><span class="line"></span><br><span class="line">-- 职业</span><br><span class="line">select distinct OCCUPATION from TB_BASIC_CST_PERS;</span><br><span class="line"></span><br><span class="line">-- 手机号</span><br><span class="line">select distinct CONTACT from TB_BASIC_CST_PERS;</span><br><span class="line">select distinct OTHER_CONTACT1 from TB_BASIC_CST_PERS;</span><br><span class="line">select distinct OTHER_CONTACT2 from TB_BASIC_CST_PERS;</span><br><span class="line">其他见“对私数据治理sql语句.txt”</span><br><span class="line"></span><br><span class="line">对公重点关注公司所在地和行业（数据在哪个表就用哪个表名查询）以下需要人为识别是否合规</span><br><span class="line">-- 公司所在地</span><br><span class="line">select distinct COMPANY_ADDRESS from TB_BASIC_CST_UNIT;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">-- 行业</span><br><span class="line">select distinct INDUSTRY from TB_BASIC_CST_UNIT;</span><br><span class="line"></span><br><span class="line">-- 其他见“对公数据治理sql语句.txt”</span><br></pre></td></tr></table></figure>
+
+<ol start="3">
+<li>如果存在合规的数据查看原因并修改sql再次验证，直至无合规数据</li>
+<li>更新存储过程再次运行存储过程</li>
+</ol>
+</li>
+</ol>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2021/01/15/%E5%AE%89%E8%A3%85zookeeper/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/00-00-00.JPG">
+      <meta itemprop="name" content="severus">
+      <meta itemprop="description" content="正在享受无法回避的痛苦">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Sary.severus`s blog">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2021/01/15/%E5%AE%89%E8%A3%85zookeeper/" class="post-title-link" itemprop="url">未命名</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2021-01-15 14:28:30" itemprop="dateCreated datePublished" datetime="2021-01-15T14:28:30+08:00">2021-01-15</time>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h1 id="安装zookeeper"><a href="#安装zookeeper" class="headerlink" title="安装zookeeper"></a>安装zookeeper</h1><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">$ <span class="built_in">pwd</span></span><br><span class="line">/root</span><br><span class="line">$ tar zxvf zookeeper-3.4.11.tar.gz</span><br><span class="line">$ mv zookeeper-3.4.11 zookeeper</span><br><span class="line">$ <span class="built_in">cd</span> zookeeper</span><br><span class="line">$ mkdir data</span><br><span class="line">$ mkdir logs</span><br><span class="line">$ <span class="built_in">cd</span> conf</span><br><span class="line">$ mv zoo_sample.cfg zoo.cfg</span><br><span class="line">$ vim zoo.cfg</span><br><span class="line"></span><br><span class="line">dataDir=/home/seven/zookeeper/data</span><br><span class="line">logDir=/home/seven/zookeeper/logs</span><br><span class="line">clientPort=2181</span><br><span class="line"></span><br><span class="line">$ <span class="built_in">cd</span> ../logs</span><br><span class="line">$ bash ../bin/zkServer.sh start</span><br><span class="line">$ bash ../bin/zkServer.sh status</span><br><span class="line">$ tailf zookeeper.out</span><br></pre></td></tr></table></figure>
       
     </div>
 
@@ -226,6 +967,9 @@
 
 
   
+  <nav class="pagination">
+    <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><span class="space">&hellip;</span><a class="page-number" href="/page/7/">7</a><a class="extend next" rel="next" href="/page/2/"><i class="fa fa-angle-right" aria-label="下一页"></i></a>
+  </nav>
 
 
 
@@ -292,9 +1036,13 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">1</span>
+          <span class="site-state-item-count">66</span>
           <span class="site-state-item-name">日志</span>
         </a>
+      </div>
+      <div class="site-state-item site-state-tags">
+        <span class="site-state-item-count">1</span>
+        <span class="site-state-item-name">标签</span>
       </div>
   </nav>
 </div>

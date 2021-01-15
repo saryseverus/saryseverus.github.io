@@ -1,0 +1,1082 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.3.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"example.com","root":"/","scheme":"Muse","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
+  </script>
+
+  <meta name="description" content="DB2 9 表分区改进大型数据库的管理 Paul Read, Richard Hewitt, Paul Read, 和 Richard Hewitt2007 年 10 月 29 日发布 开始之前CREATE TABLE 语句的 PARTITION BY 子句指定了表数据的分区。该定义中使用的列被称为表分区键列。 关于该特性的详细说明可参见 “Table partitioning in DB2 9”">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Sary.severus&#96;s blog">
+<meta property="og:url" content="http://example.com/2021/01/15/DB2%E8%A1%A8%E5%88%86%E5%8C%BA%E5%AE%98%E6%96%B9%E6%96%87%E6%A1%A3/index.html">
+<meta property="og:site_name" content="Sary.severus&#96;s blog">
+<meta property="og:description" content="DB2 9 表分区改进大型数据库的管理 Paul Read, Richard Hewitt, Paul Read, 和 Richard Hewitt2007 年 10 月 29 日发布 开始之前CREATE TABLE 语句的 PARTITION BY 子句指定了表数据的分区。该定义中使用的列被称为表分区键列。 关于该特性的详细说明可参见 “Table partitioning in DB2 9”">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://www.ibm.com/developerworks/cn/education/data/dm0612read/s5.jpg">
+<meta property="article:published_time" content="2021-01-15T06:28:30.776Z">
+<meta property="article:modified_time" content="2021-01-15T06:28:30.777Z">
+<meta property="article:author" content="severus">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://www.ibm.com/developerworks/cn/education/data/dm0612read/s5.jpg">
+
+<link rel="canonical" href="http://example.com/2021/01/15/DB2%E8%A1%A8%E5%88%86%E5%8C%BA%E5%AE%98%E6%96%B9%E6%96%87%E6%A1%A3/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title> | Sary.severus`s blog</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">Sary.severus`s blog</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a>
+
+  </li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2021/01/15/DB2%E8%A1%A8%E5%88%86%E5%8C%BA%E5%AE%98%E6%96%B9%E6%96%87%E6%A1%A3/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/00-00-00.JPG">
+      <meta itemprop="name" content="severus">
+      <meta itemprop="description" content="正在享受无法回避的痛苦">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Sary.severus`s blog">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2021-01-15 14:28:30" itemprop="dateCreated datePublished" datetime="2021-01-15T14:28:30+08:00">2021-01-15</time>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h1 id="DB2-9-表分区"><a href="#DB2-9-表分区" class="headerlink" title="DB2 9 表分区"></a>DB2 9 表分区</h1><p>改进大型数据库的管理</p>
+<p>Paul Read, Richard Hewitt, Paul Read, 和 Richard Hewitt<br>2007 年 10 月 29 日发布</p>
+<h2 id="开始之前"><a href="#开始之前" class="headerlink" title="开始之前"></a>开始之前</h2><p><code>CREATE TABLE</code> 语句的 PARTITION BY 子句指定了表数据的分区。该定义中使用的列被称为表分区键列。</p>
+<p>关于该特性的详细说明可参见 “<a target="_blank" rel="noopener" href="http://www.ibm.com/developerworks/db2/library/techarticle/dm-0605ahuja2/">Table partitioning in DB2 9</a>”（developerWorks，2006 年 5 月）。</p>
+<p>表分区特性提供以下收益：</p>
+<ul>
+<li>表数据可轻易实现转入和转出</li>
+<li>对大型表的管理更加轻松</li>
+<li>灵活的索引放置</li>
+<li>更高的业务智能样式查询的性能</li>
+</ul>
+<h3 id="关于本教程"><a href="#关于本教程" class="headerlink" title="关于本教程"></a>关于本教程</h3><p>本教程中的练习将引领您使用表分区特性，并演示了表数据的转入转出、更轻松的大型表管理、灵活的索引放置和对业务智能样式查询的性能改善。</p>
+<p>这些练习旨在演示上述各领域内的一个或多个任务。</p>
+<h3 id="目标"><a href="#目标" class="headerlink" title="目标"></a>目标</h3><p>本教程的目标是在以下方面探究 DB2 9 范围分区的特性和优点：</p>
+<ul>
+<li>创建范围分区表</li>
+<li>分区的转入和转出</li>
+<li>分区表的管理</li>
+<li>索引管理和放置</li>
+</ul>
+<h3 id="先决条件"><a href="#先决条件" class="headerlink" title="先决条件"></a>先决条件</h3><p>本教程的目标读者是那些技能和经验刚刚迈入中级水平的 DB2 专业人员。要学习本教程，您应该熟悉 DB2 命令行、DB2 管理工具的使用，还应具备 SQL 实践经验。</p>
+<h4 id="系统需求"><a href="#系统需求" class="headerlink" title="系统需求"></a>系统需求</h4><p>要运行本教程的示例，需要具备以下条件：</p>
+<ul>
+<li><a target="_blank" rel="noopener" href="http://www-306.ibm.com/software/data/db2/express/download.html">DB2 9 Data Server</a></li>
+<li>Microsoft® Windows® 2000 或更高版本，以及一个具有管理员权限的帐户，或具有根访问权限的 Linux®（<a target="_blank" rel="noopener" href="http://www-306.ibm.com/software/data/db2/linux/validate/">验证版</a>）。</li>
+<li>确保系统中的 Java Runtime Environment 是 1.4.2 或更高版本。</li>
+<li>参考 DB2 9 <a target="_blank" rel="noopener" href="http://www-306.ibm.com/software/data/db2/9/sysreqs.html">系统需求页面</a> 确保您的硬件符合要求。</li>
+</ul>
+<p>可通过上面的链接获取 DB2 9 Express C。关于安装 DB2 的步骤请参考 “<a target="_blank" rel="noopener" href="http://www.ibm.com/developerworks/cn/views/db2/tutorials.jsp?cv_doc_id=110099">DB2 XML 评估指南</a>”（developerWorks，2006 年 6 月）。若未改动 DB2 的配置，安装后 DB2 将自动启动。</p>
+<p>使用 partition.zip 文件提供的示例脚本和数据演示本教程的概念。将其内容解压缩到 scripts 子目录（C:\scripts 或 home/userid/scripts）。本教程中将该目录简称为 stmm_scripts。教程假设您使用的是 DB2 默认安装目录，并且所有的 DB2 练习都通过一个数据库管理员 ID 执行。</p>
+<h2 id="创建分区表"><a href="#创建分区表" class="headerlink" title="创建分区表"></a>创建分区表</h2><p>这个实验将探讨创建分区表、将数据载入分区表以及使用 <code>describe</code> 命令来说明表范围的方法：</p>
+<ol>
+<li>您将登录并为所有的练习设置基本环境。</li>
+<li>您将创建不同格式的分区表并加载数据。</li>
+<li>您将使用 DB2 命令和 SQL 查看结果。</li>
+<li>将对 DB2 9 表范围分区进行概述。</li>
+</ol>
+<h4 id="登录和基本指令"><a href="#登录和基本指令" class="headerlink" title="登录和基本指令"></a>登录和基本指令</h4><h5 id="图-1-基本设置"><a href="#图-1-基本设置" class="headerlink" title="图 1. 基本设置"></a>图 1. 基本设置</h5><p><img src="https://www.ibm.com/developerworks/cn/education/data/dm0612read/s5.jpg" alt="命令窗口"></p>
+<ol>
+<li><p>登录到您的机器，如图 1 所示，使用 db2inst1。</p>
+</li>
+<li><p>打开终端窗口（Linux）或 DB2 命令窗口（windows）。</p>
+</li>
+<li><p>切换到 scripts 子目录。</p>
+<h5 id="清单-1-切换目录"><a href="#清单-1-切换目录" class="headerlink" title="清单 1. 切换目录"></a>清单 1. 切换目录</h5><p> <code>cd /scripts or ``cd c:\scripts</code></p>
+</li>
+<li><p>使用</p>
+</li>
+</ol>
+<pre><code><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">db2start</span><br></pre></td></tr></table></figure>
+
+
+命令启动 DB2，并连接到 SAMPLE 数据库。
+
+##### 清单 2. StartDB2
+
+`db2start` `db2 connect to SAMPLE`</code></pre>
+<h4 id="创建基本分区表"><a href="#创建基本分区表" class="headerlink" title="创建基本分区表"></a>创建基本分区表</h4><p>这一节将介绍分区表的基本创建和加载。您将创建不同格式的表、验证创建结果、加载数据并对表进行查询。</p>
+<ol>
+<li><p>使用如下的数据定义语言（DDL）创建具有四个范围的 LINEITEM 表：</p>
+<h5 id="清单-3-创建表"><a href="#清单-3-创建表" class="headerlink" title="清单 3. 创建表"></a>清单 3. 创建表</h5><p> <code>CREATE TABLE LINEITEM ``( l_orderkey     DECIMAL(10,0) NOT NULL,`` ``l_partkey     INTEGER,`` ``l_suppkey     INTEGER,`` ``l_linenumber    INTEGER,`` ``l_quantity     DECIMAL(12,2),`` ``l_extendedprice  DECIMAL(12,2),`` ``l_discount     DECIMAL(12,2),`` ``l_tax       DECIMAL(12,2),`` ``l_returnflag    CHAR(1),`` ``l_linestatus    CHAR(1),`` ``l_shipdate     DATE,`` ``l_commitdate    DATE,`` ``l_receiptdate   DATE,`` ``l_shipinstruct   CHAR(25),`` ``l_shipmode     CHAR(10),`` ``l_comment     VARCHAR(44))`` ``PARTITION BY RANGE(l_shipdate)``( STARTING &#39;1/1/1992&#39; ENDING &#39;30/06/1992&#39;,`` ``STARTING &#39;1/7/1992&#39; ENDING &#39;31/12/1992&#39;,`` ``STARTING &#39;1/1/1993&#39; ENDING &#39;30/6/1993&#39;,`` ``STARTING &#39;1/7/1993&#39; ENDING &#39;31/12/1993&#39;)</code></p>
+<p> 创建该表的 SQL 语句位于 EX1-6.sql 文件中，可使用如下命令运行该文件：</p>
+<h5 id="清单-4-运行-EX1-6"><a href="#清单-4-运行-EX1-6" class="headerlink" title="清单 4. 运行 EX1-6"></a>清单 4. 运行 EX1-6</h5><p> <code>db2 –vtf EX1-6.sql</code></p>
+</li>
+<li><p>使用下面的命令说明为 LINEITEM 表创建的分区的范围：</p>
+<h5 id="清单-5-说明"><a href="#清单-5-说明" class="headerlink" title="清单 5. 说明"></a>清单 5. 说明</h5><p> <code>db2 describe data partitions for table LINEITEM</code></p>
+<h5 id="图-2-说明为-LINEITEM-表创建的分区范围"><a href="#图-2-说明为-LINEITEM-表创建的分区范围" class="headerlink" title="图 2. 说明为 LINEITEM 表创建的分区范围"></a>图 2. 说明为 LINEITEM 表创建的分区范围</h5></li>
+</ol>
+<pre><code>注意
+
+：创建了四个数据分区。其中的范围包括边界值。</code></pre>
+<ol start="3">
+<li><p>将数据导入到 LINEITEM 表。该操作的导入命令位于 EX1-8.sql 文件中，可使用如下命令运行：</p>
+<h5 id="清单-6-带有拒绝的加载"><a href="#清单-6-带有拒绝的加载" class="headerlink" title="清单 6. 带有拒绝的加载"></a>清单 6. 带有拒绝的加载</h5><p> <code>db2 –vtf EX1-8.sql</code></p>
+<h5 id="图-3-将数据导入到-LINEITEM-表"><a href="#图-3-将数据导入到-LINEITEM-表" class="headerlink" title="图 3. 将数据导入到 LINEITEM 表"></a>图 3. 将数据导入到 LINEITEM 表</h5></li>
+</ol>
+<pre><code>注意
+
+：导入时拒绝了 729 行数据，这是因为它们不具有位于当前 LINEITEM 表的数据分区定义范围内的 l_shipdate。</code></pre>
+<ol start="4">
+<li><p>标量函数可用于显示行所属的数据分区号（datapartitionnum）。执行以下示例 SQL 查看标量函数的输出：</p>
+<h5 id="清单-7-查询-匹配日期的分区"><a href="#清单-7-查询-匹配日期的分区" class="headerlink" title="清单 7. 查询 - 匹配日期的分区"></a>清单 7. 查询 - 匹配日期的分区</h5><p> <code>db2 “select datapartitionnum(l_shipdate) as PartitionId, l_shipdate from lineitem ``    ``where l_shipdate between ’01/06/1992’ and ‘31/07/1992’ ``    ``order by l_shipdate”</code></p>
+<h5 id="图-4-标量函数的输出"><a href="#图-4-标量函数的输出" class="headerlink" title="图 4. 标量函数的输出"></a>图 4. 标量函数的输出</h5></li>
+</ol>
+<pre><code>注意
+
+：标量函数（datapartitionnum）返回的值和
+
+
+
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">describe</span><br></pre></td></tr></table></figure>
+
+
+命令返回的是同一个 PartitionId。该语句的子句间使用的谓词范围超出了 PartitionId 0 和 PartitionId 1 的边界</code></pre>
+<h4 id="具有全部范围的分区表"><a href="#具有全部范围的分区表" class="headerlink" title="具有全部范围的分区表"></a>具有全部范围的分区表</h4><ol>
+<li><p>创建具有两个额外数据分区的新 LINEITEM 表，其中一个分区用来捕获低于当前范围的值，另一个分区用来捕获高于当前范围的值。首先使用下面的命令删除现有的 LINEITEM 分区表：</p>
+<h5 id="清单-8-删除表"><a href="#清单-8-删除表" class="headerlink" title="清单 8. 删除表"></a>清单 8. 删除表</h5><p> <code>db2 drop TABLE LINEITEM</code></p>
+<p> 然后使用如下 DDL 创建 LINEITEM 表的新版本：</p>
+<h5 id="清单-9-创建表"><a href="#清单-9-创建表" class="headerlink" title="清单 9. 创建表"></a>清单 9. 创建表</h5><p> <code>CREATE TABLE LINEITEM ``( l_orderkey     DECIMAL(10,0) NOT NULL,`` ``l_partkey     INTEGER,`` ``l_suppkey     INTEGER,`` ``l_linenumber    INTEGER,`` ``l_quantity     DECIMAL(12,2),`` ``l_extendedprice  DECIMAL(12,2),`` ``l_discount     DECIMAL(12,2),`` ``l_tax       DECIMAL(12,2),`` ``l_returnflag    CHAR(1),`` ``l_linestatus    CHAR(1),`` ``l_shipdate     DATE,`` ``l_commitdate    DATE,`` ``l_receiptdate   DATE,`` ``l_shipinstruct   CHAR(25),`` ``l_shipmode     CHAR(10),`` ``l_comment     VARCHAR(44))`` ``PARTITION BY RANGE(l_shipdate)``( STARTING MINVALUE,`` ``STARTING &#39;1/1/1992&#39; ENDING &#39;30/06/1992&#39;,`` ``STARTING &#39;1/7/1992&#39; ENDING &#39;31/12/1992&#39;,`` ``STARTING &#39;1/1/1993&#39; ENDING &#39;30/6/1993&#39;,`` ``STARTING &#39;1/7/1993&#39; ENDING &#39;31/12/1993&#39;,`` ``ENDING MAXVALUE)</code></p>
+<p> 创建该表的 SQL 位于 EX1-10.sql 文件中，可使用下列命令运行：</p>
+<h5 id="清单-10-运行-EX1-10"><a href="#清单-10-运行-EX1-10" class="headerlink" title="清单 10. 运行 EX1-10"></a>清单 10. 运行 EX1-10</h5><p> <code>db2 –vtf EX1-10.sql</code></p>
+</li>
+<li><p>使用下面的命令说明为 LINEITEM 表创建的分区范围。</p>
+<h5 id="清单-11-说明"><a href="#清单-11-说明" class="headerlink" title="清单 11. 说明"></a>清单 11. 说明</h5><p> <code>db2 describe data partitions for table LINEITEM</code></p>
+<h5 id="图-5-说明为-LINEITEM-表创建的分区范围"><a href="#图-5-说明为-LINEITEM-表创建的分区范围" class="headerlink" title="图 5. 说明为 LINEITEM 表创建的分区范围"></a>图 5. 说明为 LINEITEM 表创建的分区范围</h5></li>
+</ol>
+<pre><code>注意
+
+：新的 MINVALUE 范围具有一个最高值，该值和下一个数据分区开始部分的值相等，但它并不包含该值。MAXVALUE 范围具有一个最低值，该值和前一个范围结束部分的值相等，但它不包含该值。这将创建一个无间隙的连续范围。</code></pre>
+<ol start="3">
+<li><p>将数据导入到 LINEITEM 表中。该操作的导入命令位于 EX1-8.sql 文件中，可使用下面的命令运行该文件：</p>
+<h5 id="清单-12-全面加载"><a href="#清单-12-全面加载" class="headerlink" title="清单 12. 全面加载"></a>清单 12. 全面加载</h5><p> <code>db2 –vtf EX1-8.sql</code></p>
+<h5 id="图-6-将数据导入到-LINEITEM-表中"><a href="#图-6-将数据导入到-LINEITEM-表中" class="headerlink" title="图 6. 将数据导入到 LINEITEM 表中"></a>图 6. 将数据导入到 LINEITEM 表中</h5></li>
+</ol>
+<h4 id="具有生成范围的分区表"><a href="#具有生成范围的分区表" class="headerlink" title="具有生成范围的分区表"></a>具有生成范围的分区表</h4><ol>
+<li><p>创建一个新 LINEITEM 表，它具有从 1992 年 1 月 1 日到 1998 年 12 月 31 日按月划分的数据分区生成范围。同样，添加 minvalue 和 maxvalue 范围来存放具有超过此范围的 l_shipdate 的值的行。首先使用以下命令删除现有的 LINEITEM 分区表：</p>
+<h5 id="清单-13-删除表"><a href="#清单-13-删除表" class="headerlink" title="清单 13. 删除表"></a>清单 13. 删除表</h5><p> <code>db2 drop TABLE LINEITEM</code></p>
+<p> 然后使用如下 DDL 创建 LINEITEM 表的新版本：</p>
+<h5 id="清单-14-创建表"><a href="#清单-14-创建表" class="headerlink" title="清单 14. 创建表"></a>清单 14. 创建表</h5><p> <code>CREATE TABLE lineitem``(l_orderkey      DECIMAL(10,0) NOT NULL,`` ``l_cpartkey   INTEGER,`` ``l_suppkey    INTEGER,`` ``l_linenumber  INTEGER,`` ``l_quantity   DECIMAL(12,2),`` ``l_extendedprice DECIMAL(12,2),`` ``l_discount   DECIMAL(12,2),`` ``l_tax      DECIMAL(12,2),`` ``l_returnflag  CHAR(1),`` ``l_linestatus  CHAR(1),`` ``l_shipdate   DATE,`` ``l_commitdate  DATE,`` ``l_receiptdate  DATE,`` ``l_shipinstruct CHAR(25),`` ``l_shipmode   CHAR(10),`` ``l_comment    VARCHAR(44))`` ``PARTITION BY RANGE(l_shipdate)`` ``(STARTING MINVALUE,`` ``STARTING &#39;1/1/1992&#39; ENDING &#39;31/12/1998&#39; ``        ``EVERY 1 MONTH,`` ``ENDING MAXVALUE);</code></p>
+<p> 创建该表的 SQL 位于 EX1-13.sql 文件中，可使用下面的命令运行该文件：</p>
+<h5 id="清单-15-运行-EX1-13"><a href="#清单-15-运行-EX1-13" class="headerlink" title="清单 15. 运行 EX1-13"></a>清单 15. 运行 EX1-13</h5><p> <code>db2 –vtf EX1-13.sql</code></p>
+</li>
+<li><p>使用如下命令来说明为 LINEITEM 表创建的分区范围：</p>
+<h5 id="清单-16-说明"><a href="#清单-16-说明" class="headerlink" title="清单 16. 说明"></a>清单 16. 说明</h5><p> <code>db2 describe data partitions for table LINEITEM</code></p>
+<h5 id="图-7-说明为-LINEITEM-表创建的分区范围"><a href="#图-7-说明为-LINEITEM-表创建的分区范围" class="headerlink" title="图 7. 说明为 LINEITEM 表创建的分区范围"></a>图 7. 说明为 LINEITEM 表创建的分区范围</h5></li>
+</ol>
+<pre><code>注意
+
+：创建了 86 个数据分区，但是没有包括这些范围的最高值，因为这些最高值将和之后的数据分区的最低值重叠。</code></pre>
+<ol start="3">
+<li><p>将数据导入到 LINEITEM 表。此操作的导入命令位于 EX1-8.sql 文件中，可使用下面的命令运行该文件：</p>
+<h5 id="清单-17-加载并生成"><a href="#清单-17-加载并生成" class="headerlink" title="清单 17. 加载并生成"></a>清单 17. 加载并生成</h5><p> <code>db2 –vtf EX1-8.sql</code></p>
+<h5 id="图-8-将数据导入到-LINEITEM-表"><a href="#图-8-将数据导入到-LINEITEM-表" class="headerlink" title="图 8. 将数据导入到 LINEITEM 表"></a>图 8. 将数据导入到 LINEITEM 表</h5></li>
+</ol>
+<ol start="4">
+<li><p>使用下面的 SQL 来验证 LINEITEM 表每一个数据分区的行数：</p>
+<h5 id="清单-18-查询数据"><a href="#清单-18-查询数据" class="headerlink" title="清单 18. 查询数据"></a>清单 18. 查询数据</h5><p> <code>db2 “select year(l_shipdate) as year, month(l_shipdate) as month, ``count(*) as count from lineitem`` ``group by year(l_shipdate), month(l_shipdate)`` ``order by 1, 2”</code></p>
+<p> 使用以下的 SQL 语句验证 LINEITEM 表的每一个数据分区的行数：</p>
+<h5 id="清单-19-查询数据脚本"><a href="#清单-19-查询数据脚本" class="headerlink" title="清单 19. 查询数据脚本"></a>清单 19. 查询数据脚本</h5><p> <code>db2 –vtf EX1-16.sql</code></p>
+<h5 id="图-9-检验行数"><a href="#图-9-检验行数" class="headerlink" title="图 9. 检验行数"></a>图 9. 检验行数</h5></li>
+</ol>
+<pre><code>注意
+
+：执行加载操作后，86 个范围中有 82 个范围包含一个或多个行。</code></pre>
+<h2 id="放置分区表"><a href="#放置分区表" class="headerlink" title="放置分区表"></a>放置分区表</h2><p>该实验探讨放置分区表以及使用 <code>describe</code> 命令说明表内的范围和放置情况的方法：</p>
+<ol>
+<li>您将为数据放置练习创建新的表空间。</li>
+<li>你将创建不同格式的分区表。</li>
+<li>您将使用 db2 命令和 SQL 查看结果。</li>
+</ol>
+<h4 id="基本环境设置"><a href="#基本环境设置" class="headerlink" title="基本环境设置"></a>基本环境设置</h4><ol>
+<li>使用</li>
+</ol>
+<pre><code><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">describe data partitions</span><br></pre></td></tr></table></figure>
+
+
+命令以及
+
+
+
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">show detail</span><br></pre></td></tr></table></figure>
+
+
+方法来显示表空间的分区放置。
+
+##### 清单 20. 创建表
+
+`db2 describe data partitions for table LINEITEM show detail`
+
+##### 图 10. 表空间的分区放置
+
+
+
+注意
+
+：TableSpID 列给出了包含分区的表空间的 ID 号。在本例中，TableSpID 是 ‘3’。</code></pre>
+<ol start="2">
+<li>使用</li>
+</ol>
+<pre><code><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">list tablespaces</span><br></pre></td></tr></table></figure>
+
+
+命令标识与 TableSpId 相关联的表空间。
+
+##### 清单 21. 说明
+
+`db2 list tablespaces`
+
+##### 图 11. 标识表空间
+
+
+
+注意
+
+：相应值为 ‘2’ 的 TableSpID 是 USERSPACE1 或默认的表空间。</code></pre>
+<ol start="3">
+<li><p>现在将创建五个表空间来说明不同的放置选项。使用如下命令：</p>
+<h5 id="清单-22-说明"><a href="#清单-22-说明" class="headerlink" title="清单 22. 说明"></a>清单 22. 说明</h5><p> <code>db2 create tablespace dms_d1 managed by database using (file &#39;c:\ts1&#39; 10000);``db2 create tablespace dms_d2 managed by database using (file &#39;c:\ts2&#39; 10000);``db2 create tablespace dms_d3 managed by database using (file &#39;c:\ts3&#39; 10000);``db2 create tablespace dms_d4 managed by database using (file &#39;c:\ts4&#39; 10000);``db2 create tablespace dms_i1 managed by database using (file &#39;c:\ts5&#39; 10000);</code></p>
+<p> 创建该表空间的 SQL 位于 EX2-3.sql 文件中，可使用下面的命令运行该文件：</p>
+<h5 id="清单-23-查询数据脚本"><a href="#清单-23-查询数据脚本" class="headerlink" title="清单 23. 查询数据脚本"></a>清单 23. 查询数据脚本</h5><p> <code>db2 –vtf EX2-3.sql</code></p>
+</li>
+<li><p>创建一个新的 LINEITEM 表，具有位于 dms_d1 和 dms_d2 表空间的生成分区集。首先，使用如下命令删除现有的 LINEITEM 分区表：</p>
+<h5 id="清单-24-删除表"><a href="#清单-24-删除表" class="headerlink" title="清单 24. 删除表"></a>清单 24. 删除表</h5><p> <code>db2 drop TABLE LINEITEM</code></p>
+<p> 然后，使用下面的 DDL 创建 LINEITEM 表的新版本：</p>
+<h5 id="清单-25-创建表"><a href="#清单-25-创建表" class="headerlink" title="清单 25. 创建表"></a>清单 25. 创建表</h5><p> <code>CREATE TABLE LINEITEM``(l_orderkey   DECIMAL(10,0) NOT NULL,`` ``l_partkey    INTEGER,`` ``l_suppkey    INTEGER,`` ``l_linenumber  INTEGER,`` ``l_quantity   DECIMAL(12,2),`` ``l_extendedprice DECIMAL(12,2),`` ``l_discount   DECIMAL(12,2),`` ``l_tax      DECIMAL(12,2),`` ``l_returnflag  CHAR(1),`` ``l_linestatus  CHAR(1),`` ``l_shipdate   DATE,`` ``l_commitdate  DATE,`` ``l_receiptdate  DATE,`` ``l_shipinstruct CHAR(25),`` ``l_shipmode   CHAR(10),`` ``l_comment    VARCHAR(44))`` ``IN DMS_D1, DMS_D2`` ``PARTITION BY RANGE(l_shipdate)``(STARTING MINVALUE,`` ``STARTING &#39;1/1/1992&#39; ``   ``ENDING &#39;31/12/1998&#39; EVERY 1 MONTH,`` ``ENDING MAXVALUE);</code></p>
+<p> 创建该表的 SQL 位于 EX2-4.sql 文件中，可使用下面的命令运行该文件：</p>
+<h5 id="清单-26-运行-EX2-4"><a href="#清单-26-运行-EX2-4" class="headerlink" title="清单 26. 运行 EX2-4"></a>清单 26. 运行 EX2-4</h5><p> <code>db2 –vtf EX2-4.sql</code></p>
+</li>
+<li><p>使用下面的命令说明为 LINEITEM 表创建的分区范围：</p>
+<h5 id="清单-27-说明"><a href="#清单-27-说明" class="headerlink" title="清单 27. 说明"></a>清单 27. 说明</h5><p> <code>db2 describe data partitions for table LINEITEM show detail</code></p>
+<h5 id="图-12-说明为-LINEITEM-表创建的分区范围"><a href="#图-12-说明为-LINEITEM-表创建的分区范围" class="headerlink" title="图 12. 说明为 LINEITEM 表创建的分区范围"></a>图 12. 说明为 LINEITEM 表创建的分区范围</h5></li>
+</ol>
+<pre><code>##### 图 13. 分区
+
+
+
+注意
+
+：TableSpID 列给出了包含分区的表空间的 ID 号。在本例中，TableSpID 为 4（对应于 DMS_D1）或 5（对应于 DMS_D2）。本例中将生成的分区依次分配给指定的表空间。</code></pre>
+<h4 id="分区的显式放置"><a href="#分区的显式放置" class="headerlink" title="分区的显式放置"></a>分区的显式放置</h4><ol>
+<li><p>创建一个具有四个数据分区的新 LINEITEM 表，每一个数据分区被显式地放在表空间中。首先使用如下命令删除现有的 LINEITEM 表：</p>
+<h5 id="清单-28-删除表"><a href="#清单-28-删除表" class="headerlink" title="清单 28. 删除表"></a>清单 28. 删除表</h5><p> <code>db2 drop TABLE LINEITEM</code></p>
+<p> 然后使用下面的 DDL 创建 LINEITEM 表的新版本：</p>
+<h5 id="清单-29-创建表"><a href="#清单-29-创建表" class="headerlink" title="清单 29. 创建表"></a>清单 29. 创建表</h5><p> <code>CREATE TABLE LINEITEM`` ``(l_orderkey     DECIMAL(10,0) NOT NULL,`` ``l_partkey      INTEGER,`` ``l_suppkey      INTEGER,`` ``l_linenumber    INTEGER,`` ``l_quantity     DECIMAL(12,2),`` ``l_extendedprice   DECIMAL(12,2),`` ``l_discount     DECIMAL(12,2),`` ``l_tax        DECIMAL(12,2),`` ``l_returnflag    CHAR(1),`` ``l_linestatus    CHAR(1),`` ``l_shipdate     DATE,`` ``l_commitdate    DATE,`` ``l_receiptdate    DATE,`` ``l_shipinstruct   CHAR(25),`` ``l_shipmode     CHAR(10),`` ``l_comment      VARCHAR(44))`` ``PARTITION BY RANGE(l_shipdate)`` ``( STARTING MINVALUE IN DMS_D1,``  ``STARTING &#39;1/1/1992&#39; ENDING &#39;31/12/1992&#39; IN DMS_D2,``  ``STARTING &#39;1/1/1993&#39; ENDING &#39;31/12/1993&#39; IN DMS_D3,``  ``ENDING MAXVALUE IN DMS_D4 );</code></p>
+<p> 创建表的 SQL 位于 EX2-6.sql 文件中，可使用下面的命令运行该文件：</p>
+<h5 id="清单-30-运行-EX2-6"><a href="#清单-30-运行-EX2-6" class="headerlink" title="清单 30. 运行 EX2-6"></a>清单 30. 运行 EX2-6</h5><p> <code>db2 –vtf EX2-6.sql</code></p>
+</li>
+<li><p>使用下面的命令说明为 LINEITEM 表创建的分区范围：</p>
+<h5 id="清单-31-说明"><a href="#清单-31-说明" class="headerlink" title="清单 31. 说明"></a>清单 31. 说明</h5><p> <code>db2 describe data partitions for table LINEITEM show detail</code></p>
+<h5 id="图-14-说明为-LINEITEM-表创建的分区范围"><a href="#图-14-说明为-LINEITEM-表创建的分区范围" class="headerlink" title="图 14. 说明为 LINEITEM 表创建的分区范围"></a>图 14. 说明为 LINEITEM 表创建的分区范围</h5></li>
+</ol>
+<pre><code>注意
+
+：在本例中，每一个分区被放置在一个不同的 TableSpID 中，这个 TableSpID 和创建表的 DDL 中指定的表空间是相对应的。</code></pre>
+<ol start="3">
+<li><p>创建一个具有四个数据分区的 LINEITEM 表，每一个数据分区被显式地放在表空间并且索引被放在表空间 DMS_I1 中。 在这一步中，将引入命名分区的概念，而不是使用默认的生成名称。 首先，使用下面的命令删除现有的 LINEITEM 分区表：</p>
+<h5 id="清单-32-删除表"><a href="#清单-32-删除表" class="headerlink" title="清单 32. 删除表"></a>清单 32. 删除表</h5><p> <code>db2 drop TABLE LINEITEM</code></p>
+<p> 然后，使用以下的 DDL 创建 LINEITEM 表的新版本：</p>
+<h5 id="清单-33-创建表"><a href="#清单-33-创建表" class="headerlink" title="清单 33. 创建表"></a>清单 33. 创建表</h5><p> <code>CREATE TABLE LINEITEM``(l_orderkey      DECIMAL(10,0) NOT NULL,`` ``l_partkey      INTEGER,`` ``l_suppkey      INTEGER,`` ``l_linenumber     INTEGER,`` ``l_quantity      DECIMAL(12,2),`` ``l_extendedprice   DECIMAL(12,2),`` ``l_discount      DECIMAL(12,2),`` ``l_tax        DECIMAL(12,2),`` ``l_returnflag     CHAR(1),`` ``l_linestatus     CHAR(1),`` ``l_shipdate      DATE,`` ``l_commitdate     DATE,`` ``l_receiptdate    DATE,`` ``l_shipinstruct    CHAR(25),`` ``l_shipmode      CHAR(10),`` ``l_comment      VARCHAR(44))``INDEX IN DMS_I1``PARTITION BY RANGE(l_shipdate)``( PART JAN1992 STARTING &#39;1/1/1992&#39; ENDING &#39;30/6/1992&#39; IN DMS_D1,`` ``PART JULY1992 STARTING &#39;1/7/1992&#39; ENDING &#39;31/12/1992&#39; IN DMS_D2,`` ``PART JAN 1993 STARTING &#39;1/1/1993&#39; ENDING &#39;30/6/1993&#39; IN DMS_D3,`` ``PART JULY1993 STARTING &#39;1/7/1993&#39; ENDING &#39;31/12/1993&#39; IN DMS_D4);</code></p>
+<p> 创建表的 SQL 位于 EX2-8.sql 文件中，可使用下面的命令运行该文件：</p>
+<h5 id="清单-34-运行-EX2-8"><a href="#清单-34-运行-EX2-8" class="headerlink" title="清单 34. 运行 EX2-8"></a>清单 34. 运行 EX2-8</h5><p> <code>db2 –vtf EX2-8.sql</code></p>
+</li>
+<li><p>在 LINEITEM 表中创建一个索引，并将它放置在表空间 DMS_I1 中。使用如下 SQL：</p>
+<h5 id="清单-35-索引"><a href="#清单-35-索引" class="headerlink" title="清单 35. 索引"></a>清单 35. 索引</h5><p> <code>db2 “create index I_LINEITEM on LINEITEM(L_SHIPDATE) in DMS_I1”</code></p>
+</li>
+<li><p>使用下面的 SQL 检验和该表相关联的索引的位置：</p>
+<h5 id="清单-36-说明"><a href="#清单-36-说明" class="headerlink" title="清单 36. 说明"></a>清单 36. 说明</h5><p> <code>db2 “select tabname, index_tbspace from syscat.tables where tabname = ‘LINEITEM’”</code></p>
+<h5 id="图-15-检验索引的位置"><a href="#图-15-检验索引的位置" class="headerlink" title="图 15. 检验索引的位置"></a>图 15. 检验索引的位置</h5></li>
+</ol>
+<pre><code>注意
+
+：索引空间是 DMS_I1。如果没有为分区表指定表空间，那么默认情况下索引位于连接着的第一个表空间。 在 CREATE TABLE 中定义表空间是很好的实践。然而，无论您是否在创建表语句 ID 中指定索引表空间，这并不限制您将来放置索引的位置。您可以在 CREATE INDEX 语句本身显式地指定索引表空间。 同一分区表的不同索引可以放置在不同的表空间。</code></pre>
+<h2 id="管理分区表"><a href="#管理分区表" class="headerlink" title="管理分区表"></a>管理分区表</h2><p>这个实验将查看如何管理和操作分区表：</p>
+<ol>
+<li>您将添加和删除分区。</li>
+<li>您将执行对分区的转入转出操作。</li>
+<li>在执行查看操作时将使用 DB2 命令和 SQL。</li>
+</ol>
+<h4 id="使用现有的表添加一个新的分区"><a href="#使用现有的表添加一个新的分区" class="headerlink" title="使用现有的表添加一个新的分区"></a>使用现有的表添加一个新的分区</h4><ol>
+<li><p>将数据导入 LINEITEM 表。创建表空间的 SQL 位于 EX3-1.sql 文件中，可使用下面的命令运行该文件：</p>
+<h5 id="清单-37-导入数据"><a href="#清单-37-导入数据" class="headerlink" title="清单 37. 导入数据"></a>清单 37. 导入数据</h5><p> <code>db2 –vtf EX3-1.sql</code></p>
+<h5 id="图-16-将数据导入到-LINEITEM-表"><a href="#图-16-将数据导入到-LINEITEM-表" class="headerlink" title="图 16. 将数据导入到 LINEITEM 表"></a>图 16. 将数据导入到 LINEITEM 表</h5></li>
+</ol>
+<pre><code>注意
+
+：分区表中的记录数，以及将进行连接和分离的记录数对于说明数据库中的数据何时可用非常重要。</code></pre>
+<ol start="2">
+<li><p>创建一个名为 NP_LINEITEM 的新表。脚本 EX3-2.sql 创建一个具有 87 行的新表 NP_LINEITEM:</p>
+<h5 id="清单-38-新分区"><a href="#清单-38-新分区" class="headerlink" title="清单 38. 新分区"></a>清单 38. 新分区</h5><p> <code>db2 –vtf EX3-2.sql</code></p>
+<h5 id="图-17-将数据导入到-NP-LINEITEM-表"><a href="#图-17-将数据导入到-NP-LINEITEM-表" class="headerlink" title="图 17. 将数据导入到 NP_LINEITEM 表"></a>图 17. 将数据导入到 NP_LINEITEM 表</h5></li>
+</ol>
+<ol start="3">
+<li><p>使用下面的命令说明为 LINEITEM 表创建的分区范围：</p>
+<h5 id="清单-39-说明"><a href="#清单-39-说明" class="headerlink" title="清单 39. 说明"></a>清单 39. 说明</h5><p> <code>db2 describe data partitions for table LINEITEM show detail</code></p>
+<h5 id="图-18-LINEITEM-表的分区"><a href="#图-18-LINEITEM-表的分区" class="headerlink" title="图 18. LINEITEM 表的分区"></a>图 18. LINEITEM 表的分区</h5></li>
+</ol>
+<pre><code>注意
+
+：LINEITEM 表目前包含 4 个数据分区。</code></pre>
+<ol start="4">
+<li>使用</li>
+</ol>
+<pre><code><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Alter</span><br></pre></td></tr></table></figure>
+
+
+语句将一个新的分区连接（转入）到现有的 LINEITEM 表。
+
+##### 清单 40. 新分区
+
+`ALTER TABLE LINEITEM ATTACH PARTITION JAN1994 ``STARTING &#39;1/1/1994&#39; ENDING &#39;30/6/1994&#39;``FROM NP_LINEITEM`
+
+可以使用以下命令运行脚本 EX3-4：
+
+##### 清单 41. 新分区
+
+`db2 –vtf EX3-4.sql`
+
+##### 图 19. 脚本 EX3-4
+
+
+
+注意
+
+：LINEITEM 表被置于 SET INTEGRITY PENDING 状态。</code></pre>
+<ol start="5">
+<li>连接后，使用</li>
+</ol>
+<pre><code><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">describe data partitions</span><br></pre></td></tr></table></figure>
+
+
+命令来说明为 LINEITEM 表创建的分区范围：
+
+##### 清单 42. 说明
+
+`db2 describe data partitions for table LINEITEM show detail`
+
+##### 图 20. LINEITEM 表的分区
+
+
+
+注意
+
+：新数据分区（JAN1994）PartitionId 4 现在连接到了 LINEITEM 表。然而连接的分区的 AccessMode 值为 ‘N’ 并且 Status 的值为 ‘A’。 AccessMode 可能的值有：
+
+- D = 没有数据移动
+- F = 完全访问
+- N = 不访问
+- R = 只读访问
+
+Status 可能的值有：
+
+- A = 数据分区是新连接的
+- D = 数据分区是分离的
+- I = 只有在执行异步索引清除时才对条目位于目录的分离的数据分区进行维护；当所有引用分离数据分区的索引记录删除后，将删除 STATUS 值为 ‘I’ 的行。
+- Empty string = 数据分区是可见的（普通状态）</code></pre>
+<ol start="6">
+<li>运行两个</li>
+</ol>
+<pre><code><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">select count</span><br></pre></td></tr></table></figure>
+
+
+语句来检查连接语句涉及的两个表中数据的可用性。
+
+##### 清单 43. Count Lineitem
+
+`db2 “select count(*) from lineitem”`
+
+##### 图 21. select count 语句的结果
+
+
+
+注意
+
+：LINEITEM 表最初的分区是可用的，但是 PartitionId 4 中的新数据仍不可见。
+
+##### 清单 44. Count np-lineitem
+
+`db2 “select count(*) from np_lineitem”`
+
+##### 图 22. select count 语句的结果
+
+
+
+注意
+
+：NP_LINEITEM 表现在是一个未定义的对象，在 LINEITEM 表内只能将其作为一个分区使用。</code></pre>
+<ol start="7">
+<li><p>创建一个异常表并与 SET INTEGRITY 语句结合使用。执行该操作的 DDL 位于 EX3-7.sql 文件，可使用下面的命令运行该文件：</p>
+<h5 id="清单-45-异常表"><a href="#清单-45-异常表" class="headerlink" title="清单 45. 异常表"></a>清单 45. 异常表</h5><p> <code>db2 –vtf EX3-7.sql</code></p>
+</li>
+<li><p>对 LINEITEM 分区表运行</p>
+</li>
+</ol>
+<pre><code><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">set integrity</span><br></pre></td></tr></table></figure>
+
+
+语句 。
+
+##### 清单 46. 设置完整性
+
+`SET INTEGRITY FOR LINEITEM &lt;``br``&gt;``ALLOW WRITE ACCESS &lt;``br``&gt;``IMMEDIATE CHECKED &lt;``br``&gt;``FOR EXCEPTION IN LINEITEM USE LINEITEM_EX`
+
+执行该操作的 SQL 位于 EX3-8.sql 文件中，可以使用下面的命令运行该文件：
+
+##### 清单 47. 设置完整性
+
+`db2 –vtf EX3-8.sql`
+
+##### 图 23. EX3-8.sql 文件
+
+
+
+注意
+
+：
+
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">SET INTEGRITY</span><br></pre></td></tr></table></figure>
+
+
+对于检查新连接的数据是否在范围内是必需的，它还执行对索引和其他独立对象（例如物化查询表）所有必需的维护工作。只有得到
+
+
+
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">SET INTEGRITY</span><br></pre></td></tr></table></figure>
+
+
+语句的允许，新的数据才能变为可见。然而，当运行
+
+
+
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">SET INTEGRITY</span><br></pre></td></tr></table></figure>
+
+
+时，可以对 LINEITEM 表中的现有数据进行完全访问，包括读和写操作。 用户应该执行
+
+
+
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">SET INTEGRITY</span><br></pre></td></tr></table></figure>
+
+
+事务从而能够使用整个表。当运行
+
+
+
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">SET INTEGRITY</span><br></pre></td></tr></table></figure>
+
+
+时，不能够对表执行 DDL 或其他实用类型的操作。 在这个练习中，在 NP_LINEITEM 表中创建并被连接到 LINEITEM 表的所有的行，都在连接语句指定的范围内。如果这些行中存在超出此范围的行，则需要在
+
+
+
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">SET INTEGRITY</span><br></pre></td></tr></table></figure>
+
+
+语句中创建一个异常表来防止语句发生错误。所以推荐您始终在
+
+
+
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">SET INTEGRITY</span><br></pre></td></tr></table></figure>
+
+
+语句中包含一个异常表。如果没有提供异常表的话，
+
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">SET INTEGRITY</span><br></pre></td></tr></table></figure>
+
+
+语句发现的错误将导致语句失败并且所有的工作都必须从头做起。如果使用大量数据时，这可能是一个长期操作。有一点值得注意，如果
+
+
+
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">SET INTEGRITY</span><br></pre></td></tr></table></figure>
+
+
+操作失败，所有工作都需要重做，与之相比较，
+
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">LOAD</span><br></pre></td></tr></table></figure>
+
+
+仅仅抛弃存在问题的行。</code></pre>
+<ol start="9">
+<li>对 LINEITEM 表运行</li>
+</ol>
+<pre><code><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">select count</span><br></pre></td></tr></table></figure>
+
+
+SQL 以检查连接的分区中数据的可用性：
+
+##### 清单 48. Count Lineitem
+
+`db2 “select count(*) from lineitem”`
+
+##### 图 24. select count 语句的结果
+
+
+
+注意
+
+：成功执行
+
+
+
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">SET INTEGRITY</span><br></pre></td></tr></table></figure>
+
+
+操作后，LINEITEM 表应包含 PartitionId 4 的数据。</code></pre>
+<h4 id="从分区表中分离一个分区"><a href="#从分区表中分离一个分区" class="headerlink" title="从分区表中分离一个分区"></a>从分区表中分离一个分区</h4><ol>
+<li>使用</li>
+</ol>
+<pre><code><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">describe data partitions show detail</span><br></pre></td></tr></table></figure>
+
+
+命令来标识一个分区的 PartitionName，您将把这个分区从 LINEITEM 分区表中分离（转出）出来。
+
+##### 清单 49. 说明表
+
+`db2 describe data partitions for table LINEITEM show detail`
+
+##### 土 25. LINEITEM 表的分区
+
+
+
+注意
+
+：将分离最早的分区范围 PartitionId 0。该分区的 PartitionName 是 JAN1992。将在
+
+
+
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">DETACH</span><br></pre></td></tr></table></figure>
+
+
+操作中使用它来标识被转出的分区。同样还需注意成功执行了
+
+
+
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">SET INTEGRITY</span><br></pre></td></tr></table></figure>
+
+
+操作后，分区 JAN1994 的 AccessMode 的值为 ‘F’，Status 值为空。TableSpId、PartObjId 和 LongTblSpId 的结果可能和这里显示的不一样。</code></pre>
+<ol start="2">
+<li>使用</li>
+</ol>
+<pre><code><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Alter</span><br></pre></td></tr></table></figure>
+
+
+语句将 JAN1992 从 LINEITEM 表中分离（转出）。
+
+##### 清单 50. Alter 表
+
+`ALTER TABLE LINEITEM DETACH PARTITION JAN1992 INTO LINEITEM_JAN1992`
+
+创建文件的 SQL 位于 EX3-11.sql 文件中，可使用下面的命令运行该文件：
+
+##### 清单 51. Alter 表
+
+`db2 –vtf EX3-11.sql.`
+
+注意
+
+：将 JAN1992 成功分离后，将创建一个新的表 LINEITEM_JAN1992。在
+
+
+
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">DETACH</span><br></pre></td></tr></table></figure>
+
+
+操作中没有涉及数据移动，并且位于相同表空间的新表的行为和它作为 LINEITEM 分区表的一部分时是一样的。此时不需要对 LINEITEM 表运行
+
+
+
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">SET INTEGRITY</span><br></pre></td></tr></table></figure>
+
+
+语句，因为没有对 LINEITEM 表定义的 MQTs。 还有一点值得注意，如果从 Multi-Dimensional Clustering（MDC）分离一个分区从而创建了一个新表时，这个表也将是一个 MDC。这个规则同样适用于下面这个情况：从一个分布式表中分离分区从而在相同的分区组创建分布式表。执行
+
+
+
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">DETACH</span><br></pre></td></tr></table></figure>
+
+
+操作后产生的表使用 MDC 索引定义而不是其他的索引。对于 MDC，在首次访问连接的表时将重新构建索引。在这种情况下，将自动对分离的分区进行索引清除操作。将从执行
+
+
+
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">DETACH</span><br></pre></td></tr></table></figure>
+
+
+操作的用户 ID 继承索引的模式、权限和表空间。</code></pre>
+<ol start="3">
+<li>运行两个</li>
+</ol>
+<pre><code><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">select count</span><br></pre></td></tr></table></figure>
+
+
+语句检查
+
+
+
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">DETACH</span><br></pre></td></tr></table></figure>
+
+
+语句涉及的两个表中的数据的可用性。
+
+##### 清单 52. Count Lineitem_jan1992
+
+`db2 “select count(*) from lineitem_jan1992”`
+
+##### 图 26. select count 语句的结果
+
+
+
+注意
+
+：创建的 LINEITEM_JAN1992 表包含 38 行，它被包含在 LINEITEM 分区表的 JAN1992 分区中。
+
+##### 清单 53. Count lineitem
+
+`db2 “select count(*) from lineitem”`
+
+##### 图 27. select count 语句的结果
+
+
+
+注意
+
+：此时 LINEITEM 表完全可用，并且不包括 PART0 中的数据。</code></pre>
+<ol start="4">
+<li><p>当数据被移动到分区表中，或当希望将数据加载到或直接插入分区表中时，一个更合适的方法是向现有的分区表添加一个空的分区。使用下面的命令向现有的 LINEITEM 表添加一个空的分区：</p>
+<h5 id="清单-54-说明"><a href="#清单-54-说明" class="headerlink" title="清单 54. 说明"></a>清单 54. 说明</h5><p> <code>db2 “ALTER TABLE LINEITEM ADD PARTITION JULY1994 ``STARTING &#39;1/7/1994&#39; ENDING &#39;31/12/1994&#39;”</code></p>
+<h5 id="图-28-向现有的-LINEITEM-表添加一个空的分区"><a href="#图-28-向现有的-LINEITEM-表添加一个空的分区" class="headerlink" title="图 28. 向现有的 LINEITEM 表添加一个空的分区"></a>图 28. 向现有的 LINEITEM 表添加一个空的分区</h5></li>
+</ol>
+<ol start="5">
+<li>使用</li>
+</ol>
+<pre><code><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">describe data partitions show detail</span><br></pre></td></tr></table></figure>
+
+
+命令来检验 PartitionName 为 JULY1994 的分区是否被添加到 LINEITEM 中：
+
+##### 清单 55. 说明
+
+`db2 describe data partitions for table LINEITEM show detail`
+
+##### 图 29. LINEITEM 表的分区</code></pre>
+<h2 id="分区表的访问计划"><a href="#分区表的访问计划" class="headerlink" title="分区表的访问计划"></a>分区表的访问计划</h2><p>本实验将研究如何在访问计划中描述分区表：</p>
+<ol>
+<li><p>您将更新分区表中的统计信息。</p>
+</li>
+<li><p>您将使用 <code>db2expln</code> 命令并分析结果。</p>
+</li>
+<li><p>您将在执行查看的操作中使用 DB2 命令和 SQL 。</p>
+</li>
+<li><p>对 LINEITEM 表执行</p>
+</li>
+</ol>
+<pre><code><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">RUNSTATS</span><br></pre></td></tr></table></figure>
+
+
+操作：
+
+##### 清单 56. Runstats
+
+`db2 runstats on table db2inst1.lineitem`</code></pre>
+<ol start="2">
+<li><p>说明以下 SQL 语句并检查说明输出：</p>
+<h5 id="清单-57-说明"><a href="#清单-57-说明" class="headerlink" title="清单 57. 说明"></a>清单 57. 说明</h5><p> <code>db2 “select l_shipdate,sum(l_quantity) from LINEITEM group by l_shipdate”</code></p>
+<p> 要进行说明的 SQL 位于 EX4-2.sql 文件，可以使用下面的命令运行该文件：</p>
+<h5 id="清单-58-说明输出"><a href="#清单-58-说明输出" class="headerlink" title="清单 58. 说明输出"></a>清单 58. 说明输出</h5><p> <code>db2expln –d SAMPLE –t –f EX4-2.sql</code></p>
+<h5 id="图-30-说明输出"><a href="#图-30-说明输出" class="headerlink" title="图 30. 说明输出"></a>图 30. 说明输出</h5></li>
+</ol>
+<pre><code>注意
+
+：该 SQL 执行了 LINEITEM 表的索引扫描。说明输出中有一个关于表分区的要点需要注意，所访问的表是被分区的，并且在扫描过程中所有数据分区都将被访问。</code></pre>
+<ol start="3">
+<li><p>说明下面的 SQL 语句并检查说明输出：</p>
+<h5 id="清单-59-说明"><a href="#清单-59-说明" class="headerlink" title="清单 59. 说明"></a>清单 59. 说明</h5><p> <code>db2 “select l_shipdate, l_partkey, l_returnflag</code> <code>from LINEITEM</code> <code>where l_shipdate between &#39;01/01/1993&#39; and &#39;31/08/1993&#39;</code> <code>and l_partkey = 49981”</code></p>
+<p> 要进行说明的 SQL 语句位于 EX4-3.sql 文件中，可使用下面的命令运行该文件：</p>
+<h5 id="清单-60-说明输出"><a href="#清单-60-说明输出" class="headerlink" title="清单 60. 说明输出"></a>清单 60. 说明输出</h5><p> <code>db2expln –d SAMPLE –t –f EX4-3.sql</code></p>
+<h5 id="图-31-说明输出"><a href="#图-31-说明输出" class="headerlink" title="图 31. 说明输出"></a>图 31. 说明输出</h5></li>
+</ol>
+<pre><code>注意
+
+：这个 SQL 语句执行了 LINEITEM 表的索引扫描。在本例中，可以看到优化器能够执行数据分区排除操作。在说明输出中要注意的是关于表分区，访问的表是被分区的，将执行分区排除功能以及删除活动数据分区的值。 在本例中，活动的数据分区为 1-2。这里引用的是 syscat.datapartitions 中的序列号（seqno）而不是
+
+
+
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">describe data partitions</span><br></pre></td></tr></table></figure>
+
+
+命令中的 PartitionId。</code></pre>
+<ol start="4">
+<li><p>使用下面的 SQL 确定在前面说明示例中活动的分区的名称：</p>
+<h5 id="清单-61-说明"><a href="#清单-61-说明" class="headerlink" title="清单 61. 说明"></a>清单 61. 说明</h5><p> <code>db2 “select seqno,datapartitionname &lt;``br``&gt;``from syscat.datapartitions &lt;``br``&gt;``where tabname = ‘LINEITEM’ order by seqno”</code></p>
+<h5 id="图-32-分区名称"><a href="#图-32-分区名称" class="headerlink" title="图 32. 分区名称"></a>图 32. 分区名称</h5></li>
+</ol>
+<pre><code>注意
+
+：序列号 1 和 2 分别映射的是 JAN1993 和 JULY1993 分区名称。</code></pre>
+<h2 id="结束语"><a href="#结束语" class="headerlink" title="结束语"></a>结束语</h2><p>本教程基于 IBM DB2 9 Data Partitioning 特性。您已在以下几个方面获得了第一手的经验：</p>
+<ul>
+<li>如何定义分区表</li>
+<li>如何将分区表放置在底层磁盘子系统</li>
+<li>如何维护分区表</li>
+<li>如何使用 DB2 Explain 说明分区表</li>
+</ul>
+<p>范围分区将数据映射到基于关键值范围的分区，用户为每一个分区建立关键值范围。例如，企业通常希望以月份为单位，将销售数据划分到各月的分区中。与 MDC 功能集合使用时，范围分区将更加方便地定位数据，从而加快通过复杂查询检索信息的速度。</p>
+<p><a target="_blank" rel="noopener" href="https://www.ibm.com/developerworks/cn/education/data/dm0612read/dm0612read.html?from=singlemessage&amp;isappinstalled=0#ibm-pcon">https://www.ibm.com/developerworks/cn/education/data/dm0612read/dm0612read.html?from=singlemessage&amp;isappinstalled=0#ibm-pcon</a></p>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2021/01/15/DB2%E9%94%99%E8%AF%AF%E4%BB%A3%E7%A0%81%E5%A4%A7%E5%85%A8/" rel="prev" title="">
+      <i class="fa fa-chevron-left"></i> 
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2021/01/15/DB2%E8%A1%A8%E7%A9%BA%E9%97%B4%E7%8A%B6%E6%80%81%E5%BC%82%E5%B8%B80x0020%E8%A7%A3%E5%86%B3%E5%8A%9E%E6%B3%95/" rel="next" title="">
+       <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#DB2-9-%E8%A1%A8%E5%88%86%E5%8C%BA"><span class="nav-number">1.</span> <span class="nav-text">DB2 9 表分区</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%BC%80%E5%A7%8B%E4%B9%8B%E5%89%8D"><span class="nav-number">1.1.</span> <span class="nav-text">开始之前</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%85%B3%E4%BA%8E%E6%9C%AC%E6%95%99%E7%A8%8B"><span class="nav-number">1.1.1.</span> <span class="nav-text">关于本教程</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%9B%AE%E6%A0%87"><span class="nav-number">1.1.2.</span> <span class="nav-text">目标</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%85%88%E5%86%B3%E6%9D%A1%E4%BB%B6"><span class="nav-number">1.1.3.</span> <span class="nav-text">先决条件</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E7%B3%BB%E7%BB%9F%E9%9C%80%E6%B1%82"><span class="nav-number">1.1.3.1.</span> <span class="nav-text">系统需求</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%88%9B%E5%BB%BA%E5%88%86%E5%8C%BA%E8%A1%A8"><span class="nav-number">1.2.</span> <span class="nav-text">创建分区表</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E7%99%BB%E5%BD%95%E5%92%8C%E5%9F%BA%E6%9C%AC%E6%8C%87%E4%BB%A4"><span class="nav-number">1.2.0.1.</span> <span class="nav-text">登录和基本指令</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#%E5%9B%BE-1-%E5%9F%BA%E6%9C%AC%E8%AE%BE%E7%BD%AE"><span class="nav-number">1.2.0.1.1.</span> <span class="nav-text">图 1. 基本设置</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E6%B8%85%E5%8D%95-1-%E5%88%87%E6%8D%A2%E7%9B%AE%E5%BD%95"><span class="nav-number">1.2.0.1.2.</span> <span class="nav-text">清单 1. 切换目录</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%88%9B%E5%BB%BA%E5%9F%BA%E6%9C%AC%E5%88%86%E5%8C%BA%E8%A1%A8"><span class="nav-number">1.2.0.2.</span> <span class="nav-text">创建基本分区表</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#%E6%B8%85%E5%8D%95-3-%E5%88%9B%E5%BB%BA%E8%A1%A8"><span class="nav-number">1.2.0.2.1.</span> <span class="nav-text">清单 3. 创建表</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E6%B8%85%E5%8D%95-4-%E8%BF%90%E8%A1%8C-EX1-6"><span class="nav-number">1.2.0.2.2.</span> <span class="nav-text">清单 4. 运行 EX1-6</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E6%B8%85%E5%8D%95-5-%E8%AF%B4%E6%98%8E"><span class="nav-number">1.2.0.2.3.</span> <span class="nav-text">清单 5. 说明</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E5%9B%BE-2-%E8%AF%B4%E6%98%8E%E4%B8%BA-LINEITEM-%E8%A1%A8%E5%88%9B%E5%BB%BA%E7%9A%84%E5%88%86%E5%8C%BA%E8%8C%83%E5%9B%B4"><span class="nav-number">1.2.0.2.4.</span> <span class="nav-text">图 2. 说明为 LINEITEM 表创建的分区范围</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E6%B8%85%E5%8D%95-6-%E5%B8%A6%E6%9C%89%E6%8B%92%E7%BB%9D%E7%9A%84%E5%8A%A0%E8%BD%BD"><span class="nav-number">1.2.0.2.5.</span> <span class="nav-text">清单 6. 带有拒绝的加载</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E5%9B%BE-3-%E5%B0%86%E6%95%B0%E6%8D%AE%E5%AF%BC%E5%85%A5%E5%88%B0-LINEITEM-%E8%A1%A8"><span class="nav-number">1.2.0.2.6.</span> <span class="nav-text">图 3. 将数据导入到 LINEITEM 表</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E6%B8%85%E5%8D%95-7-%E6%9F%A5%E8%AF%A2-%E5%8C%B9%E9%85%8D%E6%97%A5%E6%9C%9F%E7%9A%84%E5%88%86%E5%8C%BA"><span class="nav-number">1.2.0.2.7.</span> <span class="nav-text">清单 7. 查询 - 匹配日期的分区</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E5%9B%BE-4-%E6%A0%87%E9%87%8F%E5%87%BD%E6%95%B0%E7%9A%84%E8%BE%93%E5%87%BA"><span class="nav-number">1.2.0.2.8.</span> <span class="nav-text">图 4. 标量函数的输出</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%85%B7%E6%9C%89%E5%85%A8%E9%83%A8%E8%8C%83%E5%9B%B4%E7%9A%84%E5%88%86%E5%8C%BA%E8%A1%A8"><span class="nav-number">1.2.0.3.</span> <span class="nav-text">具有全部范围的分区表</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#%E6%B8%85%E5%8D%95-8-%E5%88%A0%E9%99%A4%E8%A1%A8"><span class="nav-number">1.2.0.3.1.</span> <span class="nav-text">清单 8. 删除表</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E6%B8%85%E5%8D%95-9-%E5%88%9B%E5%BB%BA%E8%A1%A8"><span class="nav-number">1.2.0.3.2.</span> <span class="nav-text">清单 9. 创建表</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E6%B8%85%E5%8D%95-10-%E8%BF%90%E8%A1%8C-EX1-10"><span class="nav-number">1.2.0.3.3.</span> <span class="nav-text">清单 10. 运行 EX1-10</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E6%B8%85%E5%8D%95-11-%E8%AF%B4%E6%98%8E"><span class="nav-number">1.2.0.3.4.</span> <span class="nav-text">清单 11. 说明</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E5%9B%BE-5-%E8%AF%B4%E6%98%8E%E4%B8%BA-LINEITEM-%E8%A1%A8%E5%88%9B%E5%BB%BA%E7%9A%84%E5%88%86%E5%8C%BA%E8%8C%83%E5%9B%B4"><span class="nav-number">1.2.0.3.5.</span> <span class="nav-text">图 5. 说明为 LINEITEM 表创建的分区范围</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E6%B8%85%E5%8D%95-12-%E5%85%A8%E9%9D%A2%E5%8A%A0%E8%BD%BD"><span class="nav-number">1.2.0.3.6.</span> <span class="nav-text">清单 12. 全面加载</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E5%9B%BE-6-%E5%B0%86%E6%95%B0%E6%8D%AE%E5%AF%BC%E5%85%A5%E5%88%B0-LINEITEM-%E8%A1%A8%E4%B8%AD"><span class="nav-number">1.2.0.3.7.</span> <span class="nav-text">图 6. 将数据导入到 LINEITEM 表中</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%85%B7%E6%9C%89%E7%94%9F%E6%88%90%E8%8C%83%E5%9B%B4%E7%9A%84%E5%88%86%E5%8C%BA%E8%A1%A8"><span class="nav-number">1.2.0.4.</span> <span class="nav-text">具有生成范围的分区表</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#%E6%B8%85%E5%8D%95-13-%E5%88%A0%E9%99%A4%E8%A1%A8"><span class="nav-number">1.2.0.4.1.</span> <span class="nav-text">清单 13. 删除表</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E6%B8%85%E5%8D%95-14-%E5%88%9B%E5%BB%BA%E8%A1%A8"><span class="nav-number">1.2.0.4.2.</span> <span class="nav-text">清单 14. 创建表</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E6%B8%85%E5%8D%95-15-%E8%BF%90%E8%A1%8C-EX1-13"><span class="nav-number">1.2.0.4.3.</span> <span class="nav-text">清单 15. 运行 EX1-13</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E6%B8%85%E5%8D%95-16-%E8%AF%B4%E6%98%8E"><span class="nav-number">1.2.0.4.4.</span> <span class="nav-text">清单 16. 说明</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E5%9B%BE-7-%E8%AF%B4%E6%98%8E%E4%B8%BA-LINEITEM-%E8%A1%A8%E5%88%9B%E5%BB%BA%E7%9A%84%E5%88%86%E5%8C%BA%E8%8C%83%E5%9B%B4"><span class="nav-number">1.2.0.4.5.</span> <span class="nav-text">图 7. 说明为 LINEITEM 表创建的分区范围</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E6%B8%85%E5%8D%95-17-%E5%8A%A0%E8%BD%BD%E5%B9%B6%E7%94%9F%E6%88%90"><span class="nav-number">1.2.0.4.6.</span> <span class="nav-text">清单 17. 加载并生成</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E5%9B%BE-8-%E5%B0%86%E6%95%B0%E6%8D%AE%E5%AF%BC%E5%85%A5%E5%88%B0-LINEITEM-%E8%A1%A8"><span class="nav-number">1.2.0.4.7.</span> <span class="nav-text">图 8. 将数据导入到 LINEITEM 表</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E6%B8%85%E5%8D%95-18-%E6%9F%A5%E8%AF%A2%E6%95%B0%E6%8D%AE"><span class="nav-number">1.2.0.4.8.</span> <span class="nav-text">清单 18. 查询数据</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E6%B8%85%E5%8D%95-19-%E6%9F%A5%E8%AF%A2%E6%95%B0%E6%8D%AE%E8%84%9A%E6%9C%AC"><span class="nav-number">1.2.0.4.9.</span> <span class="nav-text">清单 19. 查询数据脚本</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E5%9B%BE-9-%E6%A3%80%E9%AA%8C%E8%A1%8C%E6%95%B0"><span class="nav-number">1.2.0.4.10.</span> <span class="nav-text">图 9. 检验行数</span></a></li></ol></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%94%BE%E7%BD%AE%E5%88%86%E5%8C%BA%E8%A1%A8"><span class="nav-number">1.3.</span> <span class="nav-text">放置分区表</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%9F%BA%E6%9C%AC%E7%8E%AF%E5%A2%83%E8%AE%BE%E7%BD%AE"><span class="nav-number">1.3.0.1.</span> <span class="nav-text">基本环境设置</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#%E6%B8%85%E5%8D%95-22-%E8%AF%B4%E6%98%8E"><span class="nav-number">1.3.0.1.1.</span> <span class="nav-text">清单 22. 说明</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E6%B8%85%E5%8D%95-23-%E6%9F%A5%E8%AF%A2%E6%95%B0%E6%8D%AE%E8%84%9A%E6%9C%AC"><span class="nav-number">1.3.0.1.2.</span> <span class="nav-text">清单 23. 查询数据脚本</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E6%B8%85%E5%8D%95-24-%E5%88%A0%E9%99%A4%E8%A1%A8"><span class="nav-number">1.3.0.1.3.</span> <span class="nav-text">清单 24. 删除表</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E6%B8%85%E5%8D%95-25-%E5%88%9B%E5%BB%BA%E8%A1%A8"><span class="nav-number">1.3.0.1.4.</span> <span class="nav-text">清单 25. 创建表</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E6%B8%85%E5%8D%95-26-%E8%BF%90%E8%A1%8C-EX2-4"><span class="nav-number">1.3.0.1.5.</span> <span class="nav-text">清单 26. 运行 EX2-4</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E6%B8%85%E5%8D%95-27-%E8%AF%B4%E6%98%8E"><span class="nav-number">1.3.0.1.6.</span> <span class="nav-text">清单 27. 说明</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E5%9B%BE-12-%E8%AF%B4%E6%98%8E%E4%B8%BA-LINEITEM-%E8%A1%A8%E5%88%9B%E5%BB%BA%E7%9A%84%E5%88%86%E5%8C%BA%E8%8C%83%E5%9B%B4"><span class="nav-number">1.3.0.1.7.</span> <span class="nav-text">图 12. 说明为 LINEITEM 表创建的分区范围</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%88%86%E5%8C%BA%E7%9A%84%E6%98%BE%E5%BC%8F%E6%94%BE%E7%BD%AE"><span class="nav-number">1.3.0.2.</span> <span class="nav-text">分区的显式放置</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#%E6%B8%85%E5%8D%95-28-%E5%88%A0%E9%99%A4%E8%A1%A8"><span class="nav-number">1.3.0.2.1.</span> <span class="nav-text">清单 28. 删除表</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E6%B8%85%E5%8D%95-29-%E5%88%9B%E5%BB%BA%E8%A1%A8"><span class="nav-number">1.3.0.2.2.</span> <span class="nav-text">清单 29. 创建表</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E6%B8%85%E5%8D%95-30-%E8%BF%90%E8%A1%8C-EX2-6"><span class="nav-number">1.3.0.2.3.</span> <span class="nav-text">清单 30. 运行 EX2-6</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E6%B8%85%E5%8D%95-31-%E8%AF%B4%E6%98%8E"><span class="nav-number">1.3.0.2.4.</span> <span class="nav-text">清单 31. 说明</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E5%9B%BE-14-%E8%AF%B4%E6%98%8E%E4%B8%BA-LINEITEM-%E8%A1%A8%E5%88%9B%E5%BB%BA%E7%9A%84%E5%88%86%E5%8C%BA%E8%8C%83%E5%9B%B4"><span class="nav-number">1.3.0.2.5.</span> <span class="nav-text">图 14. 说明为 LINEITEM 表创建的分区范围</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E6%B8%85%E5%8D%95-32-%E5%88%A0%E9%99%A4%E8%A1%A8"><span class="nav-number">1.3.0.2.6.</span> <span class="nav-text">清单 32. 删除表</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E6%B8%85%E5%8D%95-33-%E5%88%9B%E5%BB%BA%E8%A1%A8"><span class="nav-number">1.3.0.2.7.</span> <span class="nav-text">清单 33. 创建表</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E6%B8%85%E5%8D%95-34-%E8%BF%90%E8%A1%8C-EX2-8"><span class="nav-number">1.3.0.2.8.</span> <span class="nav-text">清单 34. 运行 EX2-8</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E6%B8%85%E5%8D%95-35-%E7%B4%A2%E5%BC%95"><span class="nav-number">1.3.0.2.9.</span> <span class="nav-text">清单 35. 索引</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E6%B8%85%E5%8D%95-36-%E8%AF%B4%E6%98%8E"><span class="nav-number">1.3.0.2.10.</span> <span class="nav-text">清单 36. 说明</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E5%9B%BE-15-%E6%A3%80%E9%AA%8C%E7%B4%A2%E5%BC%95%E7%9A%84%E4%BD%8D%E7%BD%AE"><span class="nav-number">1.3.0.2.11.</span> <span class="nav-text">图 15. 检验索引的位置</span></a></li></ol></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%AE%A1%E7%90%86%E5%88%86%E5%8C%BA%E8%A1%A8"><span class="nav-number">1.4.</span> <span class="nav-text">管理分区表</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E4%BD%BF%E7%94%A8%E7%8E%B0%E6%9C%89%E7%9A%84%E8%A1%A8%E6%B7%BB%E5%8A%A0%E4%B8%80%E4%B8%AA%E6%96%B0%E7%9A%84%E5%88%86%E5%8C%BA"><span class="nav-number">1.4.0.1.</span> <span class="nav-text">使用现有的表添加一个新的分区</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#%E6%B8%85%E5%8D%95-37-%E5%AF%BC%E5%85%A5%E6%95%B0%E6%8D%AE"><span class="nav-number">1.4.0.1.1.</span> <span class="nav-text">清单 37. 导入数据</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E5%9B%BE-16-%E5%B0%86%E6%95%B0%E6%8D%AE%E5%AF%BC%E5%85%A5%E5%88%B0-LINEITEM-%E8%A1%A8"><span class="nav-number">1.4.0.1.2.</span> <span class="nav-text">图 16. 将数据导入到 LINEITEM 表</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E6%B8%85%E5%8D%95-38-%E6%96%B0%E5%88%86%E5%8C%BA"><span class="nav-number">1.4.0.1.3.</span> <span class="nav-text">清单 38. 新分区</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E5%9B%BE-17-%E5%B0%86%E6%95%B0%E6%8D%AE%E5%AF%BC%E5%85%A5%E5%88%B0-NP-LINEITEM-%E8%A1%A8"><span class="nav-number">1.4.0.1.4.</span> <span class="nav-text">图 17. 将数据导入到 NP_LINEITEM 表</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E6%B8%85%E5%8D%95-39-%E8%AF%B4%E6%98%8E"><span class="nav-number">1.4.0.1.5.</span> <span class="nav-text">清单 39. 说明</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E5%9B%BE-18-LINEITEM-%E8%A1%A8%E7%9A%84%E5%88%86%E5%8C%BA"><span class="nav-number">1.4.0.1.6.</span> <span class="nav-text">图 18. LINEITEM 表的分区</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E6%B8%85%E5%8D%95-45-%E5%BC%82%E5%B8%B8%E8%A1%A8"><span class="nav-number">1.4.0.1.7.</span> <span class="nav-text">清单 45. 异常表</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E4%BB%8E%E5%88%86%E5%8C%BA%E8%A1%A8%E4%B8%AD%E5%88%86%E7%A6%BB%E4%B8%80%E4%B8%AA%E5%88%86%E5%8C%BA"><span class="nav-number">1.4.0.2.</span> <span class="nav-text">从分区表中分离一个分区</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#%E6%B8%85%E5%8D%95-54-%E8%AF%B4%E6%98%8E"><span class="nav-number">1.4.0.2.1.</span> <span class="nav-text">清单 54. 说明</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E5%9B%BE-28-%E5%90%91%E7%8E%B0%E6%9C%89%E7%9A%84-LINEITEM-%E8%A1%A8%E6%B7%BB%E5%8A%A0%E4%B8%80%E4%B8%AA%E7%A9%BA%E7%9A%84%E5%88%86%E5%8C%BA"><span class="nav-number">1.4.0.2.2.</span> <span class="nav-text">图 28. 向现有的 LINEITEM 表添加一个空的分区</span></a></li></ol></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%88%86%E5%8C%BA%E8%A1%A8%E7%9A%84%E8%AE%BF%E9%97%AE%E8%AE%A1%E5%88%92"><span class="nav-number">1.5.</span> <span class="nav-text">分区表的访问计划</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#%E6%B8%85%E5%8D%95-57-%E8%AF%B4%E6%98%8E"><span class="nav-number">1.5.0.0.1.</span> <span class="nav-text">清单 57. 说明</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E6%B8%85%E5%8D%95-58-%E8%AF%B4%E6%98%8E%E8%BE%93%E5%87%BA"><span class="nav-number">1.5.0.0.2.</span> <span class="nav-text">清单 58. 说明输出</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E5%9B%BE-30-%E8%AF%B4%E6%98%8E%E8%BE%93%E5%87%BA"><span class="nav-number">1.5.0.0.3.</span> <span class="nav-text">图 30. 说明输出</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E6%B8%85%E5%8D%95-59-%E8%AF%B4%E6%98%8E"><span class="nav-number">1.5.0.0.4.</span> <span class="nav-text">清单 59. 说明</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E6%B8%85%E5%8D%95-60-%E8%AF%B4%E6%98%8E%E8%BE%93%E5%87%BA"><span class="nav-number">1.5.0.0.5.</span> <span class="nav-text">清单 60. 说明输出</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E5%9B%BE-31-%E8%AF%B4%E6%98%8E%E8%BE%93%E5%87%BA"><span class="nav-number">1.5.0.0.6.</span> <span class="nav-text">图 31. 说明输出</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E6%B8%85%E5%8D%95-61-%E8%AF%B4%E6%98%8E"><span class="nav-number">1.5.0.0.7.</span> <span class="nav-text">清单 61. 说明</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E5%9B%BE-32-%E5%88%86%E5%8C%BA%E5%90%8D%E7%A7%B0"><span class="nav-number">1.5.0.0.8.</span> <span class="nav-text">图 32. 分区名称</span></a></li></ol></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%BB%93%E6%9D%9F%E8%AF%AD"><span class="nav-number">1.6.</span> <span class="nav-text">结束语</span></a></li></ol></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="severus"
+      src="/images/00-00-00.JPG">
+  <p class="site-author-name" itemprop="name">severus</p>
+  <div class="site-description" itemprop="description">正在享受无法回避的痛苦</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">66</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-tags">
+        <span class="site-state-item-count">1</span>
+        <span class="site-state-item-name">标签</span>
+      </div>
+  </nav>
+</div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 1876 – 
+  <span itemprop="copyrightYear">2021</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">severus</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://muse.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Muse</a> 强力驱动
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/muse.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+</body>
+</html>

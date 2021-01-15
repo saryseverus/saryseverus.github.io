@@ -1,0 +1,1021 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.3.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"example.com","root":"/","scheme":"Muse","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
+  </script>
+
+  <meta name="description" content="查询db2数据库相关配置（日志，字符集） 1db2 get db cfg for uppdb 查询db2数据库db2codepage 1db2set 在进行数据库导入导出的时候，可能要修改db2codepage 12db2set db2codepage&#x3D;1208（UTF-8）db2set db2codepage&#x3D;1386（GBK） 查看数据库表结构 1describe tabl">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Sary.severus&#96;s blog">
+<meta property="og:url" content="http://example.com/2021/01/15/DB2%E6%95%B0%E6%8D%AE%E5%BA%93%E7%AE%A1%E7%90%86%E6%97%A5%E5%B8%B8%E6%93%8D%E4%BD%9C/index.html">
+<meta property="og:site_name" content="Sary.severus&#96;s blog">
+<meta property="og:description" content="查询db2数据库相关配置（日志，字符集） 1db2 get db cfg for uppdb 查询db2数据库db2codepage 1db2set 在进行数据库导入导出的时候，可能要修改db2codepage 12db2set db2codepage&#x3D;1208（UTF-8）db2set db2codepage&#x3D;1386（GBK） 查看数据库表结构 1describe tabl">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2021-01-15T06:28:30.782Z">
+<meta property="article:modified_time" content="2021-01-15T06:28:30.783Z">
+<meta property="article:author" content="severus">
+<meta name="twitter:card" content="summary">
+
+<link rel="canonical" href="http://example.com/2021/01/15/DB2%E6%95%B0%E6%8D%AE%E5%BA%93%E7%AE%A1%E7%90%86%E6%97%A5%E5%B8%B8%E6%93%8D%E4%BD%9C/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title> | Sary.severus`s blog</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">Sary.severus`s blog</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a>
+
+  </li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2021/01/15/DB2%E6%95%B0%E6%8D%AE%E5%BA%93%E7%AE%A1%E7%90%86%E6%97%A5%E5%B8%B8%E6%93%8D%E4%BD%9C/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/00-00-00.JPG">
+      <meta itemprop="name" content="severus">
+      <meta itemprop="description" content="正在享受无法回避的痛苦">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Sary.severus`s blog">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2021-01-15 14:28:30" itemprop="dateCreated datePublished" datetime="2021-01-15T14:28:30+08:00">2021-01-15</time>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <p>查询db2数据库相关配置（日志，字符集）</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">db2 get db cfg for uppdb</span><br></pre></td></tr></table></figure>
+<p>查询db2数据库db2codepage</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">db2set</span><br></pre></td></tr></table></figure>
+<p>在进行数据库导入导出的时候，可能要修改db2codepage</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">db2set db2codepage&#x3D;1208（UTF-8）</span><br><span class="line">db2set db2codepage&#x3D;1386（GBK）</span><br></pre></td></tr></table></figure>
+<p>查看数据库表结构</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">describe table xxxxx</span><br></pre></td></tr></table></figure>
+<p>清空表数据</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ALTER TABLE xxxxxxx ACTIVATE NOT LOGGED INITIALLY WITH EMPTY TABLE</span><br></pre></td></tr></table></figure>
+<p>修改表字段类型</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">alter table xxxxxx alter column xxx set data type varchar(60)</span><br><span class="line">alter table xxxxxx alter column xxx set data type date</span><br><span class="line">alter table xxxxxx alter column xxx set data type char(1)</span><br></pre></td></tr></table></figure>
+<p>数据库启动</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">db2start</span><br></pre></td></tr></table></figure>
+<p>数据库关闭</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">db2stop</span><br></pre></td></tr></table></figure>
+<p>查看数据库应用连接</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">db2 list applications</span><br></pre></td></tr></table></figure>
+<p>断开数据库应用连接</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">db2 force application all</span><br></pre></td></tr></table></figure>
+<p>激活数据库实例</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">db2 activate database &lt;dbname&gt;</span><br></pre></td></tr></table></figure>
+<hr>
+<p>近一年来在项目开发中使用到了IBM的DB2 9.1的数据库产品，跟Oracle相比一些命令有很大的区别，而它最大的功能是支持</p>
+<p>xml存储、检索机制，通过XPath进行解析操作，使开发人员免于对xml文件在应用进行解析处理，先对其常用命令进行一下汇总，以免遗忘。</p>
+<p>注意：在执行如下命令时，需要首先安装db2客户端并通过在运行中输入db2cmd进行初始化</p>
+<p>一、基础篇</p>
+<p>1、db2 connect to &lt;数据库名&gt;  –连接到本地数据库名</p>
+<p>​    db2 connect to &lt;数据库名&gt; user &lt;用户名&gt; using &lt;密码&gt; –连接到远端数据库</p>
+<p>2、 db2 force application all   –强迫所有应用断开数据库连接  </p>
+<p>3、db2 backup db db2name&lt;数据库名称&gt; –备份整个数据库数据</p>
+<p>   db2 restore db <db2name>    –还原数据库</p>
+<p>4、db2 list application –查看所有连接（需要连接到具体数据库才能查看）</p>
+<p>5、db2start  –启动数据库  </p>
+<p>   db2stop –停止数据库</p>
+<p>6、create database &lt;数据库名&gt; using codeset utf-8 territory CN  –创建数据库使用utf-8编码</p>
+<p>7、db2 catalog 命令：</p>
+<p>db2 catalog tcpip node &lt;接点名称&gt; remote &lt;远程数据库地址&gt; server &lt;端口号&gt; –把远程数据库映射到本地接点一般为50000</p>
+<p>db2 catalog db &lt;远程数据库名称&gt; as &lt;接点名称&gt; at node PUB11            –远程数据库名称到本地接点</p>
+<p>db2 CONNECT TO &lt;接点名称&gt; user &lt;用户名&gt; using &lt;密码&gt;                –连接本地接点访问远程数据库</p>
+<p>8、数据库导出</p>
+<p> db2look -d &lt;数据库名&gt; -u &lt;用户&gt; -e -o &lt;脚本名称&gt;.sql    –导出数据库的表结构，其中用户空间一般为db2admin/db2inst1</p>
+<p> db2look -d &lt;数据库名&gt; -u &lt;用户&gt; -t &lt;表1&gt; &lt;表2&gt; -e -o &lt;脚本名称&gt;.sql  –导出数据库中表1和表2的表结构</p>
+<p>  db2move &lt;数据库名&gt; export       –导出数据库数据</p>
+<p>  db2move &lt;数据库名&gt; export -tn &lt;表1&gt;,&lt;表2&gt;    –导出数据库中表和表数据</p>
+<p>9、数据库导入</p>
+<p>db2 -tvf &lt;脚本名称&gt;.sql    –把上述导出的表结构导入到数据库表结构</p>
+<p>db2move &lt;数据库名&gt; load -lo replace  </p>
+<p>​    –把上述“db2move &lt;数据库名&gt; export “导出的数据导入到数据库中并把相同的数据替换掉 </p>
+<p>在实际使用过程中，如果用到db2自增主键，需要使用by default， 而不是always，功能是一样的，但这样在数据移植时候会很方便!</p>
+<p>10、db2 connect reset 或 db2 terminate  –断开与数据库的连接</p>
+<p>11、db2set db2codepage=1208    –修改页编码为1208</p>
+<p>12、db2 describe table &lt;表名&gt;    –查看表结构</p>
+<p>13、db2 list tables       –查看数据库中所有表结构</p>
+<p>​    list tables for system         –列出所有系统表</p>
+<p>14、db2 list tablespaces         –列出表空间</p>
+<p>二、高级篇</p>
+<p>15、fetch first 10 rows only  –列出表中前10条数据</p>
+<p>   例如：select * from &lt;表名&gt; fetch first 10 rows only</p>
+<p>16、coalesce(字段名，转换后的值)    –对是null的字段进行值转换</p>
+<p>   例如：select coalesce(id,1) from &lt;表名&gt;  –对表中id如果为null转换成1</p>
+<p>17、dayofweek(日期)   –计算出日期中是周几（1是周日，2是周一…….7是周六）</p>
+<p>​    dayofweek_iso(日期)  –计算出日期中是周几(1是周一…….7是周日)   </p>
+<p> 例如：dayofweek(date(2008-01-16))  –它会返回是4，代表星期三      </p>
+<p>​      dayofweek_iso(date(2008-01-16))  –它会返回是3，代表星期三</p>
+<p>18、dayofyear(日期)  –一年中的第几天，范围在1-366范围之内</p>
+<p>注意：参数中日期的格式是YYYY-MM-DD的形式，如果不是需要进行转换，否则函数不能使用</p>
+<p>例如：日期是20080116必须要进行转换</p>
+<p>dayofweek(concat(concat(concat(substr(openDate,1,4),’-‘),concat(substr(openDate,5,2),’-‘)),substr(openDate,7,2))) as week)</p>
+<p>这样格式正确的。</p>
+<p>19、concatt(参数1，连接值)    –把参数１加上连接值组成一个新值。</p>
+<p>　　例如：　concat(‘aa’,’b’)  –返回是aab</p>
+<p>​    把oracle表导入到db2数据库中，有些字段类型需要进行转换，具体看：oracle与db2数据类型转换 </p>
+<p> 20、  启动DB2服务：db2start </p>
+<p>​       关闭DB2服务: db2stop</p>
+<p>一、加载数据：</p>
+<p>1、 以默认分隔符加载,默认为“,”号</p>
+<p>  db2 “import from btpoper.txt of del insert into btpoper”</p>
+<p>2、 以指定分隔符“|”加载</p>
+<p>  db2 “import from btpoper.txt of del modified by coldel| insert into btpoper”</p>
+<p>二、卸载数据：</p>
+<p>1、 卸载一个表中全部数据</p>
+<p>  db2 “export to btpoper.txt of del select * from btpoper”</p>
+<p>  db2 “export to btpoper.txt of del modified by coldel| select * from btpoper”</p>
+<p>2、 带条件卸载一个表中数据</p>
+<p>  db2 “export to btpoper.txt of del select * from btpoper where brhid=’907020000’”</p>
+<p>  db2 “export to cmmcode.txt of del select * from cmmcode where codtp=’01’”</p>
+<p>  db2 “export to cmmcode.txt of del modified by coldel| select * from cmmcode where codtp=’01’”</p>
+<p>三、查询数据结构及数据：</p>
+<p>  db2 “select * from btpoper”</p>
+<p>  db2 “select * from btpoper where brhid=’907020000’ and oprid=’0001’”</p>
+<p>  db2 “select oprid,oprnm,brhid,passwd from btpoper”</p>
+<p>四、删除表中数据：</p>
+<p>  db2 “delete from btpoper”</p>
+<p>  db2 “delete from btpoper where brhid=’907020000’ or brhid=’907010000’”</p>
+<p>五、修改表中数据：</p>
+<p>  db2 “update svmmst set prtlines=0 where brhid=’907010000’ and jobtp=’02’”</p>
+<p>  db2 “update svmmst set prtlines=0 where jobtp=’02’ or jobtp=’03’”</p>
+<p>六、联接数据库</p>
+<p>  db2 connect to btpdbs</p>
+<p>七、清除数据库联接</p>
+<p>  db2 connect reset  断开数据库连接</p>
+<p>  db2 terminate    断开数据库连接</p>
+<p>  db2 force applications all  断开所有数据库连接</p>
+<p>八、备份数据库</p>
+<p>1、 db2 backup db btpdbs</p>
+<p>2、 db2move btpdbs export</p>
+<p>  db2look -d btpdbs -e -x [-a] -o crttbl.sql</p>
+<p>九、恢复数据库</p>
+<p>1、 db2 restore db btpdbs without rolling forward</p>
+<p>2、 db2 -tvf crtdb.sql</p>
+<p>​    crtdb.sql文件内容：create db btpdbs on /db2catalog</p>
+<p>  db2 -stvf crttbl.sql</p>
+<p>  db2move btpdbs import</p>
+<p>十、DB2帮助命令：</p>
+<p>  db2 ?</p>
+<p>  db2 ? restroe</p>
+<p>  db2 ? sqlcode (例：db2 ? sql0803) 注：code必须为4位数，不够4位，前面补0</p>
+<p>十一、bind命令：将应用程序与数据库作一捆绑,每次恢复数据库后，建议都要做一次bind</p>
+<p>  (1) db2 bind br8200.bnd</p>
+<p>  (2) /btp/bin/bndall /btp/bnd</p>
+<p>​    /btp/bin/bndall /btp/tran/bnd</p>
+<p>十二、查看数据库参数：</p>
+<p>   db2 get dbm cfg</p>
+<p>   db2 get db cfg for btpdbs</p>
+<p>十三、修改数据库参数：</p>
+<p>   db2 update db cfg for btpdbs using LOGBUFSZ 20</p>
+<p>   db2 update db cfg for btpdbs using LOGFILSIZ 5120</p>
+<p>   改完后，应执行以下命令使其生效：</p>
+<p>   db2 stop</p>
+<p>   db2 start</p>
+<p>补充：</p>
+<p>  db2 set schema btp  修改当前模式为”btp”</p>
+<p>  db2 list tablespaces show detail   查看当前数据库表空间分配状况</p>
+<p>  db2 list tablespace containers for 2 show detail 查看tablespace id=2使用容器所在目录</p>
+<p>  db2 list application</p>
+<p>  db2 list db directory        列出所有数据库</p>
+<p>  db2 list active databases      列出所有活动的数据库</p>
+<p>  db2 list tables for all       列出当前数据库下所有的表</p>
+<p>  db2 list tables for schema btp   列出当前数据库中schema为btp的表</p>
+<p>  db2 list tablespaces show detail  显示数据库空间使用情况</p>
+<p>  db2 list packages for all</p>
+<p>  db2 “import from tab76.ixf of ixf commitcount 5000 insert into achact”</p>
+<p>  db2 “create table achact_t like achact”  </p>
+<p>  db2 “rename table achact_t to achact”  </p>
+<p>  db2 “insert into achact_t select * from achact where txndt&gt;=(select lstpgdt from  acmact where actno=achact.actno)”</p>
+<p>  db2 get snapshot for dynaimic sql on jining</p>
+<p>删除一个实例：</p>
+<p>  # cd /usr/lpp/db2_07_01/instance</p>
+<p>  # ./db2idrop InstName</p>
+<p>列出所有DB2实例：</p>
+<p>  # cd /usr/lpp/db2_07_01/bin</p>
+<p>  # ./db2ilist</p>
+<p>为数据库建立编目</p>
+<p> $ db2 catalog db btpdbs on /db2catalog</p>
+<p>取消已编目的数据库btpdbs</p>
+<p> $ db2 uncatalog db btpdbs </p>
+<p>​       </p>
+<p>查看版本</p>
+<p>  # db2level</p>
+<p>  # db2licm -l</p>
+<p>显示当前数据库管理实例</p>
+<p>  $ db2 get instance</p>
+<p>设置实例系统启动时是否自动启动。</p>
+<p>  $ db2iauto -on   自动启动</p>
+<p>  $ db2iauto -off  不自动启动</p>
+<p>数据库优化命令：</p>
+<p>  reorg、runstats</p>
+<p>  当数据库经过一段时间使用，数据空间会变得越来越庞大。一些delete掉</p>
+<p>  的数据仍存放在数据库中，占用数据空间，影响系统性能。因此需要定期</p>
+<p>  运行reorg、runstats命令，清除已delete的数据，优化数据结构。</p>
+<p>  db2 reorg table 表名</p>
+<p>  db2 runstats on table 表名 with distribution and indexes all</p>
+<p>  因为要优化的表比较多，所以在/btp/bin目录下提供了一个sh程序runsall，</p>
+<p>  可在当天业务结束后，运行runsall，对数据库进行优化 </p>
+<p>============================================================================================================================================================</p>
+<p>DB2命令详解 收藏 </p>
+<p>在使用 DB2 RDBMS 时有几个重要的命令。有关这些命令和其它数据库命令的附加信息，请参阅 DB2 文档。这些命令用于以下操作：</p>
+<p>启动一个 DB2 交互式会话 </p>
+<p>要启动一个交互式会话，请输入以下命令： </p>
+<p>db2</p>
+<p>编制 DB2 服务器节点目录 </p>
+<p>要编制 DB2 服务器节点目录，请输入以下命令： </p>
+<p>db2 catalog tcpip node db2node remote hostname server service_name</p>
+<p>其中 db2node 是安装了 DB2 客户机的系统名称（它在节点目录列表中必须是唯一的），hostname 是安装了 DB2 服务器的全限定系统名称，service_name 是在 services 文件中定义的连接端口名。 编制远程 DB2 数据库目录 </p>
+<p>要编制远程数据库目录，请输入以下命令： </p>
+<p>db2 catalog database db_name as alias_name at node db2node </p>
+<p>其中 db_name 是远程数据库的名称，alias_name 是客户机实例的名称，db2node 是安装了 DB2 客户机的系统名称。 </p>
+<p>连接到 DB2 服务器 </p>
+<p>要连接到 DB2 服务器，请输入以下命令： </p>
+<p>db2 connect to database user name using password</p>
+<p>其中 database 是系统数据库目录中的数据库名称或别名，name 是数据库实例所有者的用户名，password 是先前用户的密码。 </p>
+<p>运行脚本 </p>
+<p>要运行脚本，请输入以下命令： </p>
+<p>db2 -f script_name -o -t -z log_name</p>
+<p>其中 script_name 是脚本的名称，log_name 是日志文件的名称。 </p>
+<p>结束一个 DB2 会话 </p>
+<p>要注销一个交互式会话，请输入以下命令： </p>
+<p>quit</p>
+<p>================================================================</p>
+<p>以下主要以DB27.X为基础的.以下的字符为小写</p>
+<p>本文对DB2高手来说是不用看的.</p>
+<p>1.DB2产品的级别有那些?</p>
+<p>　　企业版的NTERPRISEEDITION</p>
+<p>　　工作组版WORKGROUPEDITION</p>
+<p>　　企业扩展版ENTERPRISEEXTENDEDEDITION</p>
+<p>　　个人版的PERSONALEDITION</p>
+<p>　　卫星版的SATELLITEEDITION</p>
+<p>　　微型版的EVERYPLACE</p>
+<p>2.可以连接到DB2数据库的产品有哪些?</p>
+<p>DB2客户端</p>
+<p>DB2CONNECT</p>
+<p>DB2DATAPROPAGATOR</p>
+<p>DB2NET.DATA</p>
+<p>DB2DATAJOINER</p>
+<p>DB2RELATIONALCONNECT</p>
+<p>WEBSPHERE应用服务器</p>
+<p>　　等</p>
+<p>3.DB2支持的通讯协议有哪些?</p>
+<p>TCP/IP</p>
+<p>NETBIOS</p>
+<p>APPG</p>
+<p>IPX/SPX</p>
+<p>NAMEPIPE</p>
+<p>　　等</p>
+<p>4.DB2客户端产品有哪些?</p>
+<p>DB2运行时间客户端DB2RUNTIMECLIENT</p>
+<p>DB2管理客户端DB2ADMINISTRATIONCLIENT</p>
+<p>DB2应用程序开发客户端DB2APPLICATIONDEVELOPMENTCLIENT</p>
+<p>DB2瘦客户端DB2THINCLIENT</p>
+<p>5.一个数据库是否可以安装在多个数据库服务器上?</p>
+<p>　　可以</p>
+<p>6.从哪个版本后存储过程可以用SQL语句来创建?</p>
+<p>7.1版后</p>
+<p>7.DB2提供哪些关系扩展器?</p>
+<p>　　文本扩展器TEXTEXTENDER</p>
+<p>　　图象扩展器IMAGEEXTENDER</p>
+<p>　　音频扩展器AUDIOEXTENDER</p>
+<p>　　视频扩展器VIDEOEXTENDER</p>
+<p>　　空间数据扩展器SPATIALEXTENDER</p>
+<p>XML扩展器XMLEXTENDER</p>
+<p>　　网络搜索扩展器NET.SEARCHEXTENDER</p>
+<p>8.WINDOWS和OS/2环境下的DB2安装目录结构?</p>
+<p>　　用SETUP.EXE来安装</p>
+<p>\SQLLIB安装的根目录,包括README文件</p>
+<p>\SQLLIB\ADSM包含ADSTAR分布式存储管理器文件</p>
+<p>\SQLLIB\BIN包含DB2工具的可执行文件</p>
+<p>\SQLLIB\BND包含DB2工具的绑定文件</p>
+<p>\SQLLIB\CC包含运行控制中心所需的文件</p>
+<p>\SQLLIB\CFG包含默认的系统配置文件</p>
+<p>\SQLLIB\CONV包含代码页转换表文件</p>
+<p>\SQLLIB\DB2默认的实例目录</p>
+<p>\SQLLIB\DB2DAS00缺省的DB2管理服务器目录</p>
+<p>\SQLLIB\DOC包含DB2联机手册</p>
+<p>\SQLLIB\FUNCTION默认的用户自定义函数目录</p>
+<p>\SQLLIB\FUNCTION\UNFENCED默认的非隔离用户自定义函授目录</p>
+<p>\SQLLIB\HELP联机帮助文件</p>
+<p>\SQLLIB\JAVADB2所需的JAVA类库</p>
+<p>JAVA12包含JDK1.2的支持程序</p>
+<p>\SQLLIB\MISC包含HTML搜索服务器文件</p>
+<p>\SQLLIB\MSG\PRIME包含信息文件</p>
+<p>\SQLLIB\QP包含QUERYPATROLLER的客户端文件</p>
+<p>\SQLLIB\SAMPLES包含样例程序和样例脚本</p>
+<p>\SQLLIB\SPMLOG包含DB2同步点管理器日志文件</p>
+<p>\SQLLIB\THNSETUP包含瘦客户端安装文件</p>
+<p>9.UNIX和LINUX环境下的DB2安装目录结构?</p>
+<p>　　用DB2SETUP.EXE来安装</p>
+<p>　　安装的根目录下还将创建以下目录:</p>
+<p>README安装的根目录,包括README文件</p>
+<p>ADM包含系统管理工具文件</p>
+<p>ADSM包含ADSTAR分布式存储管理器文件</p>
+<p>BIN包含DB2工具的二进制可执行文件</p>
+<p>BND包含DB2工具的绑定文件</p>
+<p>CC包含运行控制中心所需的文件</p>
+<p>CFG包含默认的系统配置文件</p>
+<p>CONV包含代码页转换表文件</p>
+<p>DOC包含DB2联机手册</p>
+<p>FUNCTION默认的用户自定义函数目录</p>
+<p>FUNCTION\UNFENCED默认的非隔离用ё远ㄒ搴?谀柯?lt;BR&gt;　　INSTALL包含安装程序</p>
+<p>INSTANCE包含实例脚本</p>
+<p>JAVADB2所需的JAVA类库</p>
+<p>LIBDB2库文件</p>
+<p>MAP包含DB2CONNECT使用的映射文件</p>
+<p>MISC包含HTML搜索服务器文件</p>
+<p>SAMPLES包含样例程序和样例脚本</p>
+<p>MSG$L包含DB2信息文件</p>
+<p>10.AIX下用哪个命令来安装DB2?</p>
+<p>INSTALLP命令</p>
+<p>11.同一操作系统下可以安装多个DB2数据库?</p>
+<p>　　可以的</p>
+<p>12.如何停止实例?</p>
+<p>DB2STOP</p>
+<p>13.如何启动实例?</p>
+<p>DB2START</p>
+<p>[page]</p>
+<p>14.如何修改注册项的值?</p>
+<p>DB2SET可以修改</p>
+<p>　　如:</p>
+<p>　　设定当前实例的一个参数</p>
+<p>DB2SETPARAMETER=VALUE</p>
+<p>　　设定一个全局级的参数</p>
+<p>DB2SETPARAMETER=VALUE-G(小写)</p>
+<p>　　查看能在配置文件注册表中设置的所有变量的列表</p>
+<p>DB2SET-LR(小写)</p>
+<p>15.如何在CLP执行操作系统的命令?</p>
+<p>　　在命令前加”!”作为前缀</p>
+<p>DB2=&gt;!DIRC:\</p>
+<p>16.在CLP中命令过长怎么办?</p>
+<p>　　用”&quot;作为续行符号</p>
+<p>17.如何获得DB2的命令的语法相关信息?</p>
+<p>DB2?显示所有DB2命令</p>
+<p>DB2?COMMAND显示命令信息</p>
+<p>DB2?SQLnnnn显示这个SQLCODE的解释信息</p>
+<p>DB2?DB2nnnn显示这个DB2错误的解释信息</p>
+<p>18.如何查看当前CLP的设置?</p>
+<p>DB2=&gt;LISTCOMANDOPTIONS</p>
+<p>19.如何更新当前CLP会话的特定项设置?</p>
+<p>DB2UPDATECOMMANDOPTIONSUSINGOPTIONS…</p>
+<p>20.COMMANDWINDOWS可以通过哪个命令调用?</p>
+<p>DB2CMD命令</p>
+<p>21.管理服务器的默认名为?</p>
+<p>UNIX下为DB2AS</p>
+<p>WINDOWS下为DB2DAS00</p>
+<p>22.常用管理DB2服务器实例的命令?</p>
+<p>DB2ADMINSTART启动DB2管理服务器实例</p>
+<p>DB2ADMINSTOP停止DB2管理服务器实例</p>
+<p>DASICRTUNIX下创建DB2管理服务器实例</p>
+<p>DASIDROPUNIX下删除DB2管理服务器实例</p>
+<p>DB2ADMINCREATEWINDOWSOROS/2下创建DB2管理服务器实例</p>
+<p>DB2ADMINDROPWINDOWSOROS/2下删除DB2管理服务器实例</p>
+<p>DB2GETADMINCFG显示DB2管理服务器的配置参数</p>
+<p>DB2UPDATEADMINCFG修改DB2管理服务器的配置参数</p>
+<p>DB2RESETADMINCFG将DB2管理服务器的配置参数设为默认值</p>
+<p>23.DB2目录分为哪几种?</p>
+<p>　　系统数据库目录</p>
+<p>　　本地数据库目录</p>
+<p>　　节点目录</p>
+<p>DCS目录</p>
+<p>　　管理节点目录</p>
+<p>24.如何查看系统数据库目录?</p>
+<p>LIST DBDIRECTORY</p>
+<p>25.如何查看数据库服务器目录?</p>
+<p>LIST NODEDIRECTORY</p>
+<p>26.DB2实例的服务器的默认端口是?</p>
+<p>50000</p>
+<p>　　服务器名称为DB2CDB2</p>
+<p>27.DB2UDB服务器端的认证类型有?</p>
+<p>SERVER</p>
+<p>SERVER_ENCRYPT</p>
+<p>CLIENT</p>
+<p>DCE</p>
+<p>DCE_SERVER_ENCRYPT</p>
+<p>KERBEROS</p>
+<p>KRB_SERVER_ENCRYPT</p>
+<p>28.DB2客户端的认证类型有?</p>
+<p>SERVER</p>
+<p>SERVER_ENCRYPT</p>
+<p>DCS</p>
+<p>DCS_ENCRYPT</p>
+<p>CLIENT</p>
+<p>DCE</p>
+<p>29.DB2中有哪几种类型的权限?</p>
+<p>SYSADM系统管理权限</p>
+<p>SYSCTRL系统控制权限</p>
+<p>SYSMAINT系统维护权限</p>
+<p>DBADM数据库管理权限</p>
+<p>LOAD对表进行LOAD操作的权限</p>
+<p>30.不能通过GRANT授权的权限有哪种?</p>
+<p>SYSAM</p>
+<p>SYSCTRL</p>
+<p>SYSMAINT</p>
+<p>　　要更该上述权限必须修改数据库管理器配置参数</p>
+<p>31.表的类型有哪些?</p>
+<p>　　永久表(基表)</p>
+<p>　　临时表(说明表)</p>
+<p>　　临时表(派生表)</p>
+<p>32.如何知道一个用户有多少表?</p>
+<p>SELECT*FROM SYSIBM.SYSTABLESWHERECREATOR=’USER’</p>
+<p>33.如何知道用户下的函数?</p>
+<p>select*from IWH.USERFUNCTION</p>
+<p>select*from sysibm.SYSFUNCTIONS</p>
+<p>34.如何知道用户下的VIEW数?</p>
+<p>select*from sysibm.sysviewsWHERECREATOR=’USER’</p>
+<p>35.如何知道当前DB2的版本?</p>
+<p>select*from sysibm.sysvERSIONS</p>
+<p>36.如何知道用户下的TRIGGER数?</p>
+<p>select*from sysibm.SYSTRIGGERSWHERESCHEMA=’USER’</p>
+<p>37.如何知道TABLESPACE的状况?</p>
+<p>select*from sysibm.SYSTABLESPACES</p>
+<p>38.如何知道SEQUENCE的状况?</p>
+<p>select*from sysibm.SYSSEQUENCES</p>
+<p>39.如何知道SCHEMA的状况?</p>
+<p>select*from sysibm.SYSSCHEMATA</p>
+<p>40.如何知道INDEX的状况?</p>
+<p>select*from sysibm.SYSINDEXES</p>
+<p>41.如何知道表的字段的状况?</p>
+<p>select*from sysibm.SYSCOLUMNSWHERETBNAME=’AAAA’</p>
+<p>42.如何知道DB2的数据类型?</p>
+<p>select*from sysibm.SYSDATATYPES</p>
+<p>43.如何知道BUFFERPOOLS状况?</p>
+<p>select*fromsysibm.SYSBUFFERPOOLS</p>
+<p>44.DB2表的字段的修改限制?</p>
+<p>　　只能修改VARCHAR2类型的并且只能增加不能减少.</p>
+<p>45.如何查看表的结构?</p>
+<p>DESCRIBLE TABLETABLE_NAME</p>
+<p>OR</p>
+<p>DESCRIBLE SELECT*FROMSCHEMA.TABLE_NAME</p>
+<p>46.如何快速清除一个大表?</p>
+<p>ALTER TABLE TABLE_NAME ACTIVE NOTLOGGEDINITALLYWITHEMPTYTABLE</p>
+<p>47.如何查看数据库的包?</p>
+<p>select*fromsysCAT.PACKAGES</p>
+<p>48.如何查看数据库的存储过程?</p>
+<p>SELECT*FROMSYSCAT.PROCEDURES</p>
+<p>49.如何查看表的约束?</p>
+<p>SELECT*FROMSYSCAT.CHECKSWHERETABNAME=’AAAA’</p>
+<p>50.如何查看表的引用完整约束?</p>
+<p>SELECT*FROMSYSCAT.REFERENCESWHERETABNAME=’AAAA’</p>
+<p>大家在应用DB2的时候可能会遇到一些看似简单的问题,特别对新手来说,我在此简单的总结一下,发布给大家,希望对大家能有所帮助,同时也欢迎大家一起探讨,共同发展,共同进步!</p>
+<p>　　以下主要以DB27.X为基础的.以下的字符为小写.</p>
+<p>　　本文对DB2高手来说是不用看的.</p>
+<p>　　所有字符为小写.</p>
+<p>51.安装DB2默认的事例名称是?</p>
+<p>　　在WINDOWS或OS/2中默认的是DB2</p>
+<p>　　在LINUX或UNIX环境下默认的是DB2INST1</p>
+<p>52.安装后的默认帐户是?</p>
+<p>　　在WINDOWS或OS/2中默认的是DB2ADMIN</p>
+<p>　　在LINUX或UNIX环境下默认的是DB2AS</p>
+<p>53.事例的类型有哪些?</p>
+<p>CLIENT(客户)</p>
+<p>STANDALONE(独立的)</p>
+<p>SATELLITE(卫星)</p>
+<p>EEDB2</p>
+<p>EEE</p>
+<p>54.如何创建事例?</p>
+<p>DB2ICRTINSTNAME&lt;…PARAMETERS&gt;</p>
+<p>55.如何列出系统上的所有可用事例?</p>
+<p>DB2ILIST</p>
+<p>56.如何知道当前对话用的是哪个事例?</p>
+<p>GETINSTANCE</p>
+<p>57.如何更新事例的配置?</p>
+<p>DB2IUPDT </p>
+<p>58.如何删除事例?</p>
+<p>DB2IDROPINSTANCE_NAME</p>
+<p>　　具体步骤如下:</p>
+<p>　　停止事例上所有应用程序</p>
+<p>　　在所有打开的命令行上执行DB2TERMINATE</p>
+<p>　　运行DB2STOP</p>
+<p>　　备份DB2INSTPROF注册变量指出的事例目录</p>
+<p>　　退出事例所有登陆者</p>
+<p>　　使用DB2IDROP</p>
+<p>　　也可以删除ID</p>
+<p>59.如何列出本地系统上有许可信息的所有产品?</p>
+<p>DB2LICM-L</p>
+<p>60.如何增加一产品许可?</p>
+<p>DB2LICM-AFILENAME</p>
+<p>61.如何删除一个产品的许可?</p>
+<p>DB2LICM-RPRODUCTPASSWORD</p>
+<p>62.如何更新已购买的许可数量?</p>
+<p>DB2LICM-U </p>
+<p>63.如何强制只使用已经购买的数量?</p>
+<p>DB2LICM-EHARD</p>
+<p>64.如何更新系统上所使用的许可政策类型?</p>
+<p>DB2LICM-P REGISTEREDCONCURRENT</p>
+<p>65.如何更新系统上的处理器的数量?</p>
+<p>DB2LICM-N </p>
+<p>66.如何查询许可文件记录的版本信息?</p>
+<p>DB2LICM-V</p>
+<p>67.如何查询DB2LICM的帮助信息?</p>
+<p>DB2LICM-H</p>
+<p>68.一个数据库至少包括哪些表空间?</p>
+<p>　　一个目录表空间</p>
+<p>　　一个或多个用户表空间</p>
+<p>　　一个或多个临时表空间[page]</p>
+<p>69.根据数据与存储空间之间移动的控制方式不同,分哪两种表空间?</p>
+<p>　　系统管理的空间(SMS)</p>
+<p>　　数据库管理的空间(DMS)</p>
+<p>70.如何列出系统数据库目录的内容?</p>
+<p>LIST DATABASE DIRECTORY</p>
+<p>71.CREATEDATABASE是SQL命令吗?</p>
+<p>　　不是,是系统命令</p>
+<p>72.如何查看数据库ABC的配置文件的内容?</p>
+<p>GET DATABASE CONFIGURATIONFORABC</p>
+<p>73.如何将数据库ABC的参数设置为默认数值?</p>
+<p>RESET DATABASECONFIGURATIONFORABC</p>
+<p>74.如何修改数据库ABC配置参数数值?</p>
+<p>UPDATE DATABASE CONFIGURATIONFORABC</p>
+<p>USING </p>
+<p>75.如何重新启动数据库?</p>
+<p>RESTART DATABASE DATABASE_NAME</p>
+<p>76.如何激活数据库?</p>
+<p>ACTIVATE DATABASE DATABASE_NAME</p>
+<p>77.如何停止数据库?</p>
+<p>DEACTIVATE DATABASE DATABASE_NAME</p>
+<p>78.如何删除数据库?</p>
+<p>DROP DATABASE DATABASE_NAME</p>
+<p>79.如何建立模式?</p>
+<p>CREATE SCHEMASCHEMA_NAME</p>
+<p>80.如何设置模式?</p>
+<p>SETSCHEMA=SCHEMA_NAME</p>
+<p>81.表的类型有哪些?</p>
+<p>　　基本表</p>
+<p>　　　　结果表</p>
+<p>　　概要表</p>
+<p>　　类型表</p>
+<p>　　子类型</p>
+<p>　　子表</p>
+<p>　　声明的临时表</p>
+<p>　　系统临时表</p>
+<p>82.如何定义序列?</p>
+<p>CREATESEQUENCEORDERSEQSTARTWITH1INCREMENTBY1NOMAXVALUENOCYCLECACHE24</p>
+<p>83.如何将表置于检查挂起状态?</p>
+<p>SETINTEGRITYTABLE_NAMEOFF</p>
+<p>84.如何获得表的排斥锁?</p>
+<p>LOCKTABLETABLE_NAMEINEXCLUSIVEMODE</p>
+<p>85.如何把表调整为没有检查数据的在线状态?</p>
+<p>SETINTEGRITYFORTABLE_NAMEALLIMMEDIATEUNCHECKED</p>
+<p>86.如何解除表的锁定?</p>
+<p>COMMIT</p>
+<p>87.如何关闭表的日志?</p>
+<p>ALTER TABLETABLE_NAMEACTIVENOTLOGGEDINIALLY</p>
+<p>88.如何删除表?</p>
+<p>DROP SCHEMA.TABLE_NAME</p>
+<p>89.如何重命名表?</p>
+<p>RENAME TABLE_OLDTO TABLE_NEW</p>
+<p>90.如何取当前时间?</p>
+<p>SELECT CURREN TTIMESTAMP FROM SYSIBM.SYSDUMMY1</p>
+<p>91.如何创建DB2的概要表?</p>
+<p>DB2的概要表功能类似于ORACLE的实体化视图!</p>
+<p>　　语法为:</p>
+<p>CREATESUMMARYTABLETABLE_NAMEAS(FULLSELECT)…</p>
+<p>　　例如:</p>
+<p>　　定义一个可以刷新的概要表:</p>
+<p>CREATE SUMMARYTABLETABLE_NAMEAS(SELECT*FROMTABLE_NAME1WHERECOL1= AAA )</p>
+<p>DATAINITIALLYDEFERREDREFRESHDEFERRED</p>
+<p>　　其中DATAINITIALLYDEFERRED规定不能将数据作为CREATETABLE语句的一部分插入表中.</p>
+<p>REFRESHDEFERRED规定表中的数据可以在任何使用了REFRESHTABLE语句的时候获得刷新!</p>
+<p>92.如何刷新概要表?</p>
+<p>REFRESH TABLESUM_TABLE</p>
+<p>　　其中SUM_TABLE为概要表.</p>
+<p>93.如何修改概要表?</p>
+<p>ALTER TABLE SUM_TABLE…</p>
+<p>94.如何创建临时表?</p>
+<p>　　语法:</p>
+<p>DECLAREGLOBALTEMPORARY TABLE TABLE_NAME</p>
+<p>AS(FULLSELECT)DEFINITIONONLY</p>
+<p>EXCLUDINGIDENTITYCOLUMNATTRIBUTES</p>
+<p>ONCOMMITDELETEROWS</p>
+<p>NOTLOGGED</p>
+<p>　　第一行规定临时表的名称.</p>
+<p>　　第二行规定临时表的列的定义.</p>
+<p>　　第三行规定不是从源结果表定义中复制的恒等列.</p>
+<p>　　第四行规定如果没有打开WITHGOLD光标,将会删除表的所有行.</p>
+<p>　　第五行规定不对表的改变进行记录.</p>
+<p>　　例如:</p>
+<p>DECLAREGLOBALTEMPORARYTABLEDEC_BSEMPMS</p>
+<p>AS(SELECT*FROMBSEMPMS)DEFINITIONONLY</p>
+<p>EXCLUDINGIDENTITYCOLUMNATTRIBUTES</p>
+<p>ONCOMMITDELETEROWS</p>
+<p>NOTLOGGED</p>
+<p>95.视图的管理?</p>
+<p>　　如何创建视图:</p>
+<p>CREATEVIEWVIEW_NAMEASSELECT*FROMTABLE_NAMEWHERE…</p>
+<p>　　删除视图:</p>
+<p>DROPVIEWVIEW_NAME</p>
+<p>96.如何知道视图定义的内容?</p>
+<p>SELECT*FROMSYSCAT.VIEWS中的TEXT列中.</p>
+<p>97.如何创建别名?</p>
+<p>CREATEALIASALIAS_NAMEFORPRO_NAME</p>
+<p>　　后面的PRO_NAME可以是TABLE,VIEW,ALIAS,NICKNAME等.</p>
+<p>98.如何创建序列?</p>
+<p>　　例如:</p>
+<p>CREATESEQUENCESEQUENCE_NAME</p>
+<p>STARTWITHSTART_NUMBER</p>
+<p>INCREMENTBYVALUE1</p>
+<p>NOMAXVALUE</p>
+<p>NOCYCLE</p>
+<p>CACHEMAXIMUMNUMBEROFSEQUENCEVALUES</p>
+<p>　　第一行规定序列的名称.</p>
+<p>　　第二行规定序列的开始数值.</p>
+<p>　　第三行规定每次新增的幅度.</p>
+<p>　　第四行规定没有最大数值限制.</p>
+<p>　　第五行规定最大数值限制.</p>
+<p>99.如何更改序列?</p>
+<p>ALTERSEQUENCESEQUENCE_NAME…</p>
+<p>　　可以修改的参数</p>
+<p>STARTWITH的START_NUMBER</p>
+<p>INCREMENT的VALUE1</p>
+<p>NOMAXVALUE的数值</p>
+<p>NOCYCLE属性</p>
+<p>MAXIMUMNUMBEROFSEQUENCEVALUES最大数值</p>
+<p>100.如何删除序列?</p>
+<p>DROPSEQUENCESEQUENCE_NAME</p>
+<p>101.DB2支持导入(IMPORT)的文件格式有?</p>
+<p>　　有:DEL,ASC,IXF,WSF等</p>
+<p>102.DB2支持导出(EXPORT)的文件格式有?</p>
+<p>　　有:DEL,IXF,WSF等.</p>
+<p>　　不支持ASC格式.</p>
+<p>103.DB2支持载入(LOAD)的文件格式有?</p>
+<p>　　有:DEL,ASC,IXF等.</p>
+<p>　　不支持WSF格式.</p>
+<p>104.DB2支持DB2MOVE的文件格式有?</p>
+<p>　　有:IXF等.</p>
+<p>　　不支持ASC,DEL,WSF格式.</p>
+<p>105.DB2数据库监控的两个组成部分?</p>
+<p>　　快照监控(SNAPSHOTMONITOR)可返回特定时间点的数据库活动的快照.</p>
+<p>　　事件监控(EVENTMONITOR)记录事件发生的数据.</p>
+<p>106.系统监控的数据元素类型?</p>
+<p>　　计数器(COUNTER)记录活动发生的次数.</p>
+<p>　　测量(GAUGE)测量条目的当前值.</p>
+<p>　　水线(WATERMARK)从监控来元素达到的最大或最小数值.</p>
+<p>　　信息(INFORMATION)监控活动的参照类型细节.</p>
+<p>　　时间点(TIMESTAMP)活动发生的日期时间.</p>
+<p>　　时间(TIME)返回一个活动花费的时间.</p>
+<p>107.如何知道监控堆所需的页的数量?</p>
+<p>(NUMBEROFMONITORINGAPPLICATIONS+1)<em>(NUMBEROFDATABASES</em>(800+(NUMBEROFTABLES</p>
+<p>ACCESSED*20)+((N</p>
+<p>1、DB2字符集查看</p>
+<p>db2 get db cfg</p>
+<p>2、修改表字段长度</p>
+<p>alter table 表名 alter 字段 set data type varchar(80);</p>
+<p>3、解决建表是表被挂起</p>
+<p>reorg table 表名</p>
+<p>4、db2查询数据库所有表</p>
+<p>select name from sysibm.systables where type=’T’ and creator=’DB2ADMIN’</p>
+<p>type:数据库表用T表示；数据库视图用V表示</p>
+<p>creator:数据库对象的创建者</p>
+<p>select  tabname  from  syscat.tables  where  tabschema  =  current  schema  ;//  获取当前模式下面的所有用户表</p>
+<p>SELECT*FROMSYSCAT.PROCEDURES</p>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2021/01/15/DB2%E5%B8%B8%E8%A7%84%E8%A1%A8%E5%AF%BC%E5%85%A5%E5%88%86%E5%8C%BA%E8%A1%A8/" rel="prev" title="">
+      <i class="fa fa-chevron-left"></i> 
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2021/01/15/DB2%E6%95%B0%E6%8D%AE%E8%A1%A8%E5%AF%BC%E5%87%BA%E5%AF%BC%E5%85%A5%E6%B8%85%E7%A9%BA/" rel="next" title="">
+       <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="severus"
+      src="/images/00-00-00.JPG">
+  <p class="site-author-name" itemprop="name">severus</p>
+  <div class="site-description" itemprop="description">正在享受无法回避的痛苦</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">66</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-tags">
+        <span class="site-state-item-count">1</span>
+        <span class="site-state-item-name">标签</span>
+      </div>
+  </nav>
+</div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 1876 – 
+  <span itemprop="copyrightYear">2021</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">severus</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://muse.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Muse</a> 强力驱动
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/muse.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+</body>
+</html>
